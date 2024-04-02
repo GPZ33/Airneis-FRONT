@@ -1,0 +1,13 @@
+.out-of-stock {
+    background: rgba(183, 51, 51, 0.41);
+    color: white;
+}
+
+.card-body h5, h6 {
+    background: none;
+    color: #151D53;
+}
+
+a {
+    text-decoration: none;
+}

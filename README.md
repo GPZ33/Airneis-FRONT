@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +69,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+=======
+# Airneis
+Ce repository est le dépot du Groupe 1 (Laura et Rémi) du projet d'études de B3 Dev Sup de Vinci Bordeaux. Le sujet est la réalisation du site web de l'entreprise cliente AIRNES
+>>>>>>> 45b6397e5e7f5eb401387b445be62bb9fd670fde
