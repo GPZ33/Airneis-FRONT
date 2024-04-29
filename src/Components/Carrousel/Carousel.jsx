@@ -17,9 +17,6 @@ const CarouselHome = ({props, largerHeight}) => {
                                 style={{ objectFit: "cover", height: largerHeight ? "400px" : "300px", width: "100%" }}
                             />
                         </div>
-                        {/*<Carousel.Caption>*/}
-                        {/*    <h3>{item.name}</h3>*/}
-                        {/*</Carousel.Caption>*/}
                     </Carousel.Item>
                 )
             })}

@@ -4,7 +4,6 @@ import sofa from "../Assets/products/sofa.jpg";
 import chair from "../Assets/products/chair.jpg";
 import lamp from "../Assets/products/lamp.jpg";
 import jounalTable from "../Assets/products/journal table.jpg";
-import {useParams} from "react-router-dom";
 import buffet from "../Assets/products/buffet.jpg";
 import office from "../Assets/products/office.jpeg";
 import bed from "../Assets/products/bed.jpg";
