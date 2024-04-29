@@ -24,11 +24,11 @@ const InfoCard = ({props, basePath}) => {
                 ) : (
                     <div>
                         <div className="card text-white h-50 d-flex flex-column">
-                                <img className="card-img" src={props.img[0]} alt={props.name}
-                                     style={{ objectFit: "cover", height: "300px", width: "100%" }}/>
-                                <div className="card-img-overlay w-100 top-100">
-                                    <h5 className="card-title text-center display-4">{props.name}</h5>
-                                </div>
+                            <img className="card-img" src={props.img[0]} alt={props.name}
+                                 style={{ objectFit: "cover", height: "300px", width: "100%" }}/>
+                            <div className="card-img-overlay w-100 top-100">
+                                <h5 className="card-title text-center display-4">{props.name}</h5>
+                            </div>
                         </div>
                     </div>
                 )

@@ -17,27 +17,27 @@ import SearchFilters from "./Components/SearchComponents/SearchFilters";
 
 
 const App = () => {
-  return (
-    <BrowserRouter>
-        <Header/>
-        <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/categories" element={<AllCategories />}/>
-            <Route path="/categories/:categoryName" element={<ProductsOfCategory />} />
-            <Route path="/materials" element={<Materials/>}/>
-            <Route path="/products" element={<AllProducts/>}/>
-            <Route path="/cart" element={<Cart/>}/>
-            <Route path="/search" element={<Search/>}/>
-            <Route path="/CGU" element={<CGU/>}/>
-            <Route path="/legal_notice" element={<LegalNotice/>}/>
-            <Route path="/contact" element={<Contact/>}/>
-            <Route path="/products/:name" element={<Product/>}/>
-            <Route path="/searchFilters" element={<SearchFilters/>}/>
-        </Routes>
-        <Footer />
-    </BrowserRouter>
+    return (
+        <BrowserRouter>
+            <Header/>
+            <Routes>
+                <Route path="/" element={<Home/>}/>
+                <Route path="/categories" element={<AllCategories />}/>
+                <Route path="/categories/:categoryName" element={<ProductsOfCategory />} />
+                <Route path="/materials" element={<Materials/>}/>
+                <Route path="/products" element={<AllProducts/>}/>
+                <Route path="/cart" element={<Cart/>}/>
+                <Route path="/search" element={<Search/>}/>
+                <Route path="/CGU" element={<CGU/>}/>
+                <Route path="/legal_notice" element={<LegalNotice/>}/>
+                <Route path="/contact" element={<Contact/>}/>
+                <Route path="/products/:name" element={<Product/>}/>
+                <Route path="/searchFilters" element={<SearchFilters/>}/>
+            </Routes>
+            <Footer />
+        </BrowserRouter>
 
-  );
+    );
 }
 
 export default App;

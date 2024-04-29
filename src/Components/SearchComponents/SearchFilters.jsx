@@ -6,49 +6,13 @@ import kids from "../Assets/kids_furniture.jpg";
 import dining from "../Assets/dining_furniture.jpg";
 import office from "../Assets/home_office_furniture.jpg";
 
-const SearchFilters = ({applyFilters, appliedFilters, setAppliedFilters } ) => {
-    const minPriceRef = useRef(null);
-    const maxPriceRef = useRef(null);
-    // Ensure appliedFilters is initialized
-    if (!appliedFilters) {
-        appliedFilters = {
-            materials: [],
-            categories: []
-        };
-    }
-
-    useEffect(() => {
-        // Load applied filters from local storage
-        const storedFilters = localStorage.getItem("appliedFilters");
-        if (storedFilters) {
-            setAppliedFilters(JSON.parse(storedFilters));
-        }
-    }, []);
+const SearchFilters = ({parsePrice, setSearchResults, products, toggleFilters, initialFilters, appliedFilters, setAppliedFilters } ) => {
 
 
-    const handleReset = () => {
-        minPriceRef.current.value = 0;
-        maxPriceRef.current.value = 0;
-        // Add to reset others if needed
-    };
-
-    const handleCheckboxChange = (e) => {
-        const { name, value, checked } = e.target;
-        setAppliedFilters(prevFilters => {
-            const updatedFilters = { ...prevFilters };
-            if (checked) {
-                updatedFilters[name] = [...(prevFilters[name] || []), value];
-            } else {
-                updatedFilters[name] = (prevFilters[name] || []).filter(item => item !== value);
-            }
-            return updatedFilters;
-        });
-    };
-
-   const handleApplyFilters = () => {
-        applyFilters();
-        // Save the latest state to local storage
-        localStorage.setItem("appliedFilters", JSON.stringify(appliedFilters));
+    const resetFilters = () => {
+        setAppliedFilters(initialFilters);
+        toggleFilters();
+        setSearchResults(products)
     };
 
     const materials = [
@@ -69,77 +33,91 @@ const SearchFilters = ({applyFilters, appliedFilters, setAppliedFilters } ) => {
         {id: 8, name: "Office", img: [office], description: "Description of the category"},
     ]
 
+// Helper function to parse prices
 
-  return (
-      <div className="filter">
-          <div className="card">
-              <div className="card-body">
-                  <form>
-                      <div className="form-group">
-                          <label htmlFor="minPrice" ref={minPriceRef} defaultValue={appliedFilters.minPrice || ""} >Price minimum</label>
-                          <input type="number" className="form-control" id="minPrice"/>
-                      </div>
-                      <br/>
-                      <div className="form-group">
-                          <label htmlFor="maxPrice" ref={maxPriceRef} defaultValue={appliedFilters.maxPrice || ""} >Price maximum</label>
-                          <input type="number" className="form-control" id="maxPrice"/>
-                      </div>
-                      <br/>
-                      <div className="form-group">
-                          <label htmlFor="materials">Materials</label>
-                          {materials ? (
-                              materials.map(material =>(
-                                  <div key={material.id} className="form-check">
-                                      <input
-                                          type="checkbox"
-                                          className="form-check-input"
-                                          id={material.name}
-                                          name="material"
-                                          value={material.name}
-                                          onChange={handleCheckboxChange}
-                                      />
-                                      <label htmlFor={material.name} className="form-check-label">{material.name}</label>
-                                  </div>
-                              ))
-                          ):(<p>Materials are loading...</p>)}
-                      </div>
-                      <br/>
-                      <div className="form-group">
-                          <label htmlFor="categories">Categories</label>
-                          {categories ? (
-                              categories.map(category => (
-                                  <div key={category.id} className="form-check">
-                                      <input
-                                          type="checkbox"
-                                          className="form-check-input"
-                                          id={category.name}
-                                          name="category"
-                                          value={category.name}
-                                          onChange={handleCheckboxChange}
-                                      />
-                                      <label htmlFor="{category.name}" className="form-check-label">{category.name}</label>
-                                  </div>
-                              ))
-                          ) : (
-                              <p>Categories are loading...</p>
-                          )}
-                      </div>
-                      <br/>
-                      <div className="form-check">
-                          <input type="checkbox" className="form-check-input" id="inStock" name="inStock"/>
-                          <label htmlFor="inStock" className="form-check-label">In stock</label>
-                      </div>
+    const submitFilters = (event) => {
+        event.preventDefault();
+        const selectedMaterials = Array.from(event.target.elements['material'].selectedOptions)
+            .map(option => option.value);
 
-                      <div className="form-group">
-                          <button type="button" className="btn btn-block" onClick={applyFilters}>Apply filters</button>
-                          <button type="reset" className="btn btn-block" onClick={handleReset}>Reset</button>
-                      </div>
+        const categories = Array.from(event.target.elements['category'].options)
+            .filter(option => option.selected)
+            .map(option => option.value);
 
-                  </form>
-              </div>
-          </div>
-      </div>
-  )
+        const inStock = event.target.elements['inStock'].checked;
+        const minPrice = parsePrice(event.target.elements['minPrice'].value);
+        const maxPrice = parsePrice(event.target.elements['maxPrice'].value);
+
+        // récup les valeurs de champs
+        // modifie le state avec
+
+        setAppliedFilters(prevFilters => ({
+            ...prevFilters,
+            materials: selectedMaterials.map((material) => ({name: material})),
+            categories: categories.map((category) => ({name: category})),
+            inStock,
+            minPrice,
+            maxPrice
+        }));
+
+
+        toggleFilters();
+    }
+
+    return (
+        <div className="filter">
+            <div className="card">
+                <div className="card-body">
+                    <form onSubmit={submitFilters}>
+                        <div className="form-group">
+                            <label htmlFor="minPrice">Price minimum</label>
+                            <input type="number" className="form-control" id="minPrice" defaultValue={appliedFilters.minPrice} />
+                        </div>
+                        <br/>
+                        <div className="form-group">
+                            <label htmlFor="maxPrice" defaultValue={appliedFilters.maxPrice || ""} >Price maximum</label>
+                            <input type="number" className="form-control" id="maxPrice" defaultValue={appliedFilters.maxPrice} />
+                        </div>
+                        <br/>
+                        <div className="form-group">
+                            <label htmlFor="materials">Materials</label>
+                            <select name="material" id="material" multiple defaultValue={appliedFilters.materials.map(material => material.name)}>
+                                {materials ? (
+                                    materials.map((material, index) => (
+                                        <option key={index} value={material.name}>{material.name}</option>
+                                    ))
+                                ) : (<p>Materials are loading...</p>)}
+                            </select>
+                        </div>
+                        <br/>
+                        <div className="form-group">
+                            <label htmlFor="categories">Categories</label>
+                            <select name="category" id="category" multiple defaultValue={appliedFilters.categories.map(category => category.name)}>
+                                {categories ? (
+                                    categories.map((category, index) => (
+                                        <option key={index} value={category.name}>{category.name}</option>
+                                    ))
+                                ) : (
+                                    <p>Categories are loading...</p>
+                                )}
+                            </select>
+                        </div>
+                        <br/>
+                        <div className="form-check">
+                            <input type="checkbox" className="form-check-input" id="inStock" name="inStock" defaultValue={appliedFilters.inStock}/>
+                            <label id="inStock" htmlFor="inStock" className="form-check-label">In stock</label>
+                        </div>
+
+                        <div className="form-group">
+                            <button type="submit" className="btn btn-block">Apply filters</button>
+                            <button type="reset" className="btn btn-block" onClick={resetFilters}>Reset</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    )
 }
 
 export default SearchFilters;
