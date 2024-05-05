@@ -81,7 +81,7 @@ const SearchFilters = ({parsePrice, setSearchResults, products, toggleFilters, i
                         <br/>
                         <div className="form-group">
                             <label htmlFor="materials">Materials</label>
-                            <select name="material" id="material" multiple defaultValue={appliedFilters.materials.map(material => material.name)}>
+                            <select name="material" id="material" multiple defaultValue={appliedFilters.materials?.map(material => material.name)}>
                                 {materials ? (
                                     materials.map((material, index) => (
                                         <option key={index} value={material.name}>{material.name}</option>
@@ -92,7 +92,7 @@ const SearchFilters = ({parsePrice, setSearchResults, products, toggleFilters, i
                         <br/>
                         <div className="form-group">
                             <label htmlFor="categories">Categories</label>
-                            <select name="category" id="category" multiple defaultValue={appliedFilters.categories.map(category => category.name)}>
+                            <select name="category" id="category" multiple defaultValue={appliedFilters.categories?.map(category => category.name)}>
                                 {categories ? (
                                     categories.map((category, index) => (
                                         <option key={index} value={category.name}>{category.name}</option>

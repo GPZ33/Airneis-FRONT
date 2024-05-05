@@ -12,23 +12,18 @@ import office from "../Assets/products/office.jpeg";
 import bed from "../Assets/products/bed.jpg";
 import bar from "../Assets/products/bar.jpg";
 import armoire from "../Assets/products/armoire.jpg";
+import {useCart} from "../../Context/CartContext";
 
 
-// CartContext will be used to provide cart information to all components
-export const CartContext = createContext();
 
-const ProductDetails = ({children}) => {
+const ProductDetails = () => {
 
     let {name} = useParams();
 
     const [product, setProduct] = useState(null);
     const [error, setError] = useState(null);
-    // Load the cart from localStorage or initialize with an empty array
-    const loadInitialCart = () => {
-        const savedCart = localStorage.getItem("cart");
-        return savedCart ? JSON.parse(savedCart) : [];
-    };
-    const [productsToCart, setProductsToCart] = useState(loadInitialCart());
+    const { addToCart } = useCart(); // Get the addToCart function from context
+
 
     const products = [
         {id: "1", name: "Classic Sofa", img: [sofa, sofa, sofa], description: "Classic comfort meets modern style with our classic sofa. Crafted with premium materials and timeless design, this sofa is the perfect centerpiece for any living room.", category: "Living room", price: 350, stock: true, materials: [
@@ -72,13 +67,6 @@ const ProductDetails = ({children}) => {
             ]}
     ]
 
-    const addToCart = () => {
-        const updatedCart = [...productsToCart, product];
-        setProductsToCart(updatedCart);
-// console.log(productsToCart);
-        // Save the updated cart to localStorage
-        localStorage.setItem("cart", JSON.stringify(updatedCart));
-    };
 
 
     useEffect(() => {
@@ -113,9 +101,11 @@ const ProductDetails = ({children}) => {
 
     }, [name]); // Le deuxième argument de useEffect est un tableau vide pour indiquer que ce code ne doit être exécuté qu'une seule fois après le montage initial.
 
+    const handleAddToCart = () => {
+        addToCart(product); // Add product to cart
+    };
+
     return (
-        <CartContext.Provider value={{ productsToCart, setProductsToCart }}>
-            {children}
             <div className="product-details">
                 {error ? (
                         <p>{error}</p> // Display the error message to users
@@ -138,7 +128,7 @@ const ProductDetails = ({children}) => {
                                             <p>Materials: {product.materials.join(', ')}</p>
                                         </div>
                                         {product.stock ? (
-                                            <button className="to-cart" onClick={addToCart} >Add to Cart</button>
+                                            <button className="to-cart" onClick={handleAddToCart} >Add to Cart</button>
                                         ) : (
                                             <button className="out-of-stock">Out of stock</button>
                                         )}
@@ -155,7 +145,6 @@ const ProductDetails = ({children}) => {
                     )}
 
             </div>
-        </CartContext.Provider>
     );
 };
 

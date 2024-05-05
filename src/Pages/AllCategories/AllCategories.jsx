@@ -80,8 +80,8 @@ const AllCategories = () => {
                  categories.map((category) => {
                    return (
                        <article>
-                         <Link to={`/category/${category.name}`}>
-                           <img className="img-fluid img-thumbnail" src={category.img} />
+                         <Link to={`/categories/${category.name}`}>
+                           <img className="img-fluid img-thumbnail" src={category.img}  alt={category.name}/>
                            <h3>{category.name}</h3>
                          </Link>
                        </article>

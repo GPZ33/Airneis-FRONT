@@ -1,6 +1,6 @@
 import "./Search.css";
 import SearchFilters from "../../Components/SearchComponents/SearchFilters";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import sofa from "../../Components/Assets/products/sofa.jpg";
 import chair from "../../Components/Assets/products/chair.jpg";
 import lamp from "../../Components/Assets/products/lamp.jpg";
@@ -54,113 +54,112 @@ const Search = () => {
                 "wood", "metal", "leather", "cherry wood"
             ]}
     ]
+    const initialFilters = {
+        minPrice: "",
+        maxPrice: "",
+        materials: [],
+        categories: [],
+        inStock: false
+    };
+
+
 
     const [showFilters, setShowFilters] = useState(false);
-    const [searchResults, setSearchResults] = useState([]);
+    const [searchResults, setSearchResults] = useState(products);
     const [searchError, setSearchError] = useState(null);
-    const [appliedFilters, setAppliedFilters] = useState({}); // State to store applied filters
+    const [appliedFilters, setAppliedFilters] = useState(initialFilters); // State to store applied filters
 
-    useEffect(() => {
-        // Load filters from local storage when component mounts
-        const storedFilters = localStorage.getItem("appliedFilters");
-        if (storedFilters) {
-            setAppliedFilters(JSON.parse(storedFilters));
-        }
+    const parsePrice = (price) => {
+        const parsed = parseFloat(price);
+        return isNaN(parsed) ? null : parsed;
+    };
+
+    const toggleFilters = useCallback(() => {
+        setShowFilters((prev) => !prev);
     }, []);
 
+    const filterProducts = useCallback(() => {
 
-    const toggleFilters = () => {
-        setShowFilters(!showFilters);
-    };
 
-    // Function to filter search results based on search text
-    const filterSearchResults = (searchText, products) => {
-        const filteredResults = products.filter(product =>
-            product.name.toLowerCase().includes(searchText.toLowerCase()) ||
-            product.description.toLowerCase().includes(searchText.toLowerCase())
-        );
-        return filteredResults;
-    };
-
-    // Function to handle search button click
-    const handleSearch = () => {
         const searchText = document.getElementById("searchInput").value.toLowerCase();
-        // Check if search text is empty
-        if (searchText.trim() === "") {
-            setSearchError("Search text cannot be empty.");
-            return;
-        }
 
-        // For demo purpose, assuming products array is available
+        // Filter by text in the search bar
         let filteredResults = products.filter(product =>
             product.name.toLowerCase().includes(searchText) ||
             product.description.toLowerCase().includes(searchText)
         );
 
-        // Apply filters
-        if (showFilters) {
-            const minPrice = parseFloat(document.getElementById("minPrice").value);
-            const maxPrice = parseFloat(document.getElementById("maxPrice").value);
-            const materials = Array.from(document.querySelectorAll('input[name="material"]:checked')).map(input => input.value);
-            const categories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(input => input.value);
-            const inStock = document.getElementById("inStock").checked;
+        // Filter by min price
+        if (appliedFilters.minPrice !== "") {
+            const minPrice = parsePrice(appliedFilters.minPrice);
+            if (minPrice !== null) {
+                filteredResults = filteredResults.filter((product) => product.price >= minPrice);
+            }
+        }
 
-            // Apply price filter
+        // Filter by max price
+        if (appliedFilters.maxPrice !== "") {
+            const maxPrice = parsePrice(appliedFilters.maxPrice);
+            if (maxPrice !== null) {
+                filteredResults = filteredResults.filter((product) => product.price <= maxPrice);
+            }
+        }
+
+        // Filter by materials
+        if (appliedFilters.materials.length > 0) {
             filteredResults = filteredResults.filter(product =>
-                (!minPrice || product.price >= minPrice) &&
-                (!maxPrice || product.price <= maxPrice)
+                appliedFilters.materials.some(material => product.materials.includes(material.name))
             );
+        }
 
-            // Apply material filter
-            if (materials.length > 0) {
-                filteredResults = filteredResults.filter(product =>
-                    materials.some(material => product.materials.includes(material))
-                );
-            }
+        // Filter by categories
+        if (appliedFilters.categories.length > 0) {
+            filteredResults = filteredResults.filter(product =>
+                appliedFilters.categories.some(category => product.category === category.name)
+            );
+        }
 
-            // Apply category filter
-            if (categories.length > 0) {
-                filteredResults = filteredResults.filter(product =>
-                    categories.includes(product.category)
-                );
-            }
-
-            // Apply inStock filter
-            if (inStock) {
-                filteredResults = filteredResults.filter(product => product.stock);
-            }
+        // Filter by in-stock
+        if (appliedFilters.inStock) {
+            filteredResults = filteredResults.filter(product => product.stock === true);
         }
 
         setSearchResults(filteredResults);
         setSearchError(null);
+    }, [products, appliedFilters])
+
+
+    // Function to handle search and apply filters buttons click
+    const handleSearch = () => {
+
+        filterProducts();
     }
 
-    // Function to handle applying filters
-    const applyFiltersHandler = () => {
-        // Apply filters
-        // Trigger search
-        handleSearch();
-        // Hide filters after applying
-        setShowFilters(false);
-    };
+
+    useEffect(() => {
+
+        filterProducts();
+    }, [filterProducts])
+
+
 
     return (
         <div className="search-page">
-        <div >
-            <div className="main-search-input-wrap">
-                <div className="main-search-input fl-wrap">
-                    <div className="main-search-input-item">
-                        <input type="text" id="searchInput" placeholder="Search Products..."/>
+            <div >
+                <div className="main-search-input-wrap">
+                    <div className="main-search-input fl-wrap">
+                        <div className="main-search-input-item">
+                            <input type="text" id="searchInput" placeholder="Search Products..."/>
+                        </div>
+                        <button className="main-search-button" type="submit" onClick={handleSearch}>Search</button>
+                        <button className="main-filter-button" type="button" onClick={toggleFilters}>Filter</button>
                     </div>
-                    <button className="main-search-button" type="submit" onClick={handleSearch}>Search</button>
-                    <button className="main-filter-button" type="button" onClick={toggleFilters}>Filter</button>
                 </div>
-            </div>
 
-        </div>
-            {showFilters && <SearchFilters applyFilters={applyFiltersHandler} appliedFilters={appliedFilters} setAppliedFilters={setAppliedFilters}/>}
+            </div>
+            {showFilters && <SearchFilters parsePrice={parsePrice} setSearchResults={setSearchResults} products={products} toggleFilters={toggleFilters} initialFilters={initialFilters} appliedFilters={appliedFilters} setAppliedFilters={setAppliedFilters}/>}
             {searchError && <p>{searchError}</p>}
-            {searchResults.length > 0 && (
+            {searchResults && searchResults.length > 0 && (
                 <div>
                     <InfoCardWithPrice props={searchResults}/>
                 </div>

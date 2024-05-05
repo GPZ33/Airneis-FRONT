@@ -5,7 +5,6 @@
   min-height: 100vh; /* La hauteur minimum de la vue sera de 100% de la hauteur de la fenêtre */
 }
 
-
 .Header {
   flex-shrink: 0; /* Empêche le header de rétrécir s'il y a peu de contenu */
 }
