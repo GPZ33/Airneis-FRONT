@@ -76,11 +76,33 @@ const ProductsOfCategory = () => {
     ]
 
     useEffect(() => {
+        // const fetchData = async () => {
+        //     try {
+        //         const categoryResponse = await fetch("http://127.0.0.1:8000/api/categories");
+        //
+        //         if (!categoryResponse.ok) {
+        //             throw new Error("Failed to fetch categories");
+        //         }
+        //
+        //         const categoryResponseData = await categoryResponse.json();
+        //         const categoryFind = categoryResponseData.find(category => category.name === categoryName);
+        //         if (categoryFind) {
+        //             setCategory(categoryFind);
+        //         } else {
+        //             throw new Error('Category not found');
+        //         }
+        //     } catch (error) {
+        //         console.error('Error fetching category details:', error.message);
+        //     }
+        // };
+        //
+        // fetchData();
         try {
             const categoryFind = categories.find(category => category.name === categoryName);
-            if (categoryFind) {
+            // If the category is found and it's different from the current category state, set the category
+            if (categoryFind && categoryFind.name !== (category?.name)) {
                 setCategory(categoryFind);
-            } else {
+            } else if (!categoryFind) {
                 throw new Error('Category not found');
             }
         } catch (error) {
@@ -88,6 +110,22 @@ const ProductsOfCategory = () => {
         }
     }, [categories, categoryName])
     useEffect(() => {
+        // const fetchData = async () => {
+        //     try {
+        //         const productsResponse = await fetch("http://127.0.0.1:8000/api/products");
+        //
+        //         if (!productsResponse.ok) {
+        //             throw new Error("Failed to fetch products");
+        //         }
+        //
+        //         const productsResponseData = await productsResponse.json();
+        //         const filteredProducts = productsResponseData.filter(product => product.category === category.name);
+        //         setProductsOfCategory(filteredProducts);
+        //     } catch (error) {
+        //         console.error('Error fetching product details:', error.message);
+        //     }
+        // };
+        // fetchData();
         if (category) {
             const filteredProducts = products.filter(product => product.category === category.name);
             // const prioritizedProducts = filteredProducts.filter(product => product.priority);
