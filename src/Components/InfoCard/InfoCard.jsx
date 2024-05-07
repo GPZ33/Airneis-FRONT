@@ -35,7 +35,7 @@ const InfoCard = ({props, basePath}) => {
             ) : (
                 <p>The products are loading</p>
             )}
-        < />
+        </>
     );
 }
 

@@ -2,15 +2,15 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* La hauteur minimum de la vue sera de 100% de la hauteur de la fenêtre */
+  min-height: 100vh; 
 }
 
 .Header {
-  flex-shrink: 0; /* Empêche le header de rétrécir s'il y a peu de contenu */
+  flex-shrink: 0; 
 }
 
 .Footer {
-  margin-top: auto; /* Place le pied de page en bas de la vue */
+  margin-top: auto; 
 }
 .App-logo {
   height: 40vmin;

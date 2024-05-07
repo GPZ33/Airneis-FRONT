@@ -68,47 +68,60 @@ const ProductDetails = () => {
     ]
 
 
-
     useEffect(() => {
         // const fetchData = async () => {
-        //try {
-        // Simulating fetching product details from an API
-        // const productsResponse = await fetch(products);
-        //
-        // if (!productsResponse.ok) {
-        //     throw new Error('Failed to fetch product details');
-        // }
-        //
-        // const productsResponseData = await productsResponse.json();
-        // setProduct(productsResponseData);
-        // In a real application, replace this with actual API call
+        //   try {
+        //     // Simulating fetching product details from an API
+        //     const productsResponse = await fetch("http://127.0.0.1:8000/api/products");
+            
+        //     if (!productsResponse.ok) {
+        //       throw new Error('Failed to fetch product details');
+        //     }
+    
+        //     const productsResponseData = await productsResponse.json();
+            
+        //     const productFind = productsResponseData.find(item => item.name === name);
+        //     if (productFind) {
+        //       setProduct(productFind);
+        //       setError(null);
+        //     } else {
+        //       setProduct(null);
+        //       setError('Product not found');
+        //     }
+        //   } catch (error) {
+        //     console.error('Error fetching product details:', error.message);
+        //     setError("An error occurred while fetching product details");
+        //     setProduct(null);
+        //   }
+        // };
+    
+        // fetchData(); 
+
         try {
             const productFind = products.find(item => item.name === name);
-
             if (productFind) {
-                setProduct(productFind);
+              setProduct(productFind);
+              setError(null);
             } else {
-                setError('Product not found');
+              setProduct(null);
+              setError('Product not found');
             }
-        } catch (error) {
+          } catch (error) {
             console.error('Error fetching product details:', error.message);
             setError("An error occurred while fetching product details");
             setProduct(null);
-        }
-
-
-        // fetchData(); // Appeler la fonction fetchData à l'intérieur de useEffect
-
-    }, [name]); // Le deuxième argument de useEffect est un tableau vide pour indiquer que ce code ne doit être exécuté qu'une seule fois après le montage initial.
+          }
+    
+      }, [name]); 
 
     const handleAddToCart = () => {
-        addToCart(product); // Add product to cart
+        addToCart(product); 
     };
 
     return (
             <div className="product-details">
                 {error ? (
-                        <p>{error}</p> // Display the error message to users
+                        <p>{error}</p> 
                     ) :
                     product ? (
                         <>

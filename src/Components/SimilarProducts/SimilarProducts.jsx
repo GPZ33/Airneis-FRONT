@@ -1,5 +1,5 @@
 import React from 'react';
-import InfoCard from "../InfoCard/InfoCard";
+import InfoCardWithPrice from "../InfoCard/InfoCard";
 import sofa from "../Assets/products/sofa.jpg";
 import chair from "../Assets/products/chair.jpg";
 import lamp from "../Assets/products/lamp.jpg";
@@ -78,7 +78,7 @@ const SimilarProducts = ({category}) => {
     const similarProducts = sortedProducts.slice(0, 6);
 
     return (
-        <InfoCard props={similarProducts} basePath="products" />
+        <InfoCardWithPrice props={similarProducts} basePath="products" />
     );
 }
 

@@ -15,7 +15,7 @@ import Contact from "./Pages/Footer/Contact";
 import Product from "./Pages/Product";
 import SearchFilters from "./Components/SearchComponents/SearchFilters";
 import {CartProvider} from "./Context/CartContext";
-import SignUp from "./Pages/SignUp";
+import SignUp from "./Pages/SignUp/SignUp";
 
 
 const App = () => {

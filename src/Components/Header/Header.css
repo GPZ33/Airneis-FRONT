@@ -1,6 +1,6 @@
 .navbar-collapse {
     position: absolute;
-    top: 71px; /* Adjust the value based on your navbar's height */
+    top: 71px; 
     right: 0;
     left: auto;
     width: 14%;
