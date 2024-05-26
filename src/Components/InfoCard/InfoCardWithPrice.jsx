@@ -12,7 +12,8 @@ const InfoCardWithPrice = ({props, basePath}) => {
                 const imageDataArray = [];
                 for (const item of props) {
                     if (item.images.length > 0) { // Ensure there are images for the item
-                        const url = apiUrl + item.images[0]; // Only use the first image
+                        const url = apiUrl + item.images[0]['@id']; // Only use the first image
+                        console.log('tessssst', url);
                         const response = await fetch(url);
                         if (!response.ok) {
                             throw new Error(`Failed to fetch image data for ${item.name}`);
