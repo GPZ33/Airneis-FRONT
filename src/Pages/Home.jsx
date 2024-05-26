@@ -1,4 +1,4 @@
-import CarouselHome from "../Components/Carrousel/Carousel";
+import CarouselSlides from "../Components/Carrousel/Carousel";
 import CategoriesInfo from "../Components/CategoriesInfo/CategoriesInfo";
 import Highlanders from "../Components/Highlandres/Highlanders";
 import livingroom from "../Components/Assets/living_room_furniture.jpg";
@@ -9,9 +9,9 @@ const Home = () => {
     const carousel = [livingroom, bedroom, kids];
   return (
     <>
-        <CarouselHome props={carousel}/>
+        <CarouselSlides props={carousel}/>
         <CategoriesInfo/>
-        <Highlanders/>
+        {/*<Highlanders/>*/}
     </>
   );
 }

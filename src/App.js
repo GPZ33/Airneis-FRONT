@@ -16,27 +16,31 @@ import Product from "./Pages/Product";
 import SearchFilters from "./Components/SearchComponents/SearchFilters";
 import {CartProvider} from "./Context/CartContext";
 import SignUp from "./Pages/SignUp/SignUp";
+import LogIn from "./Pages/LogIn/LogIn";
+import {useState} from "react";
+import UserSettings from "./Pages/UserSettings/UserSettings";
 
 
 const App = () => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
     return (
         <BrowserRouter>
             <CartProvider>
-            <Header/>
+            <Header isAuthenticated={isAuthenticated} setIsAuthenticated = {setIsAuthenticated} />
             <Routes>
                 <Route path="/" element={<Home/>}/>
-                <Route path="/categories" element={<AllCategories />}/>
-                <Route path="/categories/:categoryName" element={<ProductsOfCategory />} />
-                <Route path="/materials" element={<Materials/>}/>
-                <Route path="/products" element={<AllProducts/>}/>
+                <Route path="/categories/:categoryId" element={<ProductsOfCategory />} />
                 <Route path="/cart" element={<Cart/>}/>
                 <Route path="/search" element={<Search/>}/>
                 <Route path="/CGU" element={<CGU/>}/>
                 <Route path="/legal_notice" element={<LegalNotice/>}/>
                 <Route path="/contact" element={<Contact/>}/>
-                <Route path="/products/:name" element={<Product/>}/>
+                <Route path="/products/:productId" element={<Product/>}/>
                 <Route path="/search_filters" element={<SearchFilters/>}/>
                 <Route path="/sign_up" element={<SignUp/>}/>
+                <Route path="/log_in" element={<LogIn setIsAuthenticated = {setIsAuthenticated}/>}/>
+                <Route path="/user_settings" element={<UserSettings/>}/>
             </Routes>
             <Footer />
             </CartProvider>
