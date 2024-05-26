@@ -17,9 +17,6 @@ const ProductsOfCategory = () => {
         const fetchCategoryDetails = async () => {
             try {
                 const response = await fetch(`http://127.0.0.1:8000/api/categories/${categoryId}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
                 });
                 if (!response.ok) {
                     throw new Error('Failed to fetch category details');
@@ -39,12 +36,8 @@ const ProductsOfCategory = () => {
         if (category) {
             const fetchProductsOfCategory = async () => {
                 try {
-                    const productsResponse = await Promise.all(category.products.map(async (productId) => {
-                        const response = await fetch(`http://127.0.0.1:8000${productId}`, {
-                            headers: {
-                                Authorization: `Bearer ${token}`
-                            }
-                        });
+                    const productsResponse = await Promise.all(category.products.map(async (product) => {
+                        const response = await fetch(`http://127.0.0.1:8000${product['@id']}`);
                         if (!response.ok) {
                             throw new Error('Failed to fetch product details');
                         }

@@ -41,8 +41,8 @@ const ProductDetails = () => {
     useEffect(() => {
         const fetchMaterials = async () => {
             try {
-                const materialsData = await Promise.all(product.materials.map(async (materialId) => {
-                    const response = await fetch(`http://127.0.0.1:8000${materialId}`);
+                const materialsData = await Promise.all(product.materials.map(async (material) => {
+                    const response = await fetch(`http://127.0.0.1:8000${material['@id']}`);
                     if (!response.ok) {
                         throw new Error('Failed to fetch material details');
                     }
@@ -62,7 +62,7 @@ const ProductDetails = () => {
     useEffect(() => {
         const fetchCategoryOfProduct = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000${product.category}`);
+                const response = await fetch(`http://127.0.0.1:8000${product.category[0]['@id']}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch category details');
                 }
@@ -72,18 +72,18 @@ const ProductDetails = () => {
                 console.error('Error fetching category details:', error.message);
             }
         };
-
-        if (product) {
+    
+        if (product && product.category && product.category.length > 0) {
             fetchCategoryOfProduct();
         }
-
     }, [product]);
+    
 
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const imagesData = await Promise.all(product.images.map(async (imageId) => {
-                    const response = await fetch(`http://127.0.0.1:8000${imageId}`);
+                const imagesData = await Promise.all(product.images.map(async (image) => {
+                    const response = await fetch(`http://127.0.0.1:8000${image['@id']}`);
                     if (!response.ok) {
                         throw new Error('Failed to fetch image details');
                     }
@@ -137,7 +137,7 @@ const ProductDetails = () => {
                             </div>
                             <div className="row justify-content-around">
                                 <h1 className="text-center pb-3">Similar products</h1>
-                                <SimilarProducts idCategoryOfProduct={categoryOfProduct}/>
+                                {categoryOfProduct && categoryOfProduct.id && <SimilarProducts idCategoryOfProduct={categoryOfProduct.id} />}
                             </div>
                         </>
                     ) : (
