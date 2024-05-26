@@ -7,10 +7,19 @@ import SearchIcon from '@mui/icons-material/Search';
 import {useCart} from "../../Context/CartContext";
 
 
-const Header = () => {
-    const { cart } = useCart(); // Access the cart from the context
-    // Calculate the total quantity of items in the cart
+const Header = ({isAuthenticated, setIsAuthenticated}) => {
+    const { cart } = useCart();
     const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0)
+    const [collapsedMenu, setCollapsedMenu] = useState(true);
+
+    const handleToggleCollapse = () => {
+        setCollapsedMenu(!collapsedMenu);
+    };
+
+    const handleLogout = () => {
+        setIsAuthenticated(false);
+        localStorage.removeItem("token");
+    };
 
     return (
         <nav className="navbar navbar-light bg-light">
@@ -29,19 +38,34 @@ const Header = () => {
                             <span className="cart-count">{totalQuantity}</span>
                         )}
                     </Link>
+
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
-                            aria-label="Toggle navigation">
+                            aria-label="Toggle navigation" onClick={handleToggleCollapse}>
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div className={`collapse navbar-collapse ${collapsedMenu ? "" : "show"}`} id="navbarNavAltMarkup">
                         <div className="navbar-nav ml-auto">
-                            <Link className="nav-link" to="/login">Log in</Link>
-                            <Link className="nav-link" to="/sign_up">Sign up</Link>
-                            <Link className="nav-link" aria-current="page" to="/categories">Categories</Link>
-                            <Link className="nav-link" to="/materials">Materials</Link>
-                            <Link className="nav-link" to="/all_products">All products</Link>
-                            <Link className="nav-link" to="/highlights">Highlights</Link>
+                            {isAuthenticated ? (
+                                <>
+                                    <Link className="nav-link" to="/user_settings">Mes paramètres</Link>
+                                    <Link className="nav-link" to="/orders">Mes commandes</Link>
+                                    <Link className="nav-link" to="/CGU">CGU</Link>
+                                    <Link className="nav-link" to="/legal">Mentions légales</Link>
+                                    <Link className="nav-link" to="/contact">Contact</Link>
+                                    <Link className="nav-link" to="/about">A propos d'AIRNEIS</Link>
+                                    <button className="nav-link" onClick={handleLogout}>Se déconnecter</button>
+                                </>
+                            ) : (
+                                <>
+                                    <Link className="nav-link" to="/log_in">Se connecter</Link>
+                                    <Link className="nav-link" to="/sign_up">S'inscrire</Link>
+                                    <Link className="nav-link" to="/CGU">CGU</Link>
+                                    <Link className="nav-link" to="/legal">Mentions légales</Link>
+                                    <Link className="nav-link" to="/contact">Contact</Link>
+                                    <Link className="nav-link" to="/about">A propos d'AIRNEIS</Link>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>

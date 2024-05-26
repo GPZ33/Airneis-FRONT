@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, {createContext, useState, useContext, useEffect} from 'react';
 
 // Create a context for the cart
 const CartContext = createContext();
@@ -10,7 +10,6 @@ const CartProvider = ({ children }) => {
     const addToCart = (product) => {
         setCart((prevCart) => {
             const productIndex = prevCart.findIndex((item) => item.id === product.id);
-
             if (productIndex >= 0) {
                 // If the product is already in the cart, increase the quantity
                 const updatedCart = [...prevCart];
@@ -53,7 +52,18 @@ const CartProvider = ({ children }) => {
             return updatedCart;
         });
     };
+// Load cart items from localStorage when component mounts
+    useEffect(() => {
+        const storedCart = localStorage.getItem('cart');
+        if (storedCart) {
+            setCart(JSON.parse(storedCart));
+        }
+    }, []);
 
+    // Save cart items to localStorage whenever cart changes
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }, [cart]);
     return (
         <CartContext.Provider value={{ cart, addToCart, removeFromCart, incrementQuantity, decrementQuantity }}>
             {children}
