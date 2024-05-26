@@ -6,16 +6,12 @@ import InfoCardWithPrice from "../InfoCard/InfoCardWithPrice";
 const SimilarProducts = ({idCategoryOfProduct}) => {
     const [categoryOfProduct, setCategoryOfProduct] = useState(null);
     const [productsOfCategory, setProductsOfCategory] = useState([]);
-    const token = localStorage.getItem('token');
 
     useEffect(() => {
         const fetchCategoryDetails = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/categories/${idCategoryOfProduct.id}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
+                console.log('quest ce que cest ???',idCategoryOfProduct)
+                const response = await fetch(`http://127.0.0.1:8000/api/categories/${idCategoryOfProduct}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch category details');
                 }
@@ -27,19 +23,15 @@ const SimilarProducts = ({idCategoryOfProduct}) => {
         };
 
         fetchCategoryDetails();
-    }, [idCategoryOfProduct, token]);
+    }, [idCategoryOfProduct]);
 
 
     useEffect(() => {
         if (categoryOfProduct) {
             const fetchProductsOfCategory = async () => {
                 try {
-                    const productsResponse = await Promise.all(categoryOfProduct.products.map(async (productId) => {
-                        const response = await fetch(`http://127.0.0.1:8000${productId}`, {
-                            headers: {
-                                Authorization: `Bearer ${token}`
-                            }
-                        });
+                    const productsResponse = await Promise.all(categoryOfProduct.products.map(async (product) => {
+                        const response = await fetch(`http://127.0.0.1:8000${product['@id']}`);
                         if (!response.ok) {
                             throw new Error('Failed to fetch product details');
                         }
@@ -53,7 +45,7 @@ const SimilarProducts = ({idCategoryOfProduct}) => {
 
             fetchProductsOfCategory();
         }
-    }, [categoryOfProduct, token]);
+    }, [categoryOfProduct]);
 
 
     return (
