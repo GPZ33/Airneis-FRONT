@@ -109,8 +109,8 @@ const SearchFilters = ({parsePrice, setSearchResults, products, toggleFilters, i
                         </div>
 
                         <div className="form-group">
-                            <button type="submit" className="btn btn-block">Apply filters</button>
-                            <button type="reset" className="btn btn-block" onClick={resetFilters}>Reset</button>
+                            <button type="submit" className="btn btn-block search-filter-button">Apply filters</button>
+                            <button type="reset" className="btn btn-block search-filter-button" onClick={resetFilters}>Reset</button>
                         </div>
 
                     </form>
