@@ -3,7 +3,6 @@ import "./CategoriesInfo.css"
 import InfoCard from "../InfoCard/InfoCard";
 
 const CategoriesInfo = () => {
-    const token = localStorage.getItem('token');
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
@@ -26,8 +25,6 @@ const CategoriesInfo = () => {
 
         fetchData();
     }, []);
-
-    console.log("Categories:", categories);
 
     return (
         <div className="row justify-content-around py-5">
