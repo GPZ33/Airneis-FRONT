@@ -56,55 +56,12 @@ const Home = () => {
 
     }, [categories]);
 
-    // useEffect(() => {
-    //     const fetchImageData = async () => {
-    //         try {
-    //             const imageDataArray = [];
-    //                 const promises = categories.map(async (item) => {
-    //                     const url = apiUrl + item.image['@id'];
-    //                     const response = await fetch(url);
-    //                     if (!response.ok) {
-    //                         throw new Error(`Failed to fetch image data for ${item.name}`);
-    //                     }
-    //                     const imageData = await response.json();
-    //                     if (imageData.carrousel) {
-    //                         imageDataArray.push(imageData);
-    //                     }
-    //                 });
-    //                 await Promise.all(promises);
-    //             setImageData(imageDataArray);
-    //         } catch (error) {
-    //             console.error('Error fetching image data:', error);
-    //         }
-    //     };
-    //
-    //     if (categories) {
-    //         fetchImageData();
-    //     }
-    // }, [categories, apiUrl]);
-
-    // useEffect(() => {
-    //     const fetchImage = async () => {
-    //         try {
-    //             imageData.map(async image => {
-    //                 const response = await fetch(`http://127.0.0.1:8000/${image['@id']}`)
-    //                 const imageData = await response.json();
-    //                 setImage(imageData);
-    //                 console.log(imageData);
-    //             })
-    //         } catch (error) {
-    //             console.error('Error fetching image details:', error.message);
-    //         }
-    //
-    //     }
-    //     fetchImage();
-    // }, [imageData]);
 
     return (
     <>
         <CarouselSlides props={images.map(image => image.contentUrl)}/>
         <CategoriesInfo/>
-        {/*<Highlanders/>*/}
+        <Highlanders/>
     </>
   );
 }
