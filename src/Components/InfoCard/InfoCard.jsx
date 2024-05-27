@@ -13,7 +13,12 @@ const InfoCard = ({ props, basePath }) => {
                 const imageDataArray = [];
                 if (Array.isArray(props)) {
                     const promises = props.map(async (item) => {
-                        const url = apiUrl + item.image['@id'];
+                        let url = "";
+                        if (item["@type"] === "Product") {
+                            url = apiUrl + item.images[0]['@id'];
+                        } else {
+                            url = apiUrl + item.image['@id'];
+                        }
                         const response = await fetch(url);
                         if (!response.ok) {
                             throw new Error(`Failed to fetch image data for ${item.name}`);
