@@ -77,7 +77,6 @@ const ProductDetails = () => {
             fetchCategoryOfProduct();
         }
     }, [product]);
-    
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -124,6 +123,7 @@ const ProductDetails = () => {
                                             <h4>{product.description}</h4>
                                         </div>
                                         <div>
+                                            <p className="pt-3">Détails: {product.details}</p>
                                             <p className="pt-3">Category: {categoryOfProduct ? categoryOfProduct.name : 'Loading...'}</p>
                                             <p>Materials: {materials ? materials.map(material => material.name).join(', ') : 'Loading...'}</p>
                                         </div>

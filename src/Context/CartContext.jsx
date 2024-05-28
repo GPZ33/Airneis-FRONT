@@ -52,10 +52,13 @@ const CartProvider = ({ children }) => {
             return updatedCart;
         });
     };
-// Load cart items from localStorage when component mounts
+    // Load cart items from localStorage when component mounts
     useEffect(() => {
-        const storedCart = localStorage.getItem('cart');
-        if (storedCart) {
+        if (cart.length === 0) {
+            // Remove cart from local storage if it's empty
+            localStorage.removeItem('cart');
+        } else {
+            const storedCart = localStorage.getItem('cart');
             setCart(JSON.parse(storedCart));
         }
     }, []);

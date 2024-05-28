@@ -5,6 +5,7 @@ import {jwtDecode} from "jwt-decode";
 const UserSettings = () => {
 
     const [userData, setUserData] = useState({
+        id: 0,
         firstName: "",
         lastName: "",
         phoneNumber: "",
@@ -12,12 +13,11 @@ const UserSettings = () => {
     });
 
     const token = localStorage.getItem("token");
-    const decodedToken = jwtDecode(token);
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/users/${decodedToken.id}`, {
+                const response = await fetch(`http://127.0.0.1:8000/api/users`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -25,15 +25,15 @@ const UserSettings = () => {
                 if (!response.ok) {
                     throw new Error("Failed to fetch user data");
                 }
-                const userData = await response.json();
-                // Update state with the fetched user data
+                const userDataResponse = await response.json();
+
                 setUserData({
-                    firstName: userData.name,
-                    lastName: userData.last_name,
-                    phoneNumber: userData.phoneNumber,
-                    email: userData.email
+                    id: userDataResponse["hydra:member"][0].id,
+                    firstName: userDataResponse["hydra:member"][0].name,
+                    lastName: userDataResponse["hydra:member"][0].last_name,
+                    phoneNumber: userDataResponse["hydra:member"][0].phoneNumber,
+                    email: userDataResponse["hydra:member"][0].email
                 });
-                console.log(userData);
             } catch (error) {
                 console.error("Error fetching user data:", error);
             }
@@ -53,7 +53,7 @@ const UserSettings = () => {
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/users/${decodedToken.id}`, {
+            const response = await fetch(`http://127.0.0.1:8000/api/users/${userData.id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
