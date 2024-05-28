@@ -1,9 +1,6 @@
 import './App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import AllCategories from "./Pages/AllCategories/AllCategories";
 import Home from "./Pages/Home";
-import Materials from "./Pages/Materials";
-import AllProducts from "./Pages/AllProducts";
 import Cart from "./Pages/Cart/Cart";
 import Search from "./Pages/Search/Search";
 import Footer from "./Components/Footer/Footer";
@@ -19,6 +16,7 @@ import SignUp from "./Pages/SignUp/SignUp";
 import LogIn from "./Pages/LogIn/LogIn";
 import {useState} from "react";
 import UserSettings from "./Pages/UserSettings/UserSettings";
+import Checkout from "./Pages/Checkout/Checkout";
 
 
 const App = () => {
@@ -41,6 +39,7 @@ const App = () => {
                 <Route path="/sign_up" element={<SignUp/>}/>
                 <Route path="/log_in" element={<LogIn setIsAuthenticated = {setIsAuthenticated}/>}/>
                 <Route path="/user_settings" element={<UserSettings/>}/>
+                <Route path="/checkout" element={<Checkout/>}/>
             </Routes>
             <Footer />
             </CartProvider>
