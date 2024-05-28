@@ -1,39 +1,29 @@
 import "./SearchFilters.css";
 import {useEffect, useRef, useState} from "react";
-import livingroom from "../Assets/living_room_furniture.jpg";
-import bedroom from "../Assets/bedroom_furniture.jpg";
-import kids from "../Assets/kids_furniture.jpg";
-import dining from "../Assets/dining_furniture.jpg";
-import office from "../Assets/home_office_furniture.jpg";
 
 const SearchFilters = ({parsePrice, setSearchResults, products, toggleFilters, initialFilters, appliedFilters, setAppliedFilters } ) => {
+    const [materials, setMaterials] = useState([]);
+    const [categories, setCategories] = useState([]);
 
+    useEffect(() => {
+        // Fetch materials
+        fetch("http://127.0.0.1:8000/api/materials")
+            .then((response) => response.json())
+            .then((data) => setMaterials(data["hydra:member"]))
+            .catch((error) => console.error("Error fetching materials:", error));
+
+        // Fetch categories
+        fetch("http://127.0.0.1:8000/api/categories")
+            .then((response) => response.json())
+            .then((data) => setCategories(data["hydra:member"]))
+            .catch((error) => console.error("Error fetching categories:", error));
+    }, []);
 
     const resetFilters = () => {
         setAppliedFilters(initialFilters);
         toggleFilters();
         setSearchResults(products)
     };
-
-    const materials = [
-        {id: 1, name: "wood"},
-        {id: 2, name: "metal"},
-        {id: 3, name: "leather"},
-        {id: 4, name: "cherry-wood"}
-    ];
-
-    const categories = [
-        {id: 1, name: "Living room", img: [livingroom], description: "Description of the category"},
-        {id: 2, name: "Bedroom", img: [bedroom], description: "Description of the category"},
-        {id: 3, name: "Kids room", img: [kids], description: "Description of the category"},
-        {id: 4, name: "Dining room", img: [dining], description: "Description of the category"},
-        {id: 5, name: "Office", img: [office], description: "Description of the category"},
-        {id: 6, name: "Kids room", img: [kids], description: "Description of the category"},
-        {id: 7, name: "Dining room", img: [dining], description: "Description of the category"},
-        {id: 8, name: "Office", img: [office], description: "Description of the category"},
-    ]
-
-// Helper function to parse prices
 
     const submitFilters = (event) => {
         event.preventDefault();
@@ -48,8 +38,6 @@ const SearchFilters = ({parsePrice, setSearchResults, products, toggleFilters, i
         const minPrice = parsePrice(event.target.elements['minPrice'].value);
         const maxPrice = parsePrice(event.target.elements['maxPrice'].value);
 
-        // récup les valeurs de champs
-        // modifie le state avec
 
         setAppliedFilters(prevFilters => ({
             ...prevFilters,
@@ -63,6 +51,29 @@ const SearchFilters = ({parsePrice, setSearchResults, products, toggleFilters, i
 
         toggleFilters();
     }
+
+    const handleCategoryChange = (e) => {
+        const selectedOptions = Array.from(e.target.selectedOptions).map(option => option.value);
+        setAppliedFilters(prevFilters => ({
+            ...prevFilters,
+            categories: selectedOptions.map((category) => ({name: category}))
+        }));
+    };
+
+    const handleMaterialChange = (e) => {
+        const selectedOptions = Array.from(e.target.selectedOptions).map(option => option.value);
+        setAppliedFilters(prevFilters => ({
+            ...prevFilters,
+            materials: selectedOptions.map((material) => ({name: material}))
+        }));
+    };
+
+    const handleStockChange = (e) => {
+        setAppliedFilters(prevFilters => ({
+            ...prevFilters,
+            inStock: !prevFilters.inStock
+        }));
+    };
 
     return (
         <div className="filter">
@@ -81,10 +92,10 @@ const SearchFilters = ({parsePrice, setSearchResults, products, toggleFilters, i
                         <br/>
                         <div className="form-group">
                             <label htmlFor="materials">Materials</label>
-                            <select name="material" id="material" multiple defaultValue={appliedFilters.materials?.map(material => material.name)}>
+                            <select className="form-select" name="material" id="material" multiple value={appliedFilters.materials?.map(material => material.name)} onChange={handleMaterialChange}>
                                 {materials ? (
-                                    materials.map((material, index) => (
-                                        <option key={index} value={material.name}>{material.name}</option>
+                                    materials.map((material) => (
+                                        <option key={material.id} value={material.id}>{material.name}</option>
                                     ))
                                 ) : (<p>Materials are loading...</p>)}
                             </select>
@@ -92,10 +103,10 @@ const SearchFilters = ({parsePrice, setSearchResults, products, toggleFilters, i
                         <br/>
                         <div className="form-group">
                             <label htmlFor="categories">Categories</label>
-                            <select name="category" id="category" multiple defaultValue={appliedFilters.categories?.map(category => category.name)}>
+                            <select className="form-select" name="category" id="category" value={appliedFilters.categories?.map(category => category.name)} onChange={handleCategoryChange}>
                                 {categories ? (
-                                    categories.map((category, index) => (
-                                        <option key={index} value={category.name}>{category.name}</option>
+                                    categories.map((category) => (
+                                        <option key={category.id} value={category.id}>{category.name}</option>
                                     ))
                                 ) : (
                                     <p>Categories are loading...</p>
@@ -104,8 +115,8 @@ const SearchFilters = ({parsePrice, setSearchResults, products, toggleFilters, i
                         </div>
                         <br/>
                         <div className="form-check">
-                            <input type="checkbox" className="form-check-input" id="inStock" name="inStock" defaultValue={appliedFilters.inStock}/>
-                            <label id="inStock" htmlFor="inStock" className="form-check-label">In stock</label>
+                            <input type="checkbox" className="form-check-input" id="inStock" name="inStock" checked={appliedFilters.inStock} onChange={handleStockChange}/>
+                            <label id="inStock" htmlFor="inStock" className="form-check-label" >In stock</label>
                         </div>
 
                         <div className="form-group">
