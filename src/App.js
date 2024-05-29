@@ -20,7 +20,7 @@ import Checkout from "./Pages/Checkout/Checkout";
 
 
 const App = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState();
 
     return (
         <BrowserRouter>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {jwtDecode} from "jwt-decode";
+
 
 const LogIn = ({setIsAuthenticated}) => {
     const navigate = useNavigate();
@@ -31,6 +31,7 @@ const LogIn = ({setIsAuthenticated}) => {
             }
             const data = await response.json();
             localStorage.setItem("token", data.token);
+            localStorage.setItem("isAuthenticated", true)
             navigate("/");
         } catch (error) {
             console.error("Login error:", error);

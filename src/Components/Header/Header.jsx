@@ -1,6 +1,6 @@
 import logo from "../Assets/logo.png";
 import {Link} from "react-router-dom";
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import "./Header.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from '@mui/icons-material/Search';
@@ -19,8 +19,14 @@ const Header = ({isAuthenticated, setIsAuthenticated}) => {
     const handleLogout = () => {
         setIsAuthenticated(false);
         localStorage.removeItem("token");
+        localStorage.removeItem("isAuthenticated");
     };
-
+    useEffect(() => {
+        const storedAuthStatus = localStorage.getItem("isAuthenticated");
+        if (storedAuthStatus) {
+            setIsAuthenticated(true);
+        }
+    }, []);
     return (
         <nav className="navbar navbar-light bg-light">
             <div className="container-fluid">

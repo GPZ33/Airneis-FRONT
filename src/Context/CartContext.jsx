@@ -54,13 +54,10 @@ const CartProvider = ({ children }) => {
     };
     // Load cart items from localStorage when component mounts
     useEffect(() => {
-        if (cart.length === 0) {
-            // Remove cart from local storage if it's empty
-            localStorage.removeItem('cart');
-        } else {
+
             const storedCart = localStorage.getItem('cart');
             setCart(JSON.parse(storedCart));
-        }
+
     }, []);
 
     // Save cart items to localStorage whenever cart changes

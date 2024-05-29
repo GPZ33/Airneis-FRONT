@@ -38,7 +38,6 @@ const UserSettings = () => {
                 console.error("Error fetching user data:", error);
             }
         };
-
         fetchUserData();
     }, []);
 
