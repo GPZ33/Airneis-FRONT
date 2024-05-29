@@ -11,13 +11,62 @@ const Cart = () => {
     const { cart, incrementQuantity, decrementQuantity, removeFromCart } = useCart();
     const [imageData, setImageData] = useState([]);
     const apiUrl = "http://127.0.0.1:8000";
-
+    const token = localStorage.getItem('token');
+    const [userData, setUserData] = useState({
+        id: 0
+    });
 
     const calculateTotal = () =>
         cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
     const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
 
+    const handleOrder = async () => {
+        try {
+            for (const item of cart) {
+                const response = await fetch(apiUrl + '/api/order_products', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/ld+json',
+                         Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        idProduct: "/api/products/" + item.id,
+                        quantity: item.quantity,
+                        idUser: "/api/users/" + userData.id
+                    }),
+                });
+                if (!response.ok) {
+                    throw new Error(`Failed to place order for ${item.name}`);
+                }
+            }
+        } catch (error) {
+            console.error('Error placing order:', error);
+        }
+    };
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/api/users`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error("Failed to fetch user data");
+                }
+                const userDataResponse = await response.json();
+
+                setUserData({
+                    id: userDataResponse["hydra:member"][0].id
+                });
+                localStorage.setItem("userId", userDataResponse["hydra:member"][0].id);
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+        fetchUserData();
+    }, []);
     useEffect(() => {
         const fetchImageData = async () => {
             try {
@@ -152,7 +201,10 @@ const Cart = () => {
                                             <Link to="/checkout">
                                                 <button type="button"
                                                         className="cart-button btn btn-primary btn-lg btn-block"
-                                                        disabled={cart.length === 0}>Continuer au livraison
+                                                        disabled={cart.length === 0}
+                                                        onClick={handleOrder}
+                                                >
+                                                    Continuer au livraison
                                                 </button>
                                             </Link>
                                         </div>

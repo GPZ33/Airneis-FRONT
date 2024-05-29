@@ -1,6 +1,10 @@
 
 
 const Payment = () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const token = localStorage.getItem("token");
+
+
     return (
         <section className="payment-page container py-5">
             <div className="card mb-4">

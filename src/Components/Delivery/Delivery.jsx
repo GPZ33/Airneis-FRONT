@@ -8,7 +8,8 @@ const Delivery = ({ onContinueToPayment }) => {
     const token = localStorage.getItem("token");
     const [addresses, setAddresses] = useState([]);
     const [selectedAddress, setSelectedAddress] = useState(null);
-
+    const userId = localStorage.getItem("userId");
+    const [orderProducts, setOrderProducts] = useState([]);
 
     const calculateTotal = () =>
         cart.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -40,6 +41,48 @@ const Delivery = ({ onContinueToPayment }) => {
     useEffect(() => {
         fetchAddress();
     }, []);
+
+    const handleContinueToPayment = async () => {
+        try {
+            const orderProductsResponse = await fetch("http://127.0.0.1:8000/api/order_products", {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (!orderProductsResponse.ok) {
+                throw new Error("Failed to fetch order products");
+            }
+
+            const orderProductsData = await orderProductsResponse.json();
+            const userOrderProducts = orderProductsData["hydra:member"];
+            console.log(userOrderProducts);
+            const newOrderProducts = userOrderProducts.filter(orderProduct => !orderProduct.idOrder);
+            console.log(newOrderProducts);
+            const response = await fetch("http://127.0.0.1:8000/api/orders", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/ld+json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    idUser: "/api/users/" + userId,
+                    idAdress: "/api/adresses/" + selectedAddress.id,
+                    state: "en cours de paiement",
+                    date: new Date().toISOString().split('T')[0],
+                    orderProducts: newOrderProducts.map((orderProduct) => `/api/order_products/${orderProduct.id}`)
+                })
+            });
+            if (!response.ok) {
+                throw new Error("Failed to create order");
+            }
+            // Clear the cart after creating the order
+            localStorage.removeItem("cart");
+        } catch (error) {
+            console.error("Error creating order:", error);
+        }
+    };
 
     return (
         <div className="container delivery-page py-5">
@@ -141,7 +184,10 @@ const Delivery = ({ onContinueToPayment }) => {
                             <button type="submit"
                                     className="btn btn-primary btn-lg btn-block cart-button"
                                     disabled={!selectedAddress}
-                                    onClick={onContinueToPayment}>Continuer au paiement
+                                    onClick={() => {
+                                        handleContinueToPayment();
+                                        onContinueToPayment();
+                                    }}>Continuer au paiement
                             </button>
                         </Link>
                     </form>
