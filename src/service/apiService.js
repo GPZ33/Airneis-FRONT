@@ -1,8 +1,25 @@
 import {FetchRequest} from "./fetchRequest";
+const token = localStorage.getItem("token");
 
-function getHighlanders() {
-    return FetchRequest.get("api/products")
-        .send();
+
+function getImageDetails(imageId) {
+    return FetchRequest.get(imageId).send();
 }
 
-export const apiService = {getHighlanders};
+function getOrdersOfUser() {
+    const request = FetchRequest.get("/api/orders");
+    request.addHeader("Authorization", `Bearer ${token}`);
+    return request.send();
+}
+
+function getOrderById(orderId) {
+    const request = FetchRequest.get("/api/orders/" + orderId);
+    request.addHeader("Authorization", `Bearer ${token}`);
+    return request.send();
+}
+
+
+export const apiService = {
+   getImageDetails, getOrdersOfUser, getOrderById
+
+};

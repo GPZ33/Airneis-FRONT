@@ -1,6 +1,6 @@
 export class FetchRequest {
     constructor(ressource, method) {
-        this.url = "http://localhost:8000/" + ressource;
+        this.url = "http://127.0.0.1:8000" + ressource;
         this.method = method;
         this.headers = {};
     }

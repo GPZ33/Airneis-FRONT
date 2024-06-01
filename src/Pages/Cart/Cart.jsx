@@ -123,10 +123,6 @@ const Cart = () => {
                                                                             src={apiUrl + imageData[index].contentUrl}
                                                                             className="w-100" alt={item.name}
                                                                         />
-                                                                        <a href="#!">
-                                                                            <div className="mask"
-                                                                                 style={{backgroundColor: "rgba(251, 251, 251, 0.2)"}}></div>
-                                                                        </a>
                                                                     </div>
                                                                 </div>
 

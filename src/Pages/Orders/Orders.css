@@ -1,0 +1,8 @@
+.orders-page {
+    min-height: 100vh;
+}
+
+.order-link {
+    display: inline-block;
+    width: 100%;
+}

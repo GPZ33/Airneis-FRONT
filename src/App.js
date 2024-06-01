@@ -17,6 +17,8 @@ import LogIn from "./Pages/LogIn/LogIn";
 import {useState} from "react";
 import UserSettings from "./Pages/UserSettings/UserSettings";
 import Checkout from "./Pages/Checkout/Checkout";
+import Orders from "./Pages/Orders/Orders";
+import Order from "./Components/Order/Order";
 
 
 const App = () => {
@@ -40,6 +42,8 @@ const App = () => {
                 <Route path="/log_in" element={<LogIn setIsAuthenticated = {setIsAuthenticated}/>}/>
                 <Route path="/user_settings" element={<UserSettings/>}/>
                 <Route path="/checkout" element={<Checkout/>}/>
+                <Route path="/orders" element={<Orders/>}/>
+                <Route path="/orders/:orderId" element={<Order/>}/>
             </Routes>
             <Footer />
             </CartProvider>

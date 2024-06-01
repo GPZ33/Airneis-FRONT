@@ -1,14 +1,16 @@
-import React, {createContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useParams } from "react-router-dom";
 import CarouselSlides from "../Carrousel/Carousel";
 import "./ProductDetails.css";
 import SimilarProducts from "../SimilarProducts/SimilarProducts";
 import {useCart} from "../../Context/CartContext";
-
+import {productApiService} from "../../service/productApiService";
+import {categoryApiService} from "../../service/categoryApiService";
+import {apiService} from "../../service/apiService";
 
 
 const ProductDetails = () => {
-    let { productId } = useParams();
+    const { productId } = useParams();
     const [product, setProduct] = useState(null);
     const [materials, setMaterials] = useState(null);
     const [categoryOfProduct, setCategoryOfProduct] = useState(null);
@@ -16,84 +18,55 @@ const ProductDetails = () => {
     const [error, setError] = useState(null);
     const { addToCart } = useCart();
 
-
-
+    //get product by id
     useEffect(() => {
-        const fetchProductDetails = async () => {
-            try {
-                const response = await fetch(`http://127.0.0.1:8000/api/products/${productId}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch product details');
-                }
-                const productData = await response.json();
-                setProduct(productData);
-                setError(null);
-            } catch (error) {
-                console.error('Error fetching product details:', error.message);
-                setError("An error occurred while fetching product details");
-                setProduct(null);
-            }
-        };
+        productApiService.getProductById("/api/products/" + productId).then(result => {
+            setProduct(result);
+        })
+    }, []);
 
-        fetchProductDetails();
-    }, [productId]);
-
+    //get materials of the product by id
     useEffect(() => {
         const fetchMaterials = async () => {
             try {
-                const materialsData = await Promise.all(product.materials.map(async (material) => {
-                    const response = await fetch(`http://127.0.0.1:8000${material['@id']}`);
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch material details');
-                    }
-                    return response.json();
-                }));
-                setMaterials(materialsData);
+                if (product && product.materials && product.materials.length > 0) {
+                    const materialsData = await Promise.all(product.materials.map(
+                        async (material) => await productApiService.getMaterialsOfProductById(material['@id'])));
+                    setMaterials(materialsData);
+                }
             } catch (error) {
                 console.error('Error fetching material details:', error.message);
             }
         };
-
         if (product) {
             fetchMaterials();
         }
     }, [product]);
 
+    //get category of product
     useEffect(() => {
-        const fetchCategoryOfProduct = async () => {
-            try {
-                const response = await fetch(`http://127.0.0.1:8000${product.category[0]['@id']}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch category details');
-                }
-                const categoryData = await response.json();
-                setCategoryOfProduct(categoryData);
-            } catch (error) {
-                console.error('Error fetching category details:', error.message);
-            }
-        };
-    
         if (product && product.category && product.category.length > 0) {
-            fetchCategoryOfProduct();
+            categoryApiService.getCategoryOfProduct(product.category[0]['@id'])
+                .then(result => {
+                    setCategoryOfProduct(result);
+                })
+                .catch(error => {
+                    console.error('Error fetching category details:', error.message);
+                });
         }
     }, [product]);
 
+    //get images' details of the product
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const imagesData = await Promise.all(product.images.map(async (image) => {
-                    const response = await fetch(`http://127.0.0.1:8000${image['@id']}`);
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch image details');
-                    }
-                    return response.json();
-                }));
+                const imagesData = await Promise.all(product.images.map(
+                    async (image) => await apiService.getImageDetails(image['@id'])));
                 setImages(imagesData);
             } catch (error) {
                 console.error('Error fetching image details:', error.message);
             }
         };
-
         if (product) {
             fetchImages();
         }
@@ -107,7 +80,7 @@ const ProductDetails = () => {
     return (
             <div className="product-details">
                 {error ? (
-                        <p>{error}</p> 
+                        <p>{error}</p>
                     ) :
                     product ? (
                         <>
@@ -128,7 +101,7 @@ const ProductDetails = () => {
                                             <p>Materials: {materials ? materials.map(material => material.name).join(', ') : 'Loading...'}</p>
                                         </div>
                                         {product.stock ? (
-                                            <button className="to-cart" onClick={handleAddToCart} >Add to Cart</button>
+                                            <button className="to-cart" onClick={handleAddToCart} >Ajouter dans le panier</button>
                                         ) : (
                                             <button className="out-of-stock">Out of stock</button>
                                         )}
@@ -136,7 +109,7 @@ const ProductDetails = () => {
                                 </article>
                             </div>
                             <div className="row justify-content-around">
-                                <h1 className="text-center pb-3">Similar products</h1>
+                                <h1 className="text-center pb-3">Produits similaires</h1>
                                 {categoryOfProduct && categoryOfProduct.id && <SimilarProducts idCategoryOfProduct={categoryOfProduct.id} />}
                             </div>
                         </>
