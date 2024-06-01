@@ -31,3 +31,11 @@ FetchRequest.get = function (ressource){
 FetchRequest.post = function (ressource) {
     return new FetchRequest(ressource, "POST");
 }
+
+FetchRequest.patch = function (ressource) {
+    return new FetchRequest(ressource, "PATCH");
+}
+
+FetchRequest.put = function (ressource) {
+    return new FetchRequest(ressource, "PATCH");
+}

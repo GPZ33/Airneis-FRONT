@@ -5,11 +5,12 @@ import {apiService} from "../../service/apiService";
 
 
 const Orders = () => {
+    const token = localStorage.getItem("token");
     const [orders, setOrders] = useState([]);
 
     //get orders of user
     useEffect(() => {
-        apiService.getOrdersOfUser().then(result => {
+        apiService.getOrdersOfUser(token).then(result => {
             setOrders(result["hydra:member"]);
         })
     }, []);

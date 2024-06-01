@@ -162,7 +162,10 @@ const Cart = () => {
                                                                     </div>
                                                                     {/* Price */}
                                                                     <p className="text-start text-md-center">
-                                                                        <strong>${item.price * item.quantity}</strong>
+                                                                        <strong>Prix: ${item.price * item.quantity}</strong>
+                                                                    </p>
+                                                                    <p className="text-start text-md-center">
+                                                                        TVA: ${(item.price * item.quantity * 0.2).toFixed(2)}
                                                                     </p>
                                                                 </div>
 
@@ -193,6 +196,12 @@ const Cart = () => {
                                                     </div>
                                                     <span><strong>${calculateTotal()}</strong></span>
                                                 </li>
+                                                <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                                    <div>
+                                                        <strong>TVA</strong>
+                                                    </div>
+                                                    <span>${(calculateTotal() * 0.2).toFixed(2)}</span>
+                                                </li>
                                             </ul>
                                             <Link to="/checkout">
                                                 <button type="button"
@@ -209,14 +218,14 @@ const Cart = () => {
                             </div>
                         </div>
                     </section>
-                ) : (
+            ) : (
                 <section className="h-100 gradient-custom">
                     <div className="container py-5">
                         <div className="row d-flex justify-content-center my-4">
                             <div className="col-md-8">
                                 <div className="card mb-4">
                                     <div className="card-header py-3">
-                                        <h5 className="mb-0 text-center">Votre panier est vide</h5>
+                                    <h5 className="mb-0 text-center">Votre panier est vide</h5>
                                     </div>
                                     <div className="card-body d-flex justify-content-center">
                                     <Link to="/">
