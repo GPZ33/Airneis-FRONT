@@ -36,13 +36,15 @@ FetchRequest.post = function (ressource) {
 
 FetchRequest.put = function (ressource) {
     const request = new FetchRequest(ressource, "PUT");
-    request.withBody = function (body) {
-        this.body = JSON.stringify(body);
-        return this;
-    }
+    request.withBody(body)
     return request;
 }
 
 FetchRequest.delete = function (ressource){
     return new FetchRequest(ressource, "DELETE");
 }
+
+FetchRequest.patch = function (ressource) {
+    return new FetchRequest(ressource, "PATCH");
+}
+

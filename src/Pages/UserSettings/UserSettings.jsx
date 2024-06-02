@@ -1,8 +1,10 @@
-import {useEffect, useState} from "react";
-import {jwtDecode} from "jwt-decode";
-
+import React, {useEffect, useState} from "react";
+import {userApiService} from "../../service/userApiService";
+import Addresses from "../../Components/Addresses/Addresses";
 
 const UserSettings = () => {
+    const token = localStorage.getItem("token");
+    const [addresses, setAddresses] = useState([]);
 
     const [userData, setUserData] = useState({
         id: 0,
@@ -12,28 +14,19 @@ const UserSettings = () => {
         email: ""
     });
 
-    const token = localStorage.getItem("token");
-
+    //get user
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/users`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                if (!response.ok) {
-                    throw new Error("Failed to fetch user data");
-                }
-                const userDataResponse = await response.json();
-
-                setUserData({
-                    id: userDataResponse["hydra:member"][0].id,
-                    firstName: userDataResponse["hydra:member"][0].name,
-                    lastName: userDataResponse["hydra:member"][0].last_name,
-                    phoneNumber: userDataResponse["hydra:member"][0].phoneNumber,
-                    email: userDataResponse["hydra:member"][0].email
-                });
+                userApiService.getUsers(token).then(result => {
+                    setUserData({
+                        id: result["hydra:member"][0].id,
+                        firstName: result["hydra:member"][0].name,
+                        lastName: result["hydra:member"][0].last_name,
+                        phoneNumber: result["hydra:member"][0].phoneNumber,
+                        email: result["hydra:member"][0].email
+                    });
+                })
             } catch (error) {
                 console.error("Error fetching user data:", error);
             }
@@ -41,29 +34,24 @@ const UserSettings = () => {
         fetchUserData();
     }, []);
 
+    //get user's addresses
+    useEffect(() => {
+        userApiService.getUserAddresses(token).then(result => {
+            setAddresses(result["hydra:member"]);
+        })
+    }, []);
+
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setUserData((prevData) => ({
-            ...prevData,
-            [name]: value
-        }));
+        const {name, value} = e.target;
+        setUserData((prevData) => ({...prevData, [name]: value}));
+        const parsedValue = name === 'phoneNumber' ? parseInt(value) : value;
+        setUserData((prevData) => ({...prevData, [name]: parsedValue}))
     };
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/users/${userData.id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify(userData)
-            });
-            if (!response.ok) {
-                throw new Error("Failed to update user data");
-            }
-            console.log("User data updated successfully");
+            userApiService.updateUser(userData.id, token, userData)
         } catch (error) {
             console.error("Error updating user data:", error);
         }
@@ -80,94 +68,79 @@ const UserSettings = () => {
 
                     <form onSubmit={handleFormSubmit} className="file-upload">
                         <div className="row mb-5 gx-5">
-                        {/* Contact detail */}
-                            <div className="col-xxl-8 mb-5 mb-xxl-0">
-                                <div className="bg-secondary-soft px-4 py-5 rounded">
-                                    <div className="row g-3">
-                                        <h4 className="mb-4 mt-0">Informations personnelles</h4>
+                            {/* Contact detail */}
+                            <div className="bg-secondary-soft px-4 py-5 rounded">
+                                <div className="row g-3">
+                                    <h4 className="mb-4 mt-0">Informations personnelles</h4>
 
-                                        <div className="col-md-6">
-                                            <label className="form-label">Prénom</label>
-                                            <input type="text" className="form-control" placeholder=""
-                                                   aria-label="Prénom" value={userData.firstName}/>
-                                        </div>
+                                    <div className="col-md-6">
+                                        <label className="form-label">Prénom</label>
+                                        <input
+                                            type="text" className="form-control"
+                                            name="firstName"
+                                            aria-label="Prénom" value={userData.firstName}
+                                            onChange={handleInputChange}
+                                        />
+                                    </div>
 
-                                        <div className="col-md-6">
-                                            <label className="form-label">Nom</label>
-                                            <input type="text" className="form-control" placeholder=""
-                                                   aria-label="Nom" value={userData.lastName}/>
-                                        </div>
+                                    <div className="col-md-6">
+                                        <label className="form-label">Nom</label>
+                                        <input type="text" className="form-control" name="lastName"
+                                               aria-label="Nom" value={userData.lastName} onChange={handleInputChange}/>
+                                    </div>
 
-                                        <div className="col-md-6">
-                                            <label className="form-label">Numéro de téléphone</label>
-                                            <input type="text" className="form-control" placeholder=""
-                                                   aria-label="Phone number" value={userData.phoneNumber}/>
-                                        </div>
+                                    <div className="col-md-6">
+                                        <label className="form-label">Numéro de téléphone</label>
+                                        <input type="text" className="form-control" name="phoneNumber"
+                                               aria-label="Phone number" value={userData.phoneNumber}
+                                               onChange={handleInputChange}/>
+                                    </div>
 
-                                        <div className="col-md-6">
-                                            <label htmlFor="inputEmail4" className="form-label">Email</label>
-                                            <input type="email" className="form-control" id="inputEmail4"
-                                                   value={userData.email}/>
-                                        </div>
+                                    <div className="col-md-6">
+                                        <label htmlFor="inputEmail4" className="form-label">Email</label>
+                                        <input type="email" className="form-control" id="inputEmail4"
+                                               name="email"
+                                               value={userData.email} onChange={handleInputChange}/>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div className="row mb-5 gx-5">
-                            <div className="col-xxl-6 mb-5 mb-xxl-0">
-                                <div className="bg-secondary-soft px-4 py-5 rounded">
-                                    <div className="row g-3">
-                                        <h4 className="mb-4 mt-0">Carnet d'adresses</h4>
-
-                                        <div className="col-md-6">
-                                            <label className="form-label" htmlFor="address">Livraison</label>
-                                            <select className="form-control" id="address">
-                                                <option></option>
-                                            </select>
-                                        </div>
-
-                                        <div className="col-md-6">
-                                            <label className="form-label"
-                                                   htmlFor="facturation-address">Facturation</label>
-                                            <select className="form-control" id="facturation-address">
-                                                <option></option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="gap-3 d-md-flex justify-content-md-end text-center">
+                            <button type="button" className="btn btn-danger btn-lg">Delete profile</button>
+                            <button type="submit" className="btn btn-primary btn-lg">Update profile</button>
                         </div>
-
-                        <div className="row mb-5 gx-5">
-                            <div className="col-xxl-6 mb-5 mb-xxl-0">
-                                <div className="bg-secondary-soft px-4 py-5 rounded">
-                                    <div className="row g-3">
-                                        <h4 className="mb-4 mt-0">Méthodes de paiement</h4>
-
-                                        <div className="col-md-6">
-                                            <label className="form-label" htmlFor="address">Choisissez votre méthodes de paiement</label>
-                                            <select className="form-control" id="address">
-                                                <option></option>
-                                            </select>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                            <div className="gap-3 d-md-flex justify-content-md-end text-center">
-                                <button type="button" className="btn btn-danger btn-lg">Delete profile</button>
-                                <button type="button" className="btn btn-primary btn-lg">Update profile</button>
-                            </div>
                     </form>
+
+                    <div className="row g-3 pt-lg-5">
+                        <h4 className=" mt-0">Carnet d'adresses</h4>
+                        <Addresses addresses={addresses} setAddresses={setAddresses}/>
+                    </div>
+
+
+                    <div className="row mb-5 gx-5">
+                        <div className="col-xxl-6 mb-5 mb-xxl-0">
+                            <div className="bg-secondary-soft px-4 py-5 rounded">
+                                <div className="row g-3">
+                                    <h4 className="mb-4 mt-0">Méthodes de paiement</h4>
+
+                                    <div className="col-md-6">
+                                        <label className="form-label" htmlFor="address">Choisissez votre méthodes de
+                                            paiement</label>
+                                        <select className="form-control" id="address">
+                                            <option></option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
         </div>
 
-)
+    )
 };
 
 export default UserSettings;

@@ -6,6 +6,7 @@ import {useParams} from "react-router-dom";
 import {apiService} from "../../service/apiService";
 
 const Order = () => {
+    const token = localStorage.getItem("token");
     const {orderId} = useParams();
     const [orderDetails, setOrderDetails] = useState(null);
     const [productImages, setProductImages] = useState([]);
@@ -14,7 +15,7 @@ const Order = () => {
 
     //get order by id
     useEffect(() => {
-        apiService.getOrderById(orderId).then(result => {
+        apiService.getOrderById(orderId, token).then(result => {
             setOrderDetails(result);
         })
     }, []);
@@ -86,8 +87,8 @@ const Order = () => {
 
                                                             {/* Data */}
                                                             <div className="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                                                                <p><strong>{product.idProduct.id} name</strong></p>
-                                                                <p>Description: {product.idProduct.id} description</p>
+                                                                <p><strong>{product.idProduct.name}</strong></p>
+                                                                <p>{product.idProduct.details} </p>
                                                                 <button type="button"
                                                                         className="cart-button btn btn-primary btn-sm me-1 mb-2"
                                                                         title="Remove item"
