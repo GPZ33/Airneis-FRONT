@@ -34,10 +34,8 @@ FetchRequest.post = function (ressource) {
     return new FetchRequest(ressource, "POST");
 }
 
-FetchRequest.put = function (ressource) {
-    const request = new FetchRequest(ressource, "PUT");
-    request.withBody(body)
-    return request;
+FetchRequest.put = function (ressource, body) {
+    return new FetchRequest(ressource, "PUT").withBody(body);
 }
 
 FetchRequest.delete = function (ressource){
