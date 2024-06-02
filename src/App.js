@@ -19,6 +19,7 @@ import UserSettings from "./Pages/UserSettings/UserSettings";
 import Checkout from "./Pages/Checkout/Checkout";
 import Orders from "./Pages/Orders/Orders";
 import Order from "./Components/Order/Order";
+import ProductDashboard from './Pages/BackOffice/ProductDashboard';
 
 
 const App = () => {
@@ -44,6 +45,7 @@ const App = () => {
                 <Route path="/checkout" element={<Checkout/>}/>
                 <Route path="/orders" element={<Orders/>}/>
                 <Route path="/orders/:orderId" element={<Order/>}/>
+                <Route path="/backoffice" element={<ProductDashboard/>}/>
             </Routes>
             <Footer />
             </CartProvider>

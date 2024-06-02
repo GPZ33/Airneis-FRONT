@@ -7,10 +7,12 @@ export class FetchRequest {
 
     addHeader(name, value){
         this.headers[name] = value;
+        return this;
     }
 
     withBody(body){
         this.body = JSON.stringify(body);
+        return this;
     }
 
     send(){
@@ -32,10 +34,17 @@ FetchRequest.post = function (ressource) {
     return new FetchRequest(ressource, "POST");
 }
 
+FetchRequest.put = function (ressource) {
+    const request = new FetchRequest(ressource, "PUT");
+    request.withBody(body)
+    return request;
+}
+
+FetchRequest.delete = function (ressource){
+    return new FetchRequest(ressource, "DELETE");
+}
+
 FetchRequest.patch = function (ressource) {
     return new FetchRequest(ressource, "PATCH");
 }
 
-FetchRequest.put = function (ressource) {
-    return new FetchRequest(ressource, "PATCH");
-}
