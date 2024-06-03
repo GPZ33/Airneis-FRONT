@@ -15,14 +15,19 @@ const EditProductDialog = ({ product, open, onClose, onSave, onChange, allMateri
     onChange('materials', product.materials.filter(m => m.id !== materialId));
   };
 
-  const handleCategoryChange = (categoryId) => {
+  const handleCategoryAdd = (categoryId) => {
     const category = allCategories.find(c => c.id === categoryId);
-    onChange('category', category ? [category] : []);
+    if (category && !product.category.some(cat => cat.id === categoryId)) {
+      onChange('category', [...product.category, category]);
+    }
+  };
+  
+  const handleCategoryRemove = (categoryId) => {
+    onChange('category', product.category.filter(cat => cat.id !== categoryId));
   };
 
   const handleImageChange = (imageId) => {
     const image = allImages.find(i => i.id === imageId);
-    console.log('Image to change:', image);
     if (image && !product.images.some(img => img.id === imageId)) {
       onChange('images', [...product.images, image]);
     }
@@ -47,16 +52,16 @@ const EditProductDialog = ({ product, open, onClose, onSave, onChange, allMateri
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Edit Product</DialogTitle>
+      <DialogTitle>Modification Produit</DialogTitle>
       <DialogContent>
         <TextField
-          label="Name"
+          label="Nom"
           value={product.name || ''}
           onChange={(e) => onChange('name', e.target.value)}
           fullWidth
         />
         <TextField
-          label="Price"
+          label="Prix"
           type="number"
           value={product.price || ''}
           onChange={(e) => {
@@ -78,23 +83,31 @@ const EditProductDialog = ({ product, open, onClose, onSave, onChange, allMateri
           fullWidth
         />
         <div>
-          <h4>Category</h4>
-          <Select
-            value={product.category.length > 0 ? product.category[0].id : ''}
-            onChange={(e) => handleCategoryChange(e.target.value)}
-            fullWidth
-            displayEmpty
-          >
-            <MenuItem value=""><em>None</em></MenuItem>
-            {allCategories.map((category) => (
-              <MenuItem key={category.id} value={category.id}>
-                {category.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </div>
+        <h4>Catégories</h4>
+        {product.category.map((category) => (
+          <Chip
+            key={category.id}
+            label={category.name}
+            onDelete={() => handleCategoryRemove(category.id)}
+            style={{ marginRight: '5px', marginBottom: '5px' }}
+          />
+        ))}
+        <Select
+          value=""
+          onChange={(e) => handleCategoryAdd(e.target.value)}
+          fullWidth
+          displayEmpty
+        >
+          <MenuItem value=""><em>Vide</em></MenuItem>
+          {allCategories.map((category) => (
+            <MenuItem key={category.id} value={category.id}>
+              {category.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </div>
         <div>
-          <h4>Materials</h4>
+          <h4>Matériaux</h4>
           {product.materials.map((material) => (
             <Chip
               key={material.id}
@@ -116,7 +129,7 @@ const EditProductDialog = ({ product, open, onClose, onSave, onChange, allMateri
               },
             }}
           >
-            <MenuItem value=""><em>None</em></MenuItem>
+            <MenuItem value=""><em>Vide</em></MenuItem>
             {allMaterials.map((material) => (
               <MenuItem key={material.id} value={material.id}>
                 {material.name}
@@ -147,7 +160,7 @@ const EditProductDialog = ({ product, open, onClose, onSave, onChange, allMateri
               },
             }}
           >
-            <MenuItem value=""><em>None</em></MenuItem>
+            <MenuItem value=""><em>Vide</em></MenuItem>
             {allImages.map((image) => (
               <MenuItem key={image.id} value={image.id}>
                 {image.contentUrl}
@@ -170,10 +183,10 @@ const EditProductDialog = ({ product, open, onClose, onSave, onChange, allMateri
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary">
-          Cancel
+          Annuler
         </Button>
         <Button onClick={handleSave} color="primary">
-          Save
+          Confirmer
         </Button>
       </DialogActions>
     </Dialog>

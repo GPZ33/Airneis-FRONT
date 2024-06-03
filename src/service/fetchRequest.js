@@ -2,9 +2,7 @@ export class FetchRequest {
     constructor(ressource, method) {
         this.url = "http://127.0.0.1:8000" + ressource;
         this.method = method;
-        this.headers = {
-            'Content-type': "application/json"
-        };
+        this.headers = {};
     }
 
     addHeader(name, value){
@@ -52,3 +50,4 @@ FetchRequest.delete = function (ressource){
 FetchRequest.patch = function (ressource) {
     return new FetchRequest(ressource, "PATCH");
 }
+
