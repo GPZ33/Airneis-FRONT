@@ -45,14 +45,14 @@ const App = () => {
 
     const ProtectedRoute = ({ element, requiredRole }) => {
         const roles = getRoles();
-        if (roles.includes(requiredRole)) {
+        const isAdmin = roles.includes("ROLE_ADMIN");
+        
+        if (isAdmin) {
             return element;
-        } else if (isAuthenticated) {
+        }  else {
             return <Navigate to="/" />;
-        } else {
-            return <Navigate to="/log_in" />;
         }
-    };
+    };    
 
     return (
         <BrowserRouter>
