@@ -10,7 +10,7 @@ function getUsers(token) {
 function updateUser(userId, token, data) {
     const request = FetchRequest.put("/api/users/" + userId);
     request.addHeader("Authorization", `Bearer ${token}`);
-    request.addHeader("Content-type", "application/merge-patch+json")
+    request.addHeader("Content-type", "application/ld+json")
     request.withBody(data);
     return request.send();
 }
