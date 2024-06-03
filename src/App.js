@@ -22,6 +22,7 @@ import Order from "./Components/Order/Order";
 import ProductDashboard from './Pages/BackOffice/ProductDashboard';
 import ProductCreation from './Pages/BackOffice/ProductCreation';
 import CategoryDashboard from './Pages/BackOffice/CategoryDashboard';
+import MaterialDashboard from './Pages/BackOffice/MaterialDashboard';
 
 
 const App = () => {
@@ -50,6 +51,7 @@ const App = () => {
                 <Route path="/backoffice" element={<ProductDashboard/>}/>
                 <Route path="/backoffice/product_creation" element={<ProductCreation/>}/>
                 <Route path="/backoffice/category_dashboard" element={<CategoryDashboard/>}/>
+                <Route path="/backoffice/material_dashboard" element={<MaterialDashboard/>}/>
             </Routes>
             <Footer />
             </CartProvider>

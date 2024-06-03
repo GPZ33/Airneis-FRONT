@@ -33,9 +33,23 @@ function createMaterial(material) {
         .send();
 }
 
+function putMaterial(material) {
+    const materialId = material['@id'].split('/').pop();
+    return FetchRequest.put(`/api/materials/${materialId}`)
+        .addHeader("Content-Type", "application/ld+json")
+        .addHeader("Accept", "application/ld+json")
+        .withBody(material)
+        .send();
+}
+
 function getMaterials() {
     return FetchRequest.get("/api/materials")
         .send();
 }
 
-export const materialApiService = { createMaterial, getMaterials, getAllMaterials };
+function deleteMaterial(materialId) {
+    return FetchRequest.delete(`/api/materials/${materialId}`)
+        .send();
+}
+
+export const materialApiService = { createMaterial, getMaterials, getAllMaterials, putMaterial, deleteMaterial };
