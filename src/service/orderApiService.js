@@ -1,9 +1,6 @@
 import {FetchRequest} from "./fetchRequest";
 
 
-function getImageDetails(imageId) {
-    return FetchRequest.get(imageId).send();
-}
 
 function getOrdersOfUser(token) {
     const request = FetchRequest.get("/api/orders");
@@ -25,10 +22,18 @@ function getOrderProducts(token) {
     return request.send();
 }
 
+function addOrderProducts(token, data) {
+    const request = FetchRequest.post("/api/order_products");
+    request.addHeader("Content-type", "application/ld+json");
+    request.addHeader("Authorization", `Bearer ` + token);
+    request.withBody(data);
+    return request.send();
+}
+
 function addOrder(token, data) {
     const request = FetchRequest.post("/api/orders");
     request.addHeader("Authorization", `Bearer ` + token);
-    request.addHeader("Content-type", "application/json");
+    request.addHeader("Content-type", "application/ld+json");
     request.withBody(data);
     return request.send();
 }
@@ -56,7 +61,7 @@ function deleteProductFromOrder(token, orderProductId) {
 }
 
 
-export const apiService = {
-   getImageDetails, getOrdersOfUser, getOrderById, getOrderProducts, addOrder, updateOrder, deleteOrder, deleteProductFromOrder
+export const orderApiService = {
+   getOrdersOfUser, getOrderById, getOrderProducts, addOrder, updateOrder, deleteOrder, deleteProductFromOrder, addOrderProducts
 
 };
