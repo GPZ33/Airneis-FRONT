@@ -15,6 +15,11 @@ export class FetchRequest {
         return this;
     }
 
+    withFormData(formData) {
+        this.body = formData;
+        return this;
+    }
+
     send(){
         return fetch(this.url, {method: this.method, headers: this.headers, body: this.body}).then(res => {
             if(!res.ok){

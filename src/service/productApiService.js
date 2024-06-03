@@ -5,6 +5,33 @@ function getProducts(page) {
         .send();
 }
 
+async function getAllProducts() {
+    let products = [];
+    let page = 1;
+    let totalPages = 1;
+
+    try {
+        while (page <= totalPages) {
+            const data = await FetchRequest.get(`/api/products?_page=${page}`).send();
+            products = [...products, ...data['hydra:member']];
+            if (data['hydra:view'] && data['hydra:view']['hydra:last']) {
+                const lastPageLink = data['hydra:view']['hydra:last'];
+                const match = lastPageLink.match(/_page=(\d+)/);
+                if (match && match[1]) {
+                    totalPages = parseInt(match[1]);
+                }
+            }
+
+            page += 1;
+        }
+    } catch (error) {
+        console.error('Error fetching products:', error);
+    }
+
+    return products;
+}
+
+
 function getHighlanders() {
     return FetchRequest.get("/api/products")
         .send();
@@ -17,6 +44,14 @@ function getProductById(productId) {
 
 function getMaterialsOfProductById(materialId){
     return FetchRequest.get(materialId).send();
+}
+
+function createProduct(product) {
+    return FetchRequest.post("/api/products")
+        .addHeader("Content-Type", "application/ld+json")
+        .addHeader("Accept", "application/ld+json")
+        .withBody(product)
+        .send();
 }
 
 function putProduct(product) {
@@ -44,5 +79,5 @@ function deleteProducts(productIds){
 }
 
 export const productApiService = {
-    getProducts, getHighlanders, getProductById, getMaterialsOfProductById, putProduct, deleteProduct, deleteProducts
+    getProducts, getAllProducts, getHighlanders, getProductById, getMaterialsOfProductById, createProduct, putProduct, deleteProduct, deleteProducts
 };

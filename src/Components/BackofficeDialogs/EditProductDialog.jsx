@@ -108,6 +108,13 @@ const EditProductDialog = ({ product, open, onClose, onSave, onChange, allMateri
             onChange={(e) => handleMaterialAdd(e.target.value)}
             fullWidth
             displayEmpty
+            MenuProps={{
+              PaperProps: {
+                style: {
+                  maxHeight: 200,
+                },
+              },
+            }}
           >
             <MenuItem value=""><em>None</em></MenuItem>
             {allMaterials.map((material) => (
@@ -132,6 +139,13 @@ const EditProductDialog = ({ product, open, onClose, onSave, onChange, allMateri
             onChange={(e) => handleImageChange(e.target.value)}
             fullWidth
             displayEmpty
+            MenuProps={{
+              PaperProps: {
+                style: {
+                  maxHeight: 200,
+                },
+              },
+            }}
           >
             <MenuItem value=""><em>None</em></MenuItem>
             {allImages.map((image) => (

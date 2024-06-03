@@ -20,6 +20,8 @@ import Checkout from "./Pages/Checkout/Checkout";
 import Orders from "./Pages/Orders/Orders";
 import Order from "./Components/Order/Order";
 import ProductDashboard from './Pages/BackOffice/ProductDashboard';
+import ProductCreation from './Pages/BackOffice/ProductCreation';
+import CategoryDashboard from './Pages/BackOffice/CategoryDashboard';
 
 
 const App = () => {
@@ -46,6 +48,8 @@ const App = () => {
                 <Route path="/orders" element={<Orders/>}/>
                 <Route path="/orders/:orderId" element={<Order/>}/>
                 <Route path="/backoffice" element={<ProductDashboard/>}/>
+                <Route path="/backoffice/product_creation" element={<ProductCreation/>}/>
+                <Route path="/backoffice/category_dashboard" element={<CategoryDashboard/>}/>
             </Routes>
             <Footer />
             </CartProvider>
