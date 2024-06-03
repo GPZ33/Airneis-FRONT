@@ -24,7 +24,7 @@ import ProductCreation from './Pages/BackOffice/ProductCreation';
 import CategoryDashboard from './Pages/BackOffice/CategoryDashboard';
 import MaterialDashboard from './Pages/BackOffice/MaterialDashboard';
 import AboutUs from "./Pages/AboutUs/AboutUs";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from 'jwt-decode';
 
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("isAuthenticated") === "true");
@@ -52,12 +52,12 @@ const App = () => {
         }  else {
             return <Navigate to="/" />;
         }
-    };    
+    };
 
     return (
         <BrowserRouter>
             <CartProvider>
-                <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
+                <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} roles={getRoles()} />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/categories/:categoryId" element={<ProductsOfCategory />} />
@@ -75,7 +75,7 @@ const App = () => {
                     <Route path="/orders" element={<Orders />} />
                     <Route path="/orders/:orderId" element={<Order />} />
                     <Route path="/about_us" element={<AboutUs />} />
-                    <Route path="/backoffice" element={<ProtectedRoute requiredRole="ROLE_ADMIN" element={<ProductDashboard />} />} />
+                    <Route path="/backoffice/product_dashboard" element={<ProtectedRoute requiredRole="ROLE_ADMIN" element={<ProductDashboard />} />} />
                     <Route path="/backoffice/product_creation" element={<ProtectedRoute requiredRole="ROLE_ADMIN" element={<ProductCreation />} />} />
                     <Route path="/backoffice/category_dashboard" element={<ProtectedRoute requiredRole="ROLE_ADMIN" element={<CategoryDashboard />} />} />
                     <Route path="/backoffice/material_dashboard" element={<ProtectedRoute requiredRole="ROLE_ADMIN" element={<MaterialDashboard />} />} />
@@ -87,3 +87,4 @@ const App = () => {
 }
 
 export default App;
+
