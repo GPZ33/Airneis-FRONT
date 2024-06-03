@@ -46,7 +46,7 @@ const App = () => {
     const ProtectedRoute = ({ element, requiredRole }) => {
         const roles = getRoles();
         const isAdmin = roles.includes("ROLE_ADMIN");
-        
+
         if (isAdmin) {
             return element;
         }  else {
@@ -87,4 +87,3 @@ const App = () => {
 }
 
 export default App;
-

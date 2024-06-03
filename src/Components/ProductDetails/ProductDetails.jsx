@@ -6,7 +6,8 @@ import SimilarProducts from "../SimilarProducts/SimilarProducts";
 import {useCart} from "../../Context/CartContext";
 import {productApiService} from "../../service/productApiService";
 import {categoryApiService} from "../../service/categoryApiService";
-import {apiService} from "../../service/apiService";
+import {orderApiService} from "../../service/orderApiService";
+import {imageApiService} from "../../service/imageApiService";
 
 
 const ProductDetails = () => {
@@ -61,7 +62,7 @@ const ProductDetails = () => {
         const fetchImages = async () => {
             try {
                 const imagesData = await Promise.all(product.images.map(
-                    async (image) => await apiService.getImageDetails(image['@id'])));
+                    async (image) => await imageApiService.getImageDetails(image['@id'])));
                 setImages(imagesData);
             } catch (error) {
                 console.error('Error fetching image details:', error.message);
@@ -101,7 +102,7 @@ const ProductDetails = () => {
                                             <p>Materials: {materials ? materials.map(material => material.name).join(', ') : 'Loading...'}</p>
                                         </div>
                                         {product.stock ? (
-                                            <button className="to-cart" onClick={handleAddToCart} >Ajouter dans le panier</button>
+                                            <button className="cart-button btn btn-primary btn-lg btn-block" onClick={handleAddToCart} >Ajouter dans le panier</button>
                                         ) : (
                                             <button className="out-of-stock">Out of stock</button>
                                         )}

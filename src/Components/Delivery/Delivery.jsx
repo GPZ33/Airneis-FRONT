@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import "./Delivery.css";
 import {Link} from "react-router-dom";
 import {userApiService} from "../../service/userApiService";
-import {apiService} from "../../service/apiService";
+import {orderApiService} from "../../service/orderApiService";
 import Addresses from "../Addresses/Addresses";
 
 
@@ -13,7 +13,6 @@ const Delivery = ({onContinueToPayment}) => {
     const addressId = localStorage.getItem("addressId");
     const [addresses, setAddresses] = useState([]);
     const userId = localStorage.getItem("userId");
-
 
     const calculateTotal = () =>
         cart.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -27,11 +26,14 @@ const Delivery = ({onContinueToPayment}) => {
 
     const handleContinueToPayment = async () => {
         try {
-            apiService.getOrderProducts(token).then(result => {
+
+            localStorage.setItem('deliveryName', document.getElementById('name').value);
+
+            orderApiService.getOrderProducts(token).then(result => {
                 const userOrderProducts = result["hydra:member"];
                 const newOrderProducts = userOrderProducts.filter(orderProduct => !orderProduct.idOrder);
 
-                apiService.addOrder(token,{
+                orderApiService.addOrder(token,{
                         idUser: "/api/users/" + userId,
                         idAdress: "/api/adresses/" + addressId,
                         state: "en cours de paiement",
