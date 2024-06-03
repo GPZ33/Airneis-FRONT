@@ -34,7 +34,7 @@ const LogIn = ({ setIsAuthenticated }) => {
                 const roles = decodedToken.roles || [];
                 console.log("roles", roles);
                 if (roles.includes("ROLE_ADMIN")) {
-                    navigate("/backoffice");
+                    navigate("/backoffice/product_dashboard");
                 } else {
                     navigate("/");
                 }

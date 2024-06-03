@@ -1,26 +1,20 @@
 import logo from "../Assets/logo.png";
-import {Link, useNavigate} from "react-router-dom";
-import React, {useContext, useEffect, useState} from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
 import "./Header.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from '@mui/icons-material/Search';
-import {useCart} from "../../Context/CartContext";
+import { useCart } from "../../Context/CartContext";
 
-
-const Header = ({isAuthenticated, setIsAuthenticated}) => {
+const Header = ({ isAuthenticated, setIsAuthenticated, roles }) => {
     const { cart } = useCart();
     const navigate = useNavigate();
-    const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0)
+    const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
     const [collapsedMenu, setCollapsedMenu] = useState(true);
 
     const handleToggleCollapse = () => {
-        if (collapsedMenu) {
-            setCollapsedMenu(false);
-        } else {
-            setCollapsedMenu(true)
-        }
+        setCollapsedMenu(!collapsedMenu);
     };
-
 
     const handleLogout = () => {
         setIsAuthenticated(false);
@@ -29,36 +23,47 @@ const Header = ({isAuthenticated, setIsAuthenticated}) => {
         setCollapsedMenu(true);
         navigate("/log_in");
     };
+
     useEffect(() => {
         const storedAuthStatus = localStorage.getItem("isAuthenticated");
         if (storedAuthStatus) {
             setIsAuthenticated(true);
         }
     }, []);
+
     return (
         <nav className="navbar navbar-light bg-light">
             <div className="container-fluid">
                 <div className="align-content-start d-flex justify-content-center align-items-center">
-                    <img className="menu-image p-1" src={logo} alt="logo"/>
+                    <img className="menu-image p-1" src={logo} alt="logo" />
                     <a className="navbar-brand" href="/">ÀIRNEIS</a>
+                    {isAuthenticated && roles.includes("ROLE_ADMIN") && (
+                        <div className="admin-links">
+                            <Link className="nav-link" to="/backoffice/product_dashboard">Dashboard Produits</Link>
+                            <Link className="nav-link" to="/backoffice/category_dashboard">Dashboard Catégories</Link>
+                            <Link className="nav-link" to="/backoffice/material_dashboard">Dashboard Matériaux</Link>
+                            <Link className="nav-link" to="/backoffice/product_creation">Créer un produit</Link>
+                        </div>
+                    )}
                 </div>
 
                 <div className="align-content-end d-flex">
-                    <Link className="flex-end px-1" to="/search"><SearchIcon
-                        sx={{color: "#151D53", fontSize: 40}}/></Link>
+                    <Link className="flex-end px-1" to="/search">
+                        <SearchIcon sx={{ color: "#151D53", fontSize: 40 }} />
+                    </Link>
                     <Link className="flex-end px-1" to="/cart">
-                        <ShoppingCartIcon sx={{color: "#151D53", fontSize: 40}}/>
+                        <ShoppingCartIcon sx={{ color: "#151D53", fontSize: 40 }} />
                         {totalQuantity > 0 && (
                             <span className="cart-count">{totalQuantity}</span>
                         )}
                     </Link>
 
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
-                            aria-label="Toggle navigation" >
+                        data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                        aria-label="Toggle navigation" onClick={handleToggleCollapse}>
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className={`collapse navbar-collapse ${collapsedMenu ? "" : "show"}`} onClick={handleToggleCollapse} id="navbarNavAltMarkup">
+                    <div className={`collapse navbar-collapse ${collapsedMenu ? "" : "show"}`} id="navbarNavAltMarkup">
                         <div className="navbar-nav ml-auto">
                             {isAuthenticated ? (
                                 <>
@@ -83,11 +88,8 @@ const Header = ({isAuthenticated, setIsAuthenticated}) => {
                         </div>
                     </div>
                 </div>
-
             </div>
         </nav>
-
-
     );
 };
 
