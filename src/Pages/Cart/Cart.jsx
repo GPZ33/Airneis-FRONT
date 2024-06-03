@@ -4,6 +4,8 @@ import './Cart.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import {Link} from "react-router-dom";
+import {userApiService} from "../../service/userApiService";
+import {apiService} from "../../service/apiService";
 
 
 
@@ -44,55 +46,32 @@ const Cart = () => {
             console.error('Error placing order:', error);
         }
     };
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const response = await fetch(`http://127.0.0.1:8000/api/users`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                if (!response.ok) {
-                    throw new Error("Failed to fetch user data");
-                }
-                const userDataResponse = await response.json();
 
-                setUserData({
-                    id: userDataResponse["hydra:member"][0].id
-                });
-                localStorage.setItem("userId", userDataResponse["hydra:member"][0].id);
+    //get user details
+    useEffect( () => {
+         userApiService.getUsers(token).then(result => {
+            setUserData({
+                id: result["hydra:member"][0].id
+            });
+            localStorage.setItem("userId", result["hydra:member"][0].id);
+        })
+    }, [token]);
+
+    //get images
+    useEffect( () => {
+        const fetchImages = async () => {
+            try {
+                const images = await Promise.all(cart.map(
+                    async (product) => await apiService.getImageDetails(product.images[0]['@id'])));
+                setImageData(images);
             } catch (error) {
-                console.error("Error fetching user data:", error);
+                console.error('Error fetching image details:', error.message);
             }
         };
-        fetchUserData();
-    }, []);
-    useEffect(() => {
-        const fetchImageData = async () => {
-            try {
-                const imageDataArray = [];
-                for (const item of cart) {
-                    if (item.images.length > 0) {
-                        const url = apiUrl + item.images[0]['@id'];
-                        const response = await fetch(url);
-                        if (!response.ok) {
-                            throw new Error(`Failed to fetch image data for ${item.name}`);
-                        }
-                        const imageData = await response.json();
-                        imageDataArray.push(imageData);
-                    } else {
-                          console.warn(`No images found for ${item.name}`);
-                    }
-                }
-                setImageData(imageDataArray);
-            } catch (error) {
-                console.error('Error fetching image data:', error);
-            }
-        };
-
-        fetchImageData();
-
-    }, [cart, apiUrl]);
+        if (cart) {
+            fetchImages();
+        }
+    }, [cart]);
 
 
     return (
@@ -162,7 +141,7 @@ const Cart = () => {
                                                                     </div>
                                                                     {/* Price */}
                                                                     <p className="text-start text-md-center">
-                                                                        <strong>Prix: ${item.price * item.quantity}</strong>
+                                                                        <strong>Prix: ${(item.price * item.quantity).toFixed(2)}</strong>
                                                                     </p>
                                                                     <p className="text-start text-md-center">
                                                                         TVA: ${(item.price * item.quantity * 0.2).toFixed(2)}
@@ -194,7 +173,7 @@ const Cart = () => {
                                                     <div>
                                                         <strong>Montant total</strong>
                                                     </div>
-                                                    <span><strong>${calculateTotal()}</strong></span>
+                                                    <span><strong>${(calculateTotal().toFixed(2))}</strong></span>
                                                 </li>
                                                 <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                                     <div>

@@ -1,5 +1,4 @@
 import {FetchRequest} from "./fetchRequest";
-const token = localStorage.getItem("token");
 
 
 function getImageDetails(imageId) {
@@ -32,8 +31,28 @@ function addOrder(token, data) {
     return request.send();
 }
 
+function updateOrder(token, orderId, data) {
+    const request = FetchRequest.patch("/api/orders/" + orderId);
+    request.addHeader("Authorization", `Bearer ` + token);
+    request.addHeader("Content-type", "application/merge-patch+json");
+    request.withBody(data);
+    return request.send();
+}
+
+function deleteOrder(token, orderId) {
+    const request = FetchRequest.delete("/api/orders/" + orderId);
+    request.addHeader("Authorization", `Bearer ` + token);
+    return request.send();
+}
+
+function deleteProductFromOrder(token, orderProductId) {
+    const request = FetchRequest.delete("/api/order_products/" + orderProductId);
+    request.addHeader("Authorization", `Bearer ` + token);
+    return request.send();
+}
+
 
 export const apiService = {
-   getImageDetails, getOrdersOfUser, getOrderById, getOrderProducts, addOrder
+   getImageDetails, getOrdersOfUser, getOrderById, getOrderProducts, addOrder, updateOrder, deleteOrder, deleteProductFromOrder
 
 };
