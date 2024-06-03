@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {apiService} from "../../service/apiService";
+import {orderApiService} from "../../service/orderApiService";
 import {useNavigate} from "react-router-dom";
 
 
-const Payment = () => {
+const Payment = ({onContinueToThankYou}) => {
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
     const orderId = localStorage.getItem("orderId");
@@ -23,8 +23,7 @@ const Payment = () => {
         }));
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
         localStorage.setItem('cardInfo', JSON.stringify(cardInfo));
         console.log('Payment submitted:', cardInfo);
         setCardInfo({
@@ -34,14 +33,12 @@ const Payment = () => {
             cvv: ''
         });
 
-        await apiService.updateOrder(token, orderId, {state: "commandé"});
-        navigate("/orders/" + orderId);
-        localStorage.removeItem("orderId");
+        await orderApiService.updateOrder(token, orderId, {state: "commandé"});
     };
 
     //get orders of user
     useEffect(() => {
-        apiService.getOrdersOfUser(token).then(result => {
+        orderApiService.getOrdersOfUser(token).then(result => {
             setOrders(result["hydra:member"][orders.length - 1]);
             console.log(orders)
         })
@@ -86,7 +83,10 @@ const Payment = () => {
                             </div>
                         </div>
                         <hr className="mb-4" />
-                        <button className="btn btn-primary btn-lg btn-block cart-button" type="submit">Valider le paiement</button>
+                        <button className="btn btn-primary btn-lg btn-block cart-button" type="submit" onClick={() => {
+                            handleSubmit();
+                            onContinueToThankYou();
+                        }}>Valider le paiement</button>
                     </div>
                 </form>
             </div>

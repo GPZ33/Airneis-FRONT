@@ -5,11 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import {Link} from "react-router-dom";
 import {userApiService} from "../../service/userApiService";
-import {apiService} from "../../service/apiService";
+import {orderApiService} from "../../service/orderApiService";
+import {imageApiService} from "../../service/imageApiService";
 
 
-
-const Cart = () => {
+const Cart = ({isAuthenticated}) => {
     const { cart, incrementQuantity, decrementQuantity, removeFromCart } = useCart();
     const [imageData, setImageData] = useState([]);
     const apiUrl = "http://127.0.0.1:8000";
@@ -18,51 +18,25 @@ const Cart = () => {
         id: 0
     });
 
-    const calculateTotal = () =>
-        cart.reduce((total, item) => total + item.price * item.quantity, 0);
-
-    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-
-    const handleOrder = async () => {
-        try {
-            for (const item of cart) {
-                const response = await fetch(apiUrl + '/api/order_products', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/ld+json',
-                         Authorization: `Bearer ${token}`
-                    },
-                    body: JSON.stringify({
-                        idProduct: "/api/products/" + item.id,
-                        quantity: item.quantity,
-                        idUser: "/api/users/" + userData.id
-                    }),
-                });
-                if (!response.ok) {
-                    throw new Error(`Failed to place order for ${item.name}`);
-                }
-            }
-        } catch (error) {
-            console.error('Error placing order:', error);
-        }
-    };
-
     //get user details
     useEffect( () => {
-         userApiService.getUsers(token).then(result => {
-            setUserData({
-                id: result["hydra:member"][0].id
-            });
-            localStorage.setItem("userId", result["hydra:member"][0].id);
-        })
-    }, [token]);
+        if (isAuthenticated) {
+            userApiService.getUsers(token).then(result => {
+                setUserData({
+                    id: result["hydra:member"][0].id
+                });
+                localStorage.setItem("userId", result["hydra:member"][0].id);
+            })
+        }
+
+    }, [token, isAuthenticated]);
 
     //get images
     useEffect( () => {
         const fetchImages = async () => {
             try {
                 const images = await Promise.all(cart.map(
-                    async (product) => await apiService.getImageDetails(product.images[0]['@id'])));
+                    async (product) => await imageApiService.getImageDetails(product.images[0]['@id'])));
                 setImageData(images);
             } catch (error) {
                 console.error('Error fetching image details:', error.message);
@@ -72,6 +46,28 @@ const Cart = () => {
             fetchImages();
         }
     }, [cart]);
+
+
+    const calculateTotalPrice = () =>
+        cart.reduce((total, item) => total + item.price * item.quantity, 0);
+
+    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+
+    const handleOrder = async () => {
+        try {
+            for (const item of cart) {
+                orderApiService.addOrderProducts(token, {
+                    idProduct: "/api/products/" + item.id,
+                    quantity: item.quantity,
+                    idUser: "/api/users/" + userData.id
+                })
+            }
+        } catch (error) {
+            console.error('Error placing order:', error);
+        }
+    };
+
+
 
 
     return (
@@ -173,24 +169,36 @@ const Cart = () => {
                                                     <div>
                                                         <strong>Montant total</strong>
                                                     </div>
-                                                    <span><strong>${(calculateTotal().toFixed(2))}</strong></span>
+                                                    <span><strong>${(calculateTotalPrice().toFixed(2))}</strong></span>
                                                 </li>
                                                 <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                                     <div>
                                                         <strong>TVA</strong>
                                                     </div>
-                                                    <span>${(calculateTotal() * 0.2).toFixed(2)}</span>
+                                                    <span>${(calculateTotalPrice() * 0.2).toFixed(2)}</span>
                                                 </li>
                                             </ul>
-                                            <Link to="/checkout">
-                                                <button type="button"
-                                                        className="cart-button btn btn-primary btn-lg btn-block"
-                                                        disabled={cart.length === 0}
-                                                        onClick={handleOrder}
-                                                >
-                                                    Continuer au livraison
-                                                </button>
-                                            </Link>
+                                            {isAuthenticated ? (
+                                                <Link to="/checkout">
+                                                    <button type="button"
+                                                            className="cart-button btn btn-primary btn-lg btn-block"
+                                                            disabled={cart.length === 0}
+                                                            onClick={handleOrder}
+                                                    >
+                                                        Continuer au livraison
+                                                    </button>
+                                                </Link>
+                                            ) : (
+                                                <Link to="/log_in">
+                                                    <button type="button"
+                                                            className="cart-button btn btn-primary btn-lg btn-block"
+                                                            disabled={cart.length === 0}
+                                                    >
+                                                        Connectez-vous pour continuez
+                                                    </button>
+                                                </Link>
+                                            )}
+
                                         </div>
                                     </div>
                                 </div>
