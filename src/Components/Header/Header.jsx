@@ -21,9 +21,6 @@ const Header = ({isAuthenticated, setIsAuthenticated}) => {
         }
     };
 
-    const handleMenuSelection = () => {
-        setCollapsedMenu(true);
-    };
 
     const handleLogout = () => {
         setIsAuthenticated(false);
@@ -65,12 +62,12 @@ const Header = ({isAuthenticated, setIsAuthenticated}) => {
                         <div className="navbar-nav ml-auto">
                             {isAuthenticated ? (
                                 <>
-                                    <Link className="nav-link" to="/user_settings" >Mes paramètres</Link>
+                                    <Link className="nav-link" to="/user_settings" onClick={handleToggleCollapse}>Mes paramètres</Link>
                                     <Link className="nav-link" to="/orders">Mes commandes</Link>
                                     <Link className="nav-link" to="/CGU">CGU</Link>
-                                    <Link className="nav-link" to="/legal">Mentions légales</Link>
+                                    <Link className="nav-link" to="/legal_notice">Mentions légales</Link>
                                     <Link className="nav-link" to="/contact">Contact</Link>
-                                    <Link className="nav-link" to="/about">A propos d'AIRNEIS</Link>
+                                    <Link className="nav-link" to="/about_us">A propos d'AIRNEIS</Link>
                                     <button className="nav-link" onClick={handleLogout}>Se déconnecter</button>
                                 </>
                             ) : (
@@ -78,9 +75,9 @@ const Header = ({isAuthenticated, setIsAuthenticated}) => {
                                     <Link className="nav-link" to="/log_in">Se connecter</Link>
                                     <Link className="nav-link" to="/sign_up">S'inscrire</Link>
                                     <Link className="nav-link" to="/CGU">CGU</Link>
-                                    <Link className="nav-link" to="/legal">Mentions légales</Link>
+                                    <Link className="nav-link" to="/legal_notice">Mentions légales</Link>
                                     <Link className="nav-link" to="/contact">Contact</Link>
-                                    <Link className="nav-link" to="/about">A propos d'AIRNEIS</Link>
+                                    <Link className="nav-link" to="/about_us">A propos d'AIRNEIS</Link>
                                 </>
                             )}
                         </div>
