@@ -1,331 +1,342 @@
 const TermsAndConditions = () => {
-    return (
-        <div className="p-5">
-            <h1 className="title text-center">Terms of Use</h1>
+    return (<div className="p-5">
+            <h1 className="title text-center">Conditions d'utilisation</h1>
             <br/>
-            <h2>OVERVIEW</h2>
+            <h2>APERÇU</h2>
             <br/>
-            <p>This website is operated by Àirneis. Throughout the site, the terms "we", "us" and
-                "our" refer to Àirneis. This website, including all information, tools and services available
-                from this site to you, the user, conditioned upon your acceptance of all terms, conditions,
-                policies and notices stated here.
-                By visiting our site and/or purchasing something from us, you engage in our
-                "Service" and agree to be bound by the following terms and conditions ("Terms of Service",
-                "Terms"), including those additional terms and conditions and policies referenced herein
-                and/or available by hyperlink. These Terms of Service apply to all users of the
-                site, including without limitation users who are browsers, vendors, customers,
-                merchants, and/or contributors of content. Please read these Terms of Service
-                carefully before accessing or using our website. By accessing or using any
-                part of the site, you agree to be bound by these Terms of Service. If you do
-                not agree to all the terms and conditions of this agreement, then you may
-                not access the website or use any services. If these Terms of Service are
-                considered an offer, acceptance is expressly limited to these terms.
+            <p>Ce site est exploité par Àirneis. Tout au long du site, les termes "nous", "notre" et
+                "nos" font référence à Àirneis. Ce site, y compris toutes les informations, outils et services
+                disponibles
+                sur ce site, sont conditionnés par votre acceptation de tous les termes, conditions,
+                politiques et avis énoncés ici.
+                En visitant notre site et/ou en achetant quelque chose chez nous, vous participez à notre
+                "Service" et acceptez d'être lié par les termes et conditions suivants ("Conditions de service",
+                "Conditions"), y compris ceux énoncés dans les termes et conditions supplémentaires et politiques
+                référencés ici et/ou disponibles par lien hypertexte. Ces Conditions de service s'appliquent à tous les
+                utilisateurs du
+                site, y compris, sans limitation, les utilisateurs qui sont des navigateurs, des fournisseurs, des
+                clients,
+                des marchands et/ou des contributeurs de contenu. Veuillez lire attentivement ces Conditions de service
+                avant d'accéder à notre site Web ou de l'utiliser. En accédant ou en utilisant une
+                partie du site, vous acceptez d'être lié par ces Conditions de service. Si vous n'acceptez pas
+                tous les termes et conditions de cet accord, vous ne pouvez pas accéder au site Web ou utiliser les
+                services. Si ces
+                Conditions de service sont considérées comme une offre, l'acceptation est expressément limitée à ces
+                termes.
                 <br/>
                 <br/>
-                Any new features or tools which are added to the current store shall also be
-                subject to the Terms of Service. You can review the most current version of the
-                Terms of Service at any time on this page. We reserve the right to update, change
-                or replace any part of these Terms of Service by posting updates and/or changes
-                to our website. It is your responsibility to check this page periodically for
-                changes. Your continued use of or access to the website following the posting
-                of any changes constitutes acceptance of those changes. Our store is hosted on OVH.
-                They provide us with the online e-commerce platform that allows us to sell our
-                products and services to you.</p>
-            <br/>
-            <br/>
-            <br/>
-            <h4>1 – ONLINE STORE TERMS</h4>
-            <p>By agreeing to these Terms of Service, you represent that you are at least
-                the age of majority in your state or province of residence, or that you are
-                the age of majority in your state or province of residence and you have given
-                us your consent to allow any of your minor dependents to use this site.
-                <br/>
-                <br/>
-                You may not use our products for any illegal or unauthorized purpose nor
-                may you, in the use of the Service, violate any laws in your jurisdiction
-                (including but not limited to copyright laws).
-                <br/>
-                <br/>
-                You must not transmit any worms or viruses or any code of a destructive nature.
-                <br/>
-                <br/>
-                A breach or violation of any of the Terms will result in an immediate
-                termination of your Services.</p>
+                Toutes les nouvelles fonctionnalités ou outils qui sont ajoutés au magasin actuel seront également
+                soumis aux Conditions de service. Vous pouvez consulter la version la plus récente de la
+                Conditions de service à tout moment sur cette page. Nous nous réservons le droit de mettre à jour, de
+                modifier
+                ou de remplacer toute partie de ces Conditions de service en publiant des mises à jour et/ou des
+                modifications
+                sur notre site Web. Il est de votre responsabilité de consulter cette page périodiquement pour
+                les changements. Votre utilisation continue ou votre accès au site Web après la publication
+                de tout changement constitue l'acceptation de ces changements. Notre magasin est hébergé sur OVH.
+                Ils nous fournissent la plateforme de commerce électronique en ligne qui nous permet de vendre nos
+                produits et services.</p>
             <br/>
             <br/>
             <br/>
-            <h4>2 – GENERAL CONDITIONS</h4>
-            <p>We reserve the right to refuse service to anyone for any reason at any time.
+            <h4>1 – CONDITIONS DE LA BOUTIQUE EN LIGNE</h4>
+            <p>En acceptant ces Conditions de service, vous déclarez que vous avez au moins
+                l'âge de la majorité dans votre État ou province de résidence, ou que vous avez
+                l'âge de la majorité dans votre État ou province de résidence et que vous avez donné
+                votre consentement à vos enfants mineurs d'utiliser ce site.
                 <br/>
-                You understand that your content (not including credit card information),
-                may be transferred unencrypted and involve (a) transmissions over various
-                networks; and (b) changes to conform and adapt to technical requirements
-                of connecting networks or devices. Credit card information is always encrypted
-                during transfer over networks.
+                <br/>
+                Vous ne pouvez pas utiliser nos produits à des fins illégales ou non autorisées ni
+                violer les lois de votre juridiction (y compris, mais sans s'y limiter, les lois sur le droit d'auteur).
+                <br/>
+                <br/>
+                Vous ne devez pas transmettre de vers ou de virus ou tout code de nature destructrice.
+                <br/>
+                <br/>
+                Une violation de l'une quelconque des Conditions entraînera une résiliation immédiate
+                de vos services.</p>
+            <br/>
+            <br/>
+            <br/>
+            <h4>2 – CONDITIONS GÉNÉRALES</h4>
+            <p>Nous nous réservons le droit de refuser le service à quiconque pour quelque raison que ce soit à tout
+                moment.
+                <br/>
+                Vous comprenez que votre contenu (à l'exception des informations de carte de crédit),
+                peut être transféré non crypté et impliquer (a) des transmissions sur divers
+                réseaux; et (b) des changements pour se conformer et s'adapter aux exigences techniques
+                de connexion des réseaux ou des appareils. Les informations de carte de crédit sont toujours cryptées
+                lors du transfert sur les réseaux.
                 <br/><br/>
-                You agree not to reproduce, duplicate, copy, sell, resell or exploit any
-                portion of the Service, use of the Service, or access to the Service or
-                any contact on the website through which the service is provided, without
-                express written permission by us.
+                Vous acceptez de ne pas reproduire, dupliquer, copier, vendre, revendre ou exploiter
+                une partie du Service, l'utilisation du Service, ou l'accès au Service ou
+                tout contact sur le site Web par lequel le service est fourni, sans
+                l'autorisation écrite expresse de notre part.
                 <br/><br/>
-                The headings used in this agreement are included for convenience only and
-                will not limit or otherwise affect these Terms.</p>
+                Les titres utilisés dans cet accord sont inclus pour plus de commodité seulement et
+                n'affectera pas ou autrement ces Conditions.</p>
             <br/><br/><br/>
-            <h4>3 – ACCURACY, COMPLETENESS AND TIMELINESS OF INFORMATION</h4>
-            <p>We are not responsible if information made available on this site is not
-                accurate, complete or current. The material on this site is provided for
-                general information only and should not be relied upon or used as the sole
-                basis for making decisions without consulting primary, more accurate, more
-                complete or more timely sources of information. Any reliance on the material
-                on this site is at your own risk.
+            <h4>3 – PRÉCISION, EXHAUSTIVITÉ ET ACTUALITÉ DES INFORMATIONS</h4>
+            <p>Nous ne sommes pas responsables si les informations disponibles sur ce site ne sont pas
+                précises, complètes ou à jour. Le matériel sur ce site est fourni pour
+                des informations générales uniquement et ne doivent pas être utilisées comme base
+                unique pour prendre des décisions sans consulter des sources primaires, plus précises, plus
+                complètes ou plus opportunes d'informations. Toute confiance dans le matériel
+                sur ce site se fait à vos propres risques.
                 <br/><br/>
-                This site may contain certain historical information. Historical information,
-                necessarily, is not current and is provided for your reference only. We
-                reserve the right to modify the contents of this site at any time, but we
-                have no obligation to update any information on our site. You agree that
-                it is your responsibility to monitor changes to our site.</p>
+                Ce site peut contenir certaines informations historiques. Les informations historiques,
+                nécessairement, ne sont pas actuelles et sont fournies à titre de référence seulement. Nous
+                nous réservons le droit de modifier le contenu de ce site à tout moment, mais nous
+                n'avons aucune obligation de mettre à jour les informations sur notre site. Vous convenez que
+                il est de votre responsabilité de surveiller les changements sur notre site.</p>
             <br/><br/><br/>
-            <h4>4 – MODIFICATIONS TO THE SERVICE AND PRICES</h4>
-            <p>Prices for our products are subject to change without notice.
+            <h4>4 – MODIFICATIONS DU SERVICE ET DES PRIX</h4>
+            <p>Les prix de nos produits sont sujets à changement sans préavis.
                 <br/><br/>
-                We reserve the right at any time to modify or discontinue the Service
-                (or any part or content thereof) without notice at any time.
+                Nous nous réservons le droit à tout moment de modifier ou d'interrompre le Service
+                (ou toute partie ou contenu de celui-ci) sans préavis à tout moment.
                 <br/><br/>
-                We shall not be liable to you or to any third-party for any modification,
-                price change, suspension or discontinuance of the Service.</p>
+                Nous ne serons pas responsables envers vous ou envers un tiers pour toute modification,
+                changement de prix, suspension ou interruption du Service.</p>
             <br/><br/><br/>
-            <h4>5 – PRODUCTS OR SERVICES (if applicable)</h4>
-            <p>Certain products or services may be available exclusively online through
-                the website. These products or services may have limited quantities and
-                are subject to return or exchange only according to our Return Policy.
+            <h4>5 – PRODUITS OU SERVICES (le cas échéant)</h4>
+            <p>Certains produits ou services peuvent être disponibles exclusivement en ligne via
+                le site Web. Ces produits ou services peuvent avoir des quantités limitées et
+                sont sujets à retour ou échange seulement selon notre Politique de retour.
                 <br/><br/>
-                We have made every effort to display as accurately as possible the colors
-                and images of our products that appear at the store. We cannot guarantee
-                that your computer monitor's display of any color will be accurate.
-                We reserve the right, but are not obligated, to limit the sales of our
-                products or Services to any person, geographic region or jurisdiction.
-                We may exercise this right on a case-by-case basis. We reserve the right
-                to limit the quantities of any products or services that we offer. All
-                descriptions of products or product pricing are subject to change at
-                anytime without notice, at the sole discretion of us. We reserve the
-                right to discontinue any product at any time. Any offer for any product
-                or service made on this site is void where prohibited by law.
+                Nous avons fait tous les efforts pour afficher aussi précisément que possible les couleurs
+                et les images de nos produits qui apparaissent dans le magasin. Nous ne pouvons pas garantir
+                que l'affichage de toute couleur sur votre moniteur d'ordinateur sera précis.
+                Nous nous réservons le droit, mais ne sommes pas obligés, de limiter la vente de nos
+                produits ou services à toute personne, région géographique ou juridiction.
+                Nous pouvons exercer ce droit au cas par cas. Nous nous réservons le droit
+                de limiter les quantités de tout produit ou service que nous offrons. Toutes
+                les descriptions de produits ou les prix des produits sont sujets à changement à
+                tout moment sans préavis, à la seule discrétion de notre part. Nous nous réservons le
+                droit d'interrompre un produit à tout moment. Toute offre pour tout produit
+                ou service faite sur ce site est nulle là où la loi l'interdit.
                 <br/><br/>
-                We do not warrant that the quality of any products, services, information,
-                or other material purchased or obtained by you will meet your expectations,
-                or that any errors in the Service will be corrected.</p>
+                Nous ne garantissons pas que la qualité de tous les produits, services, informations
+                ou autres matériaux achetés ou obtenus par vous répondra à vos attentes,
+                ou que toute erreur dans le Service sera corrigée.</p>
             <br/><br/><br/>
-            <h4>6 – ACCURACY OF BILLING AND ACCOUNT INFORMATION</h4>
-            <p>We reserve the right to refuse any order you place with us. We may, in our
-                sole discretion, limit or cancel quantities purchased per person, per household
-                or per order. These restrictions may include orders placed by or under the
-                same customer account, the same credit card, and/or orders that use the same
-                billing or shipping address. In the event that we make a change to or cancel
-                an order, we may attempt to notify you by contacting the e-mail and/or billing
-                address/phone number provided at the time the order was made. We reserve the
-                right to limit or prohibit orders that, in our sole judgment, appear to be
-                placed by dealers, resellers or distributors.
-                You agree to provide current, complete and accurate purchase and account
-                information for all purchases made at our store. You agree to promptly update
-                your account and other information, including your email address and credit
-                card numbers and expiration dates, so that we can complete your transactions
-                and contact you as needed.
+            <h4>6 – PRÉCISION DE LA FACTURATION ET DES INFORMATIONS DE COMPTE</h4>
+            <p>Nous nous réservons le droit de refuser toute commande que vous passez chez nous. Nous pouvons, à notre
+                seule discrétion, limiter ou annuler les quantités achetées par personne, par foyer
+                ou par commande. Ces restrictions peuvent inclure les commandes passées par ou sous le
+                même compte client, la même carte de crédit et/ou les commandes qui utilisent la même
+                adresse de facturation ou d'expédition. Dans le cas où nous apportons des modifications ou annulons
+                une commande, nous pouvons tenter de vous en informer en contactant l'e-mail et/ou l'adresse de
+                facturation/téléphone
+                fournis au moment de la commande. Nous nous réservons le droit de limiter ou d'interdire
+                les commandes qui, à notre seul jugement, semblent être passées par des revendeurs,
+                des revendeurs ou des distributeurs.
+                Vous acceptez de fournir des informations d'achat et de compte actuelles, complètes et précises
+                pour toutes les achats effectués dans notre magasin. Vous acceptez de mettre à jour rapidement
+                vos informations de compte et autres informations, y compris votre adresse e-mail et vos numéros de
+                carte de crédit et
+                dates d'expiration, afin que nous puissions compléter vos transactions et vous contacter au besoin.
                 <br/><br/>
-                For more detail, please review our Returns Policy.</p>
+                Pour plus de détails, veuillez consulter notre Politique de retour.</p>
             <br/><br/><br/>
-            <h4>7 – OPTIONAL TOOLS</h4>
-            <p>We may provide you with access to third-party tools over which we neither monitor
-                nor have any control nor input.
+            <h4>7 – OUTILS OPTIONNELS</h4>
+            <p>Nous pouvons vous fournir l'accès à des outils tiers sur lesquels nous ne surveillons ni n'avons aucun
+                contrôle ni entrée.
                 <br/><br/>
-                You acknowledge and agree that we provide access to such tools "as is" and "as
-                available" without any warranties, representations or conditions of any kind
-                and without any endorsement. We shall have no liability whatsoever arising from
-                or relating to your use of optional third-party tools.
+                Vous reconnaissez et acceptez que nous fournissons l'accès à de tels outils "tels quels" et "selon
+                disponibilité" sans aucune garantie, représentation ou condition d'aucune sorte et sans aucune
+                approbation. Nous n'aurons aucune responsabilité envers vous découlant de ou liée à votre utilisation
+                d'outils tiers optionnels.
                 <br/><br/>
-                Any use by you of optional tools offered through the site is entirely at your
-                own risk and discretion and you should ensure that you are familiar with and
-                approve of the terms on which tools are provided by the relevant third-party
-                provider(s).
+                Toute utilisation de votre part d'outils optionnels offerts via le site se fait entièrement à vos
+                risques et à votre discrétion, et vous devez vous assurer que vous êtes familier et approuvez les
+                conditions selon lesquelles les outils sont fournis par les fournisseurs tiers concernés.
                 <br/><br/>
-                We may also, in the future, offer new services and/or features through the website
-                (including, the release of new tools and resources). Such new features and/or
-                services shall also be subject to these Terms of Service.</p>
+                Nous pouvons également, à l'avenir, offrir de nouveaux services et/ou fonctionnalités via le site Web
+                (y compris la publication de nouveaux outils et ressources). Ces nouvelles fonctionnalités et/ou
+                services seront également soumis à ces Conditions de service.</p>
             <br/><br/><br/>
-            <h4>8 – THIRD-PARTY LINKS</h4>
-            <p>Certain content, products and services available via our Service may include
-                materials from third-parties.
+            <h4>8 – LIENS VERS DES TIERS</h4>
+            <p>Certain contenu, produits et services disponibles via notre Service peuvent inclure
+                des matériaux de tiers.
                 <br/><br/>
-                Third-party links on this site may direct you to third-party websites that
-                are not affiliated with us. We are not responsible for examining or evaluating
-                the content or accuracy and we do not warrant and will not have any liability
-                or responsibility for any third-party materials or websites, or for any other
-                materials, products, or services of third-parties.
+                Les liens de tiers sur ce site peuvent vous diriger vers des sites Web de tiers qui
+                ne sont pas affiliés à nous. Nous ne sommes pas responsables de l'examen ou de l'évaluation
+                du contenu ou de l'exactitude et nous ne garantissons pas et n'aurons aucune responsabilité
+                ou obligation pour tout matériel ou site Web tiers, ou pour tout autre
+                matériel, produits ou services de tiers.
                 <br/><br/>
-                We are not liable for any harm or damages related to the purchase or use of
-                goods, services, resources, content, or any other transactions made in connection
-                with any third-party websites. Please review carefully the third-party's policies
-                and practices and make sure you understand them before you engage in any
-                transaction. Complaints, claims, concerns, or questions regarding third-party
-                products should be directed to the third-party.</p>
+                Nous ne sommes pas responsables de tout dommage ou préjudice lié à l'achat ou à l'utilisation de
+                biens, services, ressources, contenu ou toute autre transaction effectuée en relation avec
+                des sites Web tiers. Veuillez examiner attentivement les politiques et pratiques des tiers
+                et assurez-vous de les comprendre avant de participer à toute transaction. Plaintes, demandes,
+                préoccupations
+                ou questions concernant les produits tiers doivent être adressées au tiers.</p>
             <br/><br/><br/>
-            <h4>9 – USER COMMENTS, FEEDBACK AND OTHER SUBMISSIONS</h4>
-            <p>If, at our request, you send certain specific submissions (for example contest
-                entries) or without a request from us you send creative ideas, suggestions,
-                proposals, plans, or other materials, whether online, by email, by postal
-                mail, or otherwise (collectively, 'comments'), you agree that we may, at any
-                time, without restriction, edit, copy, publish, distribute, translate and
-                otherwise use in any medium any comments that you forward to us. We are and
-                shall be under no obligation (1) to maintain any comments in confidence;
-                (2) to pay compensation for any comments; or (3) to respond to any comments.
-                We may, but have no obligation to, monitor, edit or remove content that we
-                determine in our sole discretion are unlawful, offensive, threatening,
-                libelous, defamatory, pornographic, obscene or otherwise objectionable or
-                violates any party’s intellectual property or these Terms of Service.
-                You agree that your comments will not violate any right of any third-party,
-                including copyright, trademark, privacy, personality or other personal or
-                proprietary right. You further agree that your comments will not contain
-                libelous or otherwise unlawful, abusive or obscene material, or contain any
-                computer virus or other malware that could in any way affect the operation
-                of the Service or any related website. You may not use a false e-mail address,
-                pretend to be someone other than yourself, or otherwise mislead us or
-                third-parties as to the origin of any comments. You are solely responsible
-                for any comments you make and their accuracy. We take no responsibility and
-                assume no liability for any comments posted by you or any third-party.</p>
+            <h4>9 – COMMENTAIRES DES UTILISATEURS, RETROACTIONS ET AUTRES SOUMISSIONS</h4>
+            <p>Si, à notre demande, vous envoyez certaines soumissions spécifiques (par exemple des concours
+                inscriptions) ou sans une demande de notre part, vous envoyez des idées créatives, suggestions,
+                propositions, plans ou autres matériaux, que ce soit en ligne, par e-mail, par postal
+                courrier ou autrement (collectivement, "commentaires"), vous acceptez que nous puissions, à tout
+                moment, sans restriction, éditer, copier, publier, distribuer, traduire et
+                utiliser autrement dans n'importe quel support tous les commentaires que vous nous envoyez. Nous sommes
+                et
+                sera sous aucune obligation (1) de maintenir tous les commentaires en confiance;
+                (2) pour payer une compensation pour tout commentaire; ou (3) répondre à tout commentaire.
+                Nous pouvons, mais n'avons aucune obligation de, surveiller, éditer ou supprimer le contenu que nous
+                déterminer à notre seule discrétion sont illégaux, offensants, menaçants,
+                diffamatoire, diffamatoire, pornographique, obscène ou autrement répréhensible ou
+                enfreint la propriété intellectuelle d'une partie ou ces Conditions de service.
+                Vous acceptez que vos commentaires ne violeront aucun droit de tout tiers,
+                y compris les droits d'auteur, les marques, la vie privée, la personnalité ou autres
+                droit personnel ou propriétaire. Vous acceptez en outre que vos commentaires ne contiennent pas
+                diffamatoire ou autrement illégal, abusif ou obscène, ou contenir toute
+                virus informatique ou autre logiciel malveillant qui pourrait d'une manière quelconque affecter le
+                fonctionnement
+                du Service ou de tout site Web connexe. Vous ne pouvez pas utiliser une fausse adresse e-mail,
+                prétendez être quelqu'un d'autre, ou autrement nous induire en erreur ou
+                tiers quant à l'origine de tout commentaire. Vous êtes seul responsable de
+                tout commentaire que vous faites et de leur exactitude. Nous ne sommes pas responsables et
+                n'assumer aucune responsabilité pour tout commentaire publié par vous ou tout tiers.</p>
             <br/><br/><br/>
-            <h4>10 – PERSONAL INFORMATION</h4>
-            <p>Your submission of personal information through the store is governed by our
-                Privacy Policy. To view our Privacy Policy.</p>
+            <h4>10 – INFORMATIONS PERSONNELLES</h4>
+            <p>Votre soumission d'informations personnelles via le magasin est régie par notre
+                Politique de confidentialité. Pour voir notre Politique de confidentialité.</p>
             <br/><br/><br/>
-            <h4>11 – ERRORS, INACCURACIES AND OMISSIONS</h4>
-            <p>Occasionally there may be information on our site or in the Service that
-                contains typographical errors, inaccuracies or omissions that may relate
-                to product descriptions, pricing, promotions, offers, product shipping
-                charges, transit times and availability.
+            <h4>11 – ERREURS, INEXACTITUDES ET OMISSIONS</h4>
+            <p>De temps en temps, il peut y avoir des informations sur notre site ou dans le Service qui
+                contient des erreurs typographiques, des inexactitudes ou des omissions pouvant concerner
+                les descriptions de produits, les prix, les promotions, les offres, les frais d'expédition des produits
+                charges, délais de transit et disponibilité.
                 <br/><br/>
-                We reserve the right to correct any errors, inaccuracies or omissions, and to
-                change or update information
-                or cancel orders if any information in the Service or on any related
-                website is inaccurate at any time without prior notice (including after
-                you have submitted your order).</p>
+                Nous nous réservons le droit de corriger toute erreur, inexactitude ou omission, et de
+                changer ou mettre à jour les informations
+                ou annuler des commandes si toute information dans le Service ou sur tout site connexe
+                site n'est pas exact à tout moment sans préavis (y compris après
+                vous avez soumis votre commande).</p>
             <br/><br/><br/>
-            <h4>12 – PROHIBITED USES</h4>
-            <p>In addition to other prohibitions as set forth in the Terms of Service, you
-                are prohibited from using the site or its content: (a) for any unlawful
-                purpose; (b) to solicit others to perform or participate in any unlawful
-                acts; (c) to violate any international, federal, provincial or state
-                regulations, rules, laws, or local ordinances; (d) to infringe upon or
-                violate our intellectual property rights or the intellectual property
-                rights of others; (e) to harass, abuse, insult, harm, defame, slander,
-                disparage, intimidate, or discriminate based on gender, sexual orientation,
-                religion, ethnicity, race, age, national origin, or disability; (f) to
-                submit false or misleading information; (g) to upload or transmit viruses
-                or any other type of malicious code that will or may be used in any way
-                that will affect the functionality or operation of the Service or of any
-                related website, other websites, or the Internet; (h) to collect or track
-                the personal information of others; (i) to spam, phish, pharm, pretext,
-                spider, crawl, or scrape; (j) for any obscene or immoral purpose; or
-                (k) to interfere with or circumvent the security features of the Service
-                or any related website, other websites, or the Internet. We reserve the
-                right to terminate your use of the Service or any related website for
-                violating any of the prohibited uses.</p>
+            <h4>12 – UTILISATIONS INTERDITES</h4>
+            <p>En plus d'autres interdictions telles qu'énoncées dans les Conditions de service, vous
+                il est interdit d'utiliser le site ou son contenu: (a) à des fins illégales
+                but; (b) pour solliciter d'autres personnes à effectuer ou à participer à toute illégalité
+                actes; (c) pour enfreindre tout règlement international, fédéral, provincial ou étatique
+                réglementations, règles, lois ou ordonnances locales; (d) pour porter atteinte ou
+                violer nos droits de propriété intellectuelle ou les droits de propriété intellectuelle
+                autres; (e) harceler, abuser, insulter, nuire, diffamer, calomnier,
+                déprécier, intimider ou discriminer selon le genre, l'orientation sexuelle,
+                religion, ethnie, race, âge, origine nationale ou handicap; (f) à
+                soumettre des informations fausses ou trompeuses; (g) télécharger ou transmettre des virus
+                ou tout autre type de code malveillant qui sera ou pourrait être utilisé de toute façon
+                qui affectera la fonctionnalité ou le fonctionnement du Service ou de tout
+                site Web connexe, autres sites Web ou Internet; (h) collecter ou suivre
+                les informations personnelles des autres; (i) spam, phish, pharm, prétexte,
+                araignée, ramper ou gratter; (j) à des fins obscènes ou immorales; ou
+                (k) pour interférer avec ou contourner les fonctionnalités de sécurité du Service
+                ou de tout site Web connexe, autres sites Web ou Internet. Nous nous réservons le
+                droit de résilier votre utilisation du Service ou de tout site Web connexe pour
+                enfreindre l'une des utilisations interdites.</p>
             <br/><br/><br/>
-            <h4>13 – DISCLAIMER OF WARRANTIES; LIMITATION OF LIABILITY</h4>
-            <p>We do not guarantee, represent or warrant that your use of our service will be
-                uninterrupted, timely, secure or error-free.
+            <h4>13 – EXCLUSION DE GARANTIES; LIMITATION DE RESPONSABILITÉ</h4>
+            <p>Nous ne garantissons, ne représentons ni ne garantissons que votre utilisation de notre service sera
+                ininterrompu, opportun, sécurisé ou sans erreur.
                 <br/><br/>
-                We do not warrant that the results that may be obtained from the use of the
-                service will be accurate or reliable.
+                Nous ne garantissons pas que les résultats pouvant être obtenus à partir de l'utilisation de
+                le service sera précis ou fiable.
                 <br/><br/>
-                You agree that from time to time we may remove the service for indefinite periods
-                of time or cancel the service at any time, without notice to you.
-                You expressly agree that your use of, or inability to use, the service is at
-                your sole risk. The service and all products and services delivered to you
-                through the service are (except as expressly stated by us) provided 'as is'
-                and 'as available' for your use, without any representation, warranties or
-                conditions of any kind, either express or implied, including all implied
-                warranties or conditions of merchantability, merchantable quality, fitness
-                for a particular purpose, durability, title, and non-infringement.
-                In no case shall Àirneis, our directors, officers, employees, affiliates,
-                agents, contractors, interns, suppliers, service providers or licensors be
-                liable for any injury, loss, claim, or any direct, indirect, incidental,
-                punitive, special, or consequential damages of any kind, including, without
-                limitation lost profits, lost revenue, lost savings, loss of data, replacement
-                costs, or any similar damages, whether based in contract, tort (including
-                negligence), strict liability or otherwise, arising from your use of any of
-                the service or any products procured using the service, or for any other claim
-                related in any way to your use of the service or any product, including, but
-                not limited to, any errors or omissions in any content, or any loss or damage
-                of any kind incurred as a result of the use of the service or any content
-                (or product) posted, transmitted, or otherwise made available via the service,
-                even if advised of their possibility. Because some states or jurisdictions do
-                not allow the exclusion or the limitation of liability for consequential or
-                incidental damages, in such states or jurisdictions, our liability shall be
-                limited to the maximum extent permitted by law.</p>
-            <br/><br/><br/>
-            <h4>14 – INDEMNIFICATION</h4>
-            <p>You agree to indemnify, defend and hold harmless Àirneis and our parent,
-                subsidiaries, affiliates, partners, officers, directors, agents, contractors,
-                licensors, service providers, subcontractors, suppliers, interns and employees,
-                harmless from any claim or demand, including reasonable attorneys’ fees, made
-                by any third-party due to or arising out of your breach of these Terms of
-                Service or the documents they incorporate by reference, or your violation of
-                any law or the rights of a third-party.</p>
-            <br/><br/><br/>
-            <h4>15 – SEVERABILITY</h4>
-            <p>In the event that any provision of these Terms of Service is determined to be
-                unlawful, void or unenforceable, such provision shall nonetheless be enforceable
-                to the fullest extent permitted by applicable law, and the unenforceable
-                portion shall be deemed to be severed from these Terms of Service, such
-                determination shall not affect the validity and enforceability of any other
-                remaining provisions.</p>
-            <br/><br/><br/>
-            <h4>16 – TERMINATION</h4>
-            <p>The obligations and liabilities of the parties incurred prior to the termination
-                date shall survive the termination of this agreement for all purposes.
+                Vous acceptez que de temps à autre nous puissions retirer le service pour des périodes indéfinies
+                de temps ou annuler le service à tout moment, sans préavis à vous.
+                Vous acceptez expressément que votre utilisation, ou incapacité à utiliser, le service est à
+                votre propre risque. Le service et tous les produits et services qui vous sont fournis
+                via le service sont (sauf indication expresse par nous) fournis "tels quels" et "tels que
+                disponibles pour votre utilisation, sans aucune représentation, garanties ou conditions de
+                quelque nature que ce soit, expresse ou implicite, y compris toutes les garanties ou conditions
+                implicite de qualité marchande, d'adéquation à un usage particulier, de durabilité,
+                titre et non-contrefaçon.
                 <br/><br/>
-                These Terms of Service are effective unless and until terminated by either you
-                or us. You may terminate these Terms of Service at any time by notifying us
-                that you no longer wish to use our Services, or when you cease using our site.
-                If in our sole judgment you fail, or we suspect that you have failed, to
-                comply with any term or provision of these Terms of Service, we also may
-                terminate this agreement at any time without notice and you will remain liable
-                for all amounts due up to and including the date of termination; and/or
-                accordingly may deny you access to our Services (or any part thereof).</p>
+                Dans aucun cas Àirneis, nos directeurs, cadres, employés, affiliés, agents, entrepreneurs,
+                stagiaires, fournisseurs, prestataires de services ou concédants de licences ne seront
+                responsables de tout dommage, perte, réclamation ou dommage direct, indirect,
+                accessoire, punitif, spécial ou consécutif de quelque nature que ce soit, y compris, mais sans
+                s'y limiter, les bénéfices perdus, la perte de revenu, l'épargne perdue, la perte de données, les coûts
+                de
+                remplacement, ou tout dommage similaire, qu'il soit contractuel, délictuel (y compris la négligence),
+                responsabilité stricte ou autrement, découlant de votre utilisation de l'un des
+                service ou tout produit acheté en utilisant le service, ou pour toute autre réclamation
+                liée de quelque manière que ce soit à votre utilisation du service ou de tout produit,
+                y compris, mais sans s'y limiter, toute erreur ou omission dans tout contenu, ou tout
+                perte ou dommage de quelque nature que ce soit résultant de l'utilisation du service ou de tout
+                contenu (ou produit) affiché, transmis ou autrement rendu disponible via le service,
+                même si vous avez été informé de la possibilité de tels dommages. Parce que certains
+                états ou juridictions n'autorisent pas l'exclusion ou la limitation de responsabilité pour
+                dommages indirects ou accessoires, dans ces États ou juridictions, notre
+                responsabilité sera limitée dans la mesure maximale autorisée par la loi.</p>
             <br/><br/><br/>
-            <h4>17 – ENTIRE AGREEMENT</h4>
-            <p>The failure of us to exercise or enforce any right or provision of these Terms
-                of Service shall not constitute a waiver of such right or provision.
+            <h4>14 – INDEMNISATION</h4>
+            <p>Vous acceptez d'indemniser, de défendre et de dégager de toute responsabilité Àirneis et notre mère,
+                les filiales, les filiales, les partenaires, les cadres, les directeurs, les agents, les entrepreneurs,
+                concédants de licence, fournisseurs de services, sous-traitants, fournisseurs, stagiaires et
+                employés, inoffensifs de toute réclamation ou demande, y compris les honoraires d'avocat raisonnables,
+                faite par un tiers en raison de ou découlant de votre violation de ces Conditions
+                de service ou les documents auxquels ils font référence, ou votre violation de toute loi ou
+                les droits d'un tiers.</p>
+            <br/><br/><br/>
+            <h4>15 – DISSOCIABILITÉ</h4>
+            <p>Dans le cas où une disposition de ces Conditions de service est jugée illégale, nulle ou inapplicable,
+                cette disposition sera néanmoins exécutoire dans toute la mesure permise par
+                applicable, et la partie inapplicable sera réputée être séparée de ces Conditions de service,
+                cette détermination n'affectera pas la validité et l'applicabilité de
+                toutes les autres dispositions restantes.</p>
+            <br/><br/><br/>
+            <h4>16 – RÉSILIATION</h4>
+            <p>Les obligations et les responsabilités des parties engagées avant la date de résiliation survivront à la
+                résiliation de cet accord à toutes les fins.
                 <br/><br/>
-                These Terms of Service and any policies or operating rules posted by us on
-                this site or in respect to The Service constitutes the entire agreement and
-                understanding between you and us and govern your use of the Service,
-                superseding any prior or contemporaneous agreements, communications and proposals,
-                whether oral or written, between you and us (including, but not limited to,
-                any prior versions of the Terms of Service).
-                Any ambiguities in the interpretation of these Terms of Service shall not be
-                construed against the drafting party.</p>
-            <br/><br/><br/>
-            <h4>18 – GOVERNING LAW</h4>
-            <p>These Terms of Service and any separate agreements whereby we provide you Services
-                shall be governed by and construed in accordance with the laws of 27-33 Av. des Champs-Élysées,
-                Paris, 75008, France.</p>
-            <br/><br/><br/>
-            <h4>19 – CHANGES TO TERMS OF SERVICE</h4>
-            <p>You can review the most current version of the Terms of Service at any time at
-                this page.
+                Ces Conditions de service sont en vigueur à moins et jusqu'à ce qu'elles soient résiliées par vous ou
+                nous. Vous
+                pouvez résilier ces Conditions de service à tout moment en nous avisant que vous ne
+                désirez plus utiliser nos services, ou lorsque vous cessez d'utiliser notre site.
                 <br/><br/>
-                We reserve the right, at our sole discretion, to update, change or replace
-                any part of these Terms of Service by posting updates and changes to our website.
-                It is your responsibility to check our website periodically for changes.
-                Your continued use of or access to our website or the Service following the
-                posting of any changes to these Terms of Service constitutes acceptance of
-                those changes.</p>
+                Si, à notre seule discrétion, vous échouez, ou si nous soupçonnons que vous avez échoué, à
+                respecter toute condition ou disposition de ces Conditions de service, nous pouvons également
+                résilier cet accord à tout moment sans préavis et vous resterez responsable de
+                toutes les montants dus jusqu'à la date de résiliation; et/ou en conséquence, peut vous refuser
+                l'accès à nos services (ou toute partie de ceux-ci).</p>
             <br/><br/><br/>
-            <h4>20 – CONTACT INFORMATION</h4>
-            <p>Questions about the Terms of Service should be sent to us at airneis@hotmail.com.</p>
+            <h4>17 – INTÉGRALITÉ DE L'ACCORD</h4>
+            <p>L'échec de notre part à exercer ou à appliquer tout droit ou toute disposition de ces Conditions de
+                service
+                ne constituera pas une renonciation à ce droit ou à cette disposition.
+                <br/><br/>
+                Ces Conditions de service et toutes les politiques ou règles d'exploitation postées par nous sur ce site
+                ou en
+                respectant le Service constituent l'intégralité de l'accord et de l'entente entre vous
+                et nous et régissent votre utilisation du Service, remplaçant tout accord, communication
+                et proposition antérieurs ou contemporains, oraux ou écrits, entre vous et nous
+                (y compris, mais sans s'y limiter, toutes les versions antérieures des Conditions de service).
+                <br/><br/>
+                Toute ambiguïté dans l'interprétation de ces Conditions de service ne doit pas être interprétée contre
+                la
+                partie rédactrice.</p>
+            <br/><br/><br/>
+            <h4>18 – LOI APPLICABLE</h4>
+            <p>Ces Conditions de service et tout accord distinct par lequel nous vous fournissons
+                Services seront régis et interprétés conformément aux lois du Queensland, Australie.</p>
+            <br/><br/><br/>
+            <h4>19 – MODIFICATIONS DES CONDITIONS DE SERVICE</h4>
+            <p>Vous pouvez consulter la version la plus récente des Conditions de service à tout moment sur cette page.
+                Nous nous réservons le droit, à notre seule discrétion, de mettre à jour, de modifier ou de remplacer
+                toute partie de ces Conditions de service en publiant les mises à jour et les modifications
+                à notre site. Il est de votre responsabilité de consulter notre site périodiquement
+                pour les changements. Votre utilisation continue ou votre accès à notre site ou au Service
+                après la publication de toute modification de ces Conditions de service constitue
+                acceptation de ces modifications.</p>
+            <br/><br/><br/>
+            <h4>20 – INFORMATIONS DE CONTACT</h4>
+            <p>Les questions concernant les Conditions de service doivent être envoyées à
+                notre équipe de support à contact@Airneis.com.</p>
+            <br/><br/><br/>
 
-        </div>
-    )
+        </div>)
 }
 
 export default TermsAndConditions;

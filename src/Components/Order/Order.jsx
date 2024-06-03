@@ -4,49 +4,48 @@ import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {apiService} from "../../service/apiService";
+import {userApiService} from "../../service/userApiService";
 
 const Order = () => {
     const token = localStorage.getItem("token");
+    const cardInfo = JSON.parse(localStorage.getItem("cardInfo"));
     const {orderId} = useParams();
     const [orderDetails, setOrderDetails] = useState(null);
     const [productImages, setProductImages] = useState([]);
+    const [address, setAddress] = useState(null);
     const apiUrl = "http://127.0.0.1:8000";
 
+    const fetchAll = async () => {
+        const orderResult = await apiService.getOrderById(orderId, token);
+        setOrderDetails(orderResult);
+        console.log(orderDetails);
+        console.log(orderResult);
 
-    //get order by id
-    useEffect(() => {
-        apiService.getOrderById(orderId, token).then(result => {
-            setOrderDetails(result);
+        if (orderResult) {
+            const imagesData = await Promise.all(orderResult.orderProducts.map(
+                async (product) => await apiService.getImageDetails(product.idProduct.images[0])
+            ));
+            setProductImages(imagesData);
+            console.log(imagesData)
+        }
+
+        userApiService.getAddressById(token, orderDetails.idAdress.id).then(result => {
+            setAddress(result);
+            console.log("address", address);
+            console.log(result)
         })
+    }
+
+    //get order by id, images of products in the order and address of order
+    useEffect(() => {
+        fetchAll();
     }, []);
 
-    // get images of products
-    useEffect(() => {
-        console.log('orderDetails:', orderDetails);
-        console.log('orderProducts:', orderDetails ? orderDetails.orderProducts : null);
-        const fetchImageData = async () => {
-            try {
-                if (orderDetails && orderDetails.orderProducts) {
-                    const imagesData = await Promise.all(orderDetails.orderProducts.map(
-                        async (product) => await apiService.getImageDetails(product.idProduct.images[0])));
-                    setProductImages(imagesData);
-                } else {
-                    console.log("order details is null")
-                }
-            } catch (error) {
-                console.error('Error fetching image details:', error.message);
-            }
-        };
-
-        if (orderDetails) {
-            fetchImageData();
-            console.log(productImages)
-        }
-    }, [orderDetails]);
 
     if (!orderDetails) {
         return <p>Loading...</p>;
     }
+
 
     return (
         <section className="order-page h-100 gradient-custom">
@@ -54,7 +53,7 @@ const Order = () => {
                 <h3 className="text-center">Commande
                     N°{orderDetails.id} - {orderDetails.date} - {orderDetails.state}</h3>
             </div>
-            <div className="container py-5">
+            <div className="container py-3">
                 <div className="row d-flex justify-content-center my-4">
                     <div className="col-md-8">
                         <div className="card mb-4">
@@ -75,7 +74,7 @@ const Order = () => {
                                                                     data-mdb-ripple-color="light">
                                                                     {productImages ? (
                                                                         <img
-                                                                            src="{apiUrl + productImages[index].contentUrl}"
+                                                                            src={apiUrl + productImages[index].contentUrl}
                                                                             className="w-100" alt={product.idProduct.id}
                                                                         />
                                                                     ) : (
@@ -136,8 +135,15 @@ const Order = () => {
                                         <div>
                                             <strong>Montant total</strong>
                                         </div>
-                                        <span><strong>{orderDetails.priceTotal} €</strong></span>
+                                        <span><strong>{(orderDetails.priceTotal).toFixed(2)} €</strong></span>
                                     </li>
+                                    <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                        <div>
+                                            <p>TVA</p>
+                                        </div>
+                                        <span>{(orderDetails.priceTotal * 0.2).toFixed(2)} €</span>
+                                    </li>
+
                                 </ul>
                             </div>
 
@@ -145,9 +151,16 @@ const Order = () => {
                                 <h5 className="mb-0">Adresse de livraison</h5>
                                 <hr/>
                                 <div className="card-body">
-                                    <div className="border-0 px-0 mb-3">
-                                        <span>ADRESSE</span>
-                                    </div>
+                                    {address ? (
+                                        <div className="border-0 px-0 mb-3">
+                                            <p>{address.adress}</p>
+                                            <p>{address.zipCode} {address.ville}</p>
+                                            <p>{address.country}</p>
+                                        </div>
+                                    ) : (
+                                        <p>Loading...</p>
+                                    )}
+
                                 </div>
                             </div>
 
@@ -156,10 +169,18 @@ const Order = () => {
                                 <hr/>
                                 <div className="card-body">
                                     <div className="border-0 px-0 mb-3">
-                                        <span>ADRESSE</span>
+                                        <p>Nom : {cardInfo.cardName}</p>
+                                        <p>Numéro : {`•••• •••• •••• ${cardInfo.cardNumber.slice(-4)}`}</p>
                                     </div>
                                 </div>
                             </div>
+
+                            {orderDetails.state !== "expedié" || orderDetails.state !== "livré" ? (
+                                <button className="btn cart-button btn-primary btn-lg btn-block mt-1">Annuler la
+                                    commande</button>
+                            ) : (
+                                <p></p>
+                            )}
 
                         </div>
                     </div>

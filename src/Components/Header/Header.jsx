@@ -1,5 +1,5 @@
 import logo from "../Assets/logo.png";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import React, {useContext, useEffect, useState} from "react";
 import "./Header.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -9,17 +9,25 @@ import {useCart} from "../../Context/CartContext";
 
 const Header = ({isAuthenticated, setIsAuthenticated}) => {
     const { cart } = useCart();
+    const navigate = useNavigate();
     const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0)
     const [collapsedMenu, setCollapsedMenu] = useState(true);
 
     const handleToggleCollapse = () => {
-        setCollapsedMenu(!collapsedMenu);
+        if (collapsedMenu) {
+            setCollapsedMenu(false);
+        } else {
+            setCollapsedMenu(true)
+        }
     };
+
 
     const handleLogout = () => {
         setIsAuthenticated(false);
         localStorage.removeItem("token");
         localStorage.removeItem("isAuthenticated");
+        setCollapsedMenu(true);
+        navigate("/log_in");
     };
     useEffect(() => {
         const storedAuthStatus = localStorage.getItem("isAuthenticated");
@@ -47,19 +55,19 @@ const Header = ({isAuthenticated, setIsAuthenticated}) => {
 
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
-                            aria-label="Toggle navigation" onClick={handleToggleCollapse}>
+                            aria-label="Toggle navigation" >
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className={`collapse navbar-collapse ${collapsedMenu ? "" : "show"}`} id="navbarNavAltMarkup">
+                    <div className={`collapse navbar-collapse ${collapsedMenu ? "" : "show"}`} onClick={handleToggleCollapse} id="navbarNavAltMarkup">
                         <div className="navbar-nav ml-auto">
                             {isAuthenticated ? (
                                 <>
-                                    <Link className="nav-link" to="/user_settings">Mes paramètres</Link>
+                                    <Link className="nav-link" to="/user_settings" onClick={handleToggleCollapse}>Mes paramètres</Link>
                                     <Link className="nav-link" to="/orders">Mes commandes</Link>
                                     <Link className="nav-link" to="/CGU">CGU</Link>
-                                    <Link className="nav-link" to="/legal">Mentions légales</Link>
+                                    <Link className="nav-link" to="/legal_notice">Mentions légales</Link>
                                     <Link className="nav-link" to="/contact">Contact</Link>
-                                    <Link className="nav-link" to="/about">A propos d'AIRNEIS</Link>
+                                    <Link className="nav-link" to="/about_us">A propos d'AIRNEIS</Link>
                                     <button className="nav-link" onClick={handleLogout}>Se déconnecter</button>
                                 </>
                             ) : (
@@ -67,9 +75,9 @@ const Header = ({isAuthenticated, setIsAuthenticated}) => {
                                     <Link className="nav-link" to="/log_in">Se connecter</Link>
                                     <Link className="nav-link" to="/sign_up">S'inscrire</Link>
                                     <Link className="nav-link" to="/CGU">CGU</Link>
-                                    <Link className="nav-link" to="/legal">Mentions légales</Link>
+                                    <Link className="nav-link" to="/legal_notice">Mentions légales</Link>
                                     <Link className="nav-link" to="/contact">Contact</Link>
-                                    <Link className="nav-link" to="/about">A propos d'AIRNEIS</Link>
+                                    <Link className="nav-link" to="/about_us">A propos d'AIRNEIS</Link>
                                 </>
                             )}
                         </div>

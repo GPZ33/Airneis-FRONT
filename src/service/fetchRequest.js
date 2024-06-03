@@ -50,4 +50,3 @@ FetchRequest.delete = function (ressource){
 FetchRequest.patch = function (ressource) {
     return new FetchRequest(ressource, "PATCH");
 }
-

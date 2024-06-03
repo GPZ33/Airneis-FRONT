@@ -4,6 +4,7 @@
     right: 0;
     left: auto;
     width: 14%;
+    z-index: 1000;
 }
 .navbar-collapse.collapsing,
 .navbar-collapse.show {

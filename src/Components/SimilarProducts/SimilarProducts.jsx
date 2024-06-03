@@ -22,7 +22,12 @@ const SimilarProducts = ({idCategoryOfProduct}) => {
                 try {
                     const productsResponse = await Promise.all(categoryOfProduct.products.map(
                         async (product) => await productApiService.getProductById(product['@id'])));
-                    setProductsOfCategory(productsResponse);
+                    productsResponse.sort((a, b) => {
+                        if (!a.stock) return 1;
+                        if (a.stock) return 0;
+                        return 0;
+                    });
+                    setProductsOfCategory(productsResponse.slice(0, 6));
                 } catch (error) {
                     console.error('Error fetching product details:', error.message);
                 }

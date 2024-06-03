@@ -29,6 +29,12 @@ function addAddress(token,data) {
     return request.send();
 }
 
+function getAddressById(token, addressId) {
+    const request = FetchRequest.get("/api/adresses/" + addressId);
+    request.addHeader("Authorization", `Bearer ${token}`);
+    return request.send();
+}
+
 export const userApiService = {
-    getUsers, updateUser, getUserAddresses, addAddress
+    getUsers, updateUser, getUserAddresses, addAddress, getAddressById
 };

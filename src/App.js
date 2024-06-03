@@ -23,6 +23,7 @@ import ProductDashboard from './Pages/BackOffice/ProductDashboard';
 import ProductCreation from './Pages/BackOffice/ProductCreation';
 import CategoryDashboard from './Pages/BackOffice/CategoryDashboard';
 import MaterialDashboard from './Pages/BackOffice/MaterialDashboard';
+import AboutUs from "./Pages/AboutUs/AboutUs";
 
 
 const App = () => {
@@ -48,6 +49,7 @@ const App = () => {
                 <Route path="/checkout" element={<Checkout/>}/>
                 <Route path="/orders" element={<Orders/>}/>
                 <Route path="/orders/:orderId" element={<Order/>}/>
+                <Route path="/about_us" element={<AboutUs/>}/>
                 <Route path="/backoffice" element={<ProductDashboard/>}/>
                 <Route path="/backoffice/product_creation" element={<ProductCreation/>}/>
                 <Route path="/backoffice/category_dashboard" element={<CategoryDashboard/>}/>
