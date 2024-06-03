@@ -2,7 +2,9 @@ export class FetchRequest {
     constructor(ressource, method) {
         this.url = "http://127.0.0.1:8000" + ressource;
         this.method = method;
-        this.headers = {};
+        this.headers = {
+            'Content-type': "application/json"
+        };
     }
 
     addHeader(name, value){
