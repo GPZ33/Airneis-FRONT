@@ -67,7 +67,7 @@ const Header = ({isAuthenticated, setIsAuthenticated}) => {
                                     <Link className="nav-link" to="/CGU">CGU</Link>
                                     <Link className="nav-link" to="/legal_notice">Mentions légales</Link>
                                     <Link className="nav-link" to="/contact">Contact</Link>
-                                    <Link className="nav-link" to="/about">A propos d'AIRNEIS</Link>
+                                    <Link className="nav-link" to="/about_us">A propos d'AIRNEIS</Link>
                                     <button className="nav-link" onClick={handleLogout}>Se déconnecter</button>
                                 </>
                             ) : (
@@ -77,7 +77,7 @@ const Header = ({isAuthenticated, setIsAuthenticated}) => {
                                     <Link className="nav-link" to="/CGU">CGU</Link>
                                     <Link className="nav-link" to="/legal_notice">Mentions légales</Link>
                                     <Link className="nav-link" to="/contact">Contact</Link>
-                                    <Link className="nav-link" to="/about">A propos d'AIRNEIS</Link>
+                                    <Link className="nav-link" to="/about_us">A propos d'AIRNEIS</Link>
                                 </>
                             )}
                         </div>
