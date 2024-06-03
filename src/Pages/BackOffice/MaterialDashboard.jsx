@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Button, CircularProgress } from '@mui/material';
-import { Link } from 'react-router-dom';
 import DataTable from '../../Components/DataTable/DataTable';
 import { materialApiService } from '../../service/materialApiService';
 import { productApiService } from '../../service/productApiService';
@@ -101,14 +100,14 @@ const MaterialDashboard = () => {
   const columns = useMemo(
     () => [
       { Header: 'ID', accessor: 'id' },
-      { Header: 'Name', accessor: 'name' },
-      { Header: 'Products', accessor: row => row.products.map(product => product.name).join(', ') },
+      { Header: 'Nom', accessor: 'name' },
+      { Header: 'Produits', accessor: row => row.products.map(product => product.name).join(', ') },
       {
         Header: 'Actions',
         Cell: ({ row }) => (
           <div>
-            <Button onClick={() => handleEditClick(row.original)}>Edit</Button>
-            <Button onClick={() => handleDelete(row.original)}>Delete</Button>
+            <Button onClick={() => handleEditClick(row.original)}>Modifier</Button>
+            <Button onClick={() => handleDelete(row.original)}>Supprimer</Button>
           </div>
         ),
       },
@@ -143,7 +142,7 @@ const MaterialDashboard = () => {
 
   return (
     <>
-      <h1>Material Dashboard</h1>
+      <h1>Dashboard des matériaux</h1>
       <CreationDialogsContainer />
       <DataTable
         columns={columns}

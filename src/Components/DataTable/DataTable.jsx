@@ -68,7 +68,7 @@ const DataTable = ({ columns, data = [], onDeleteSelected }) => {
           color="primary"
           onClick={() => onDeleteSelected(selectedFlatRows.map(row => row.original))}
         >
-          Delete Selected
+          Supprimer la sélection
         </Button>
       </div>
     </>

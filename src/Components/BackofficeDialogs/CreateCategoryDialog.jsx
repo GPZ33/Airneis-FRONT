@@ -30,13 +30,13 @@ const CreateCategoryDialog = ({ open, handleClose }) => {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Create New Category</DialogTitle>
+      <DialogTitle>Créer une nouvelle catégorie</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus
           margin="dense"
           id="name"
-          label="Name"
+          label="Nom"
           type="text"
           fullWidth
           value={name}
@@ -56,10 +56,10 @@ const CreateCategoryDialog = ({ open, handleClose }) => {
       </DialogContent>
       <DialogActions>
             <Button onClick={handleClose} color="primary">
-                Cancel
+                Annuler
             </Button>
             <Button onClick={handleCreateCategory} variant="contained" color="primary" disabled={isLoading}>
-                {isLoading ? <CircularProgress size={24} /> : 'Create'}
+                {isLoading ? <CircularProgress size={24} /> : 'Créer'}
             </Button>
         </DialogActions>
     </Dialog>

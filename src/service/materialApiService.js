@@ -47,7 +47,8 @@ function getMaterials() {
         .send();
 }
 
-function deleteMaterial(materialId) {
+function deleteMaterial(material) {
+    const materialId = material['@id'].split('/').pop();
     return FetchRequest.delete(`/api/materials/${materialId}`)
         .send();
 }

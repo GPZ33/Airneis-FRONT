@@ -1,6 +1,6 @@
 import logo from "../Assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Header.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from '@mui/icons-material/Search';
