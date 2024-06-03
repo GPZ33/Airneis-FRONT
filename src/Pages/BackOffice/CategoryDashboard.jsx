@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Button, CircularProgress, Checkbox } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import { Link } from 'react-router-dom';
 import DataTable from '../../Components/DataTable/DataTable';
-import { categoryApiService } from '../../service/categoryApiService'; 
-import CreationDialogsContainer from '../../Components/BackofficeDialogs/CreationDialogsContainer';
+import { categoryApiService } from '../../service/categoryApiService';
 import { productApiService } from '../../service/productApiService'; 
+import CreationDialogsContainer from '../../Components/BackofficeDialogs/CreationDialogsContainer';
 import EditCategoryDialog from '../../Components/BackofficeDialogs/EditCategoryDialog';
 
 const CategoryDashboard = () => {
-  const [categories, setCategories] = useState([]);
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null); 
   const [editingCategory, setEditingCategory] = useState(null); 
@@ -20,39 +20,39 @@ const CategoryDashboard = () => {
 
     const fetchCategories = async () => {
       try {
-        const response = await categoryApiService.getCategories(); // Récupérer les catégories depuis le service
+        const response = await categoryApiService.getCategories();
         if (isMounted) {
-          setCategories(response['hydra:member']); // Mettre à jour les catégories dans le state
-          setLoading(false); // Terminer le chargement
+          setData(response['hydra:member']); // Mise à jour de 'data' au lieu de 'categories'
+          setLoading(false);
         }
       } catch (error) {
         console.error('Error fetching categories:', error);
         if (isMounted) {
-          setError('Error fetching categories'); // Gérer les erreurs
-          setLoading(false); // Terminer le chargement en cas d'erreur
+          setError('Error fetching categories');
+          setLoading(false);
         }
       }
     };
 
     const fetchProducts = async () => {
-        try {
-          const products = await productApiService.getAllProducts();
-          if (isMounted) {
-            if (products && products.length > 0) {
-              setProducts(products);
-            } else {
-              setError('No data in response');
-            }
-            setLoading(false);
+      try {
+        const products = await productApiService.getAllProducts();
+        if (isMounted) {
+          if (products && products.length > 0) {
+            setProducts(products);
+          } else {
+            setError('No data in response');
           }
-        } catch (error) {
-          if (isMounted) {
-            console.error('Error fetching products:', error);
-            setError('Error fetching products');
-            setLoading(false);
-          }
+          setLoading(false);
         }
-      };
+      } catch (error) {
+        if (isMounted) {
+          console.error('Error fetching products:', error);
+          setError('Error fetching products');
+          setLoading(false);
+        }
+      }
+    };
     
     fetchCategories();
     fetchProducts();
@@ -68,22 +68,19 @@ const CategoryDashboard = () => {
 
   const handleEditChange = (field, value) => {
     setEditingCategory(prevCategory => ({
-      ...prevCategory,
-      [field]: Array.isArray(value) ? value : [value]
+        ...prevCategory,
+        [field]: value
     }));
   };
   
-
   const handleSaveEdit = () => {
     const CategoryToUpdate = {
         ...editingCategory,
         products: editingCategory.products.map(p => p['@id']),
-        //images: editingProduct.images.map(i => i['@id']),
-      };
-      console.log(CategoryToUpdate)
-      categoryApiService.putCategory(CategoryToUpdate)
+    };
+    categoryApiService.putCategory(CategoryToUpdate)
       .then((updatedCategory) => {
-        setCategories(prevData => prevData.map(category => category.id === updatedCategory.id ? updatedCategory : category));
+        setData(prevData => prevData.map(category => category.id === updatedCategory.id ? updatedCategory : category));
         setEditingCategory(null);
       })
       .catch(error => {
@@ -94,7 +91,7 @@ const CategoryDashboard = () => {
   const handleDelete = (category) => {
     categoryApiService.deleteCategory(category)
       .then(() => {
-        setCategories(prevData => prevData.filter(c => c.id !== category.id));
+        setData(prevData => prevData.filter(c => c.id !== category.id));
       })
       .catch(error => {
         console.error('Error deleting product:', error);
@@ -121,7 +118,11 @@ const CategoryDashboard = () => {
   );
 
   const handleCheckboxChange = (event, category) => {
-    // Gérer la sélection des catégories
+    if (event.target.checked) {
+      setSelectedCategories(prevSelected => [...prevSelected, category]);
+    } else {
+      setSelectedCategories(prevSelected => prevSelected.filter(c => c.id !== category.id));
+    }
   };
 
   const isSelected = (category) => selectedCategories.some(c => c.id === category.id);
@@ -148,8 +149,9 @@ const CategoryDashboard = () => {
       <CreationDialogsContainer /> {/* Container de dialogues pour la création */}
       <DataTable
         columns={columns}
-        data={categories}
+        data={data} // Utilisation de 'data' au lieu de 'categories'
         onDeleteSelected={onDeleteSelected}
+        onCheckboxChange={handleCheckboxChange}
         isSelected={isSelected}
       />
       <EditCategoryDialog
