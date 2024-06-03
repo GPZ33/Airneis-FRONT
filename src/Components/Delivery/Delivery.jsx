@@ -29,9 +29,7 @@ const Delivery = ({onContinueToPayment}) => {
         try {
             apiService.getOrderProducts(token).then(result => {
                 const userOrderProducts = result["hydra:member"];
-                console.log(userOrderProducts);
                 const newOrderProducts = userOrderProducts.filter(orderProduct => !orderProduct.idOrder);
-                console.log(newOrderProducts);
 
                 apiService.addOrder(token,{
                         idUser: "/api/users/" + userId,
@@ -39,7 +37,8 @@ const Delivery = ({onContinueToPayment}) => {
                         state: "en cours de paiement",
                         date: new Date().toISOString().split('T')[0],
                         orderProducts: newOrderProducts.map((orderProduct) => `/api/order_products/${orderProduct.id}`)
-                    })
+                    }).then(result =>
+                localStorage.setItem("orderId", result.id));
                 localStorage.setItem("cart", JSON.stringify([]));
             })
         } catch (error) {
@@ -66,7 +65,7 @@ const Delivery = ({onContinueToPayment}) => {
                                             <small className="text-muted">{item.details}</small>
                                         </div>
                                         <div>
-                                            <span className="text-muted">{item.price * item.quantity}€</span>
+                                            <span className="text-muted">{(item.price * item.quantity).toFixed(2)}€</span>
                                         </div>
                                     </li>
                                 ))}
@@ -77,7 +76,7 @@ const Delivery = ({onContinueToPayment}) => {
                                     </div>
                                     <div>
                                         <p>Total</p>
-                                        <strong>{calculateTotal()}€</strong>
+                                        <strong>{(calculateTotal().toFixed(2))}€</strong>
                                     </div>
 
 

@@ -39,3 +39,7 @@ FetchRequest.patch = function (ressource) {
 FetchRequest.put = function (ressource) {
     return new FetchRequest(ressource, "PATCH");
 }
+
+FetchRequest.delete = function (ressource) {
+    return new FetchRequest(ressource, "DELETE");
+}

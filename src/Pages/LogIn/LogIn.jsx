@@ -42,7 +42,7 @@ const LogIn = ({setIsAuthenticated}) => {
 
     return (
         <div className="col-md-6 col-lg-5 order-lg-1 container justify-content-center align-items-center vh-100">
-            <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Log In</p>
+            <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Se connecter</p>
             <form onSubmit={handleSubmit}>
                 <div className="form-outline mb-4">
                     <input
@@ -54,7 +54,7 @@ const LogIn = ({setIsAuthenticated}) => {
                         onChange={handleInputChange}
                         required
                     />
-                    <label className="form-label" htmlFor="form2Example1">Email address</label>
+                    <label className="form-label" htmlFor="form2Example1">Email</label>
                 </div>
                 <div className="form-outline mb-4">
                     <input
@@ -66,11 +66,11 @@ const LogIn = ({setIsAuthenticated}) => {
                         onChange={handleInputChange}
                         required
                     />
-                    <label className="form-label" htmlFor="form2Example2">Password</label>
+                    <label className="form-label" htmlFor="form2Example2">Mot de passe</label>
                 </div>
-                <button type="submit" className="btn btn-primary btn-block mb-4">Sign in</button>
+                <button type="submit" className="btn btn-primary btn-block mb-4">Se connecter</button>
                 <div className="text-center">
-                    <p>Not a member? <a href="/sign_up">Register</a></p>
+                    <p>Vous n'avez pas de compte? <a href="/sign_up">S'inscrire</a></p>
                 </div>
             </form>
         </div>

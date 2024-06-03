@@ -63,7 +63,7 @@ const SignUp = () => {
             <div className="card-body p-md-5">
                 <div className="row justify-content-center">
                     <div className="col-md-6 col-lg-5 order-lg-1">
-                        <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+                        <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">S'inscrire</p>
 
                         <form className="mx-1 mx-md-4" onSubmit={handleSubmit}>
                             <div className="row">
@@ -80,7 +80,7 @@ const SignUp = () => {
                                             onChange={handleInputChangeToSend}
                                             required
                                         />
-                                        <label className="form-label" htmlFor="name">Your Name</label>
+                                        <label className="form-label" htmlFor="name">Rrénom</label>
                                     </div>
 
                                     {/* Last name Input */}
@@ -94,7 +94,7 @@ const SignUp = () => {
                                             onChange={handleInputChangeToSend}
                                             required
                                         />
-                                        <label className="form-label" htmlFor="last_name">Your Last Name</label>
+                                        <label className="form-label" htmlFor="last_name">Nom</label>
                                     </div>
 
                                     {/* Email Input */}
@@ -108,7 +108,7 @@ const SignUp = () => {
                                             onChange={handleInputChangeToSend}
                                             required
                                         />
-                                        <label className="form-label" htmlFor="email">Your Email</label>
+                                        <label className="form-label" htmlFor="email">Email</label>
                                     </div>
 
                                     {/* Phone Number Input */}
@@ -122,7 +122,7 @@ const SignUp = () => {
                                             onChange={handleInputChangeToSend}
                                             required
                                         />
-                                        <label className="form-label" htmlFor="phoneNumber">Your Phone Number</label>
+                                        <label className="form-label" htmlFor="phoneNumber">Numéro de téléphone</label>
                                     </div>
                                 </div>
 
@@ -140,7 +140,7 @@ const SignUp = () => {
                                             onChange={handleInputChangeToSend}
                                             required
                                         />
-                                        <label className="form-label" htmlFor="birthday">Your Birthday</label>
+                                        <label className="form-label" htmlFor="birthday">Date de naissence</label>
                                     </div>
 
                                     {/* Password Input */}
@@ -154,7 +154,7 @@ const SignUp = () => {
                                             onChange={handleInputChangeToSend}
                                             required
                                         />
-                                        <label className="form-label" htmlFor="plainPassword">Password</label>
+                                        <label className="form-label" htmlFor="plainPassword">Mot de passe</label>
                                     </div>
 
                                     {/* Confirm Password Input */}
@@ -168,7 +168,7 @@ const SignUp = () => {
                                             onChange={handleInputChangeToSend}
                                             required
                                         />
-                                        <label className="form-label" htmlFor="confirmPassword">Repeat Your Password</label>
+                                        <label className="form-label" htmlFor="confirmPassword">Répétez votre mot de passe</label>
                                     </div>
 
                                 </div>
@@ -183,12 +183,12 @@ const SignUp = () => {
                                         onChange={(e) => setFormDataToSend({ ...formDataToSend, agreeToTerms: e.target.checked })}
                                     />
                                     <label className="form-check-label" htmlFor="agreeToTerms">
-                                        I agree with all statements in <a href="/CGU">Terms of service</a>
+                                        Je suis d'accord avec toutes les déclarations dans les <a href="/CGU">Conditions Générales d'Utilisation</a>
                                     </label>
                                 </div>
                                 {/* Submit Button */}
                                 <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                    <button type="submit" className="btn btn-primary btn-lg">Register</button>
+                                    <button type="submit" className="btn btn-primary btn-lg">S'inscrire</button>
                                 </div>
                             </div>
                         </form>
