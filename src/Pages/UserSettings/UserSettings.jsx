@@ -107,7 +107,7 @@ const UserSettings = () => {
                         </div>
                         <div className="gap-3 d-md-flex justify-content-md-end text-center">
                             <button type="button" className="btn btn-danger btn-lg">Delete profile</button>
-                            <button type="submit" className="btn btn-primary btn-lg">Update profile</button>
+                            <button type="submit" className="cart-button btn btn-primary btn-lg btn-block">Update profile</button>
                         </div>
                     </form>
 

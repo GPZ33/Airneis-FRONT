@@ -41,4 +41,31 @@
 
 .navbar-toggle-icon {
   color: #ffc900;
+    position: relative;
+    top: -10px;
+    left: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 3px 6px;
+    font-size: 0.8em;
+    line-height: 1;
+}
+
+.admin-links {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.admin-links .nav-link {
+    margin-left: 20px;
+    color: #333; /* Couleur du texte */
+    font-weight: bold; /* Gras */
+    text-decoration: none; /* Pas de soulignement */
+    transition: color 0.3s ease; /* Transition fluide de couleur */
+}
+
+.admin-links .nav-link:hover {
+    color: #666; /* Couleur du texte au survol */
 }

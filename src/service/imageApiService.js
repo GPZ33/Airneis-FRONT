@@ -34,10 +34,16 @@ function getImageById(id) {
     return FetchRequest.get(`/api/imagess/${id}`).send();
 }
 
-function createImage(formData) {
+function getImageDetails(imageId) {
+    return FetchRequest.get(imageId).send();
+}
+
+
+function createImage(formData, token) {
     return FetchRequest.post("/api/imagess")
+        .addHeader("Authorization", `Bearer ` + token)
         .withFormData(formData)
         .send();
 }
 
-export const imageApiService = {getAllImages, getImages, getImageById, createImage};
+export const imageApiService = {getAllImages, getImages, getImageById, createImage, getImageDetails};

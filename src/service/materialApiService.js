@@ -25,19 +25,21 @@ async function getAllMaterials() {
     return materials;
 }
 
-function createMaterial(material) {
+function createMaterial(material, token) {
     return FetchRequest.post("/api/materials")
         .addHeader("Content-Type", "application/ld+json")
         .addHeader("Accept", "application/ld+json")
+        .addHeader("Authorization", `Bearer ` + token)
         .withBody(material)
         .send();
 }
 
-function putMaterial(material) {
+function putMaterial(material, token) {
     const materialId = material['@id'].split('/').pop();
     return FetchRequest.put(`/api/materials/${materialId}`)
         .addHeader("Content-Type", "application/ld+json")
         .addHeader("Accept", "application/ld+json")
+        .addHeader("Authorization", `Bearer ` + token)
         .withBody(material)
         .send();
 }
@@ -47,8 +49,10 @@ function getMaterials() {
         .send();
 }
 
-function deleteMaterial(materialId) {
+function deleteMaterial(material, token) {
+    const materialId = material['@id'].split('/').pop();
     return FetchRequest.delete(`/api/materials/${materialId}`)
+        .addHeader("Authorization", `Bearer ` + token)
         .send();
 }
 

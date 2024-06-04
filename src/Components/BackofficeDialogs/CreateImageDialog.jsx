@@ -7,6 +7,7 @@ const CreateImageDialog = ({ open, handleClose }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [contentUrl, setContentUrl] = useState(null);
+  const token = localStorage.getItem('token');
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -27,7 +28,7 @@ const CreateImageDialog = ({ open, handleClose }) => {
 
     try {
         console.log("formData", formData);
-      const data = await imageApiService.createImage(formData);
+      const data = await imageApiService.createImage(formData, token);
       setContentUrl(data.contentUrl);
       alert('Image uploaded successfully');
       setFile(null); // Reset file input
@@ -41,23 +42,23 @@ const CreateImageDialog = ({ open, handleClose }) => {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Upload Image</DialogTitle>
+      <DialogTitle>Ajout d'une Image</DialogTitle>
       <DialogContent>
         {error && <div>{error}</div>}
         <form onSubmit={handleSubmit} id="upload-form">
           <TextField type="file" onChange={handleFileChange} fullWidth margin="normal" />
           {contentUrl && (
             <div>
-              <p>Image uploaded successfully:</p>
+              <p>Image télécharger avec succès:</p>
               <img src={contentUrl} alt="Uploaded" style={{ maxWidth: '100%' }} />
             </div>
           )}
         </form>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="primary">Cancel</Button>
+        <Button onClick={handleClose} color="primary">Annuler</Button>
         <Button type="submit" form="upload-form" variant="contained" color="primary" disabled={isLoading}>
-          {isLoading ? <CircularProgress size={24} /> : 'Upload'}
+          {isLoading ? <CircularProgress size={24} /> : 'Télécharger'}
         </Button>
       </DialogActions>
     </Dialog>

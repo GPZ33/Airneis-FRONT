@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Button, CircularProgress } from '@mui/material';
-import { Link } from 'react-router-dom';
 import DataTable from '../../Components/DataTable/DataTable';
 import { categoryApiService } from '../../service/categoryApiService';
 import { productApiService } from '../../service/productApiService'; 
@@ -13,7 +12,8 @@ const CategoryDashboard = () => {
   const [error, setError] = useState(null); 
   const [editingCategory, setEditingCategory] = useState(null); 
   const [selectedCategories, setSelectedCategories] = useState([]); 
-  const [products, setProducts] = useState([]); 
+  const [products, setProducts] = useState([]);
+  const token = localStorage.getItem("token"); 
 
   useEffect(() => {
     let isMounted = true;
@@ -22,7 +22,7 @@ const CategoryDashboard = () => {
       try {
         const response = await categoryApiService.getCategories();
         if (isMounted) {
-          setData(response['hydra:member']); // Mise à jour de 'data' au lieu de 'categories'
+          setData(response['hydra:member']);
           setLoading(false);
         }
       } catch (error) {
@@ -78,7 +78,7 @@ const CategoryDashboard = () => {
         ...editingCategory,
         products: editingCategory.products.map(p => p['@id']),
     };
-    categoryApiService.putCategory(CategoryToUpdate)
+    categoryApiService.putCategory(CategoryToUpdate, token)
       .then((updatedCategory) => {
         setData(prevData => prevData.map(category => category.id === updatedCategory.id ? updatedCategory : category));
         setEditingCategory(null);
@@ -89,7 +89,7 @@ const CategoryDashboard = () => {
   };
 
   const handleDelete = (category) => {
-    categoryApiService.deleteCategory(category)
+    categoryApiService.deleteCategory(category, token)
       .then(() => {
         setData(prevData => prevData.filter(c => c.id !== category.id));
       })
@@ -101,15 +101,15 @@ const CategoryDashboard = () => {
   const columns = useMemo(
     () => [
       { Header: 'ID', accessor: 'id' },
-      { Header: 'Name', accessor: 'name' },
+      { Header: 'Nom', accessor: 'name' },
       { Header: 'Description', accessor: 'description' },
-      { Header: 'Product', accessor: row => row.products.map(product => product.name).join(', ') }, 
+      { Header: 'Produits', accessor: row => row.products.map(product => product.name).join(', ') }, 
       {
         Header: 'Actions',
         Cell: ({ row }) => (
           <div>
-            <Button onClick={() => handleEditClick(row.original)}>Edit</Button>
-            <Button onClick={() => handleDelete(row.original)}>Delete</Button>
+            <Button onClick={() => handleEditClick(row.original)}>Modifier</Button>
+            <Button onClick={() => handleDelete(row.original)}>Supprimer</Button>
           </div>
         ),
       },
@@ -135,21 +135,20 @@ const CategoryDashboard = () => {
   };
 
   if (loading) {
-    return <div><CircularProgress /></div>; // Afficher un indicateur de chargement si nécessaire
+    return <div><CircularProgress /></div>;
   }
 
   if (error) {
-    return <div>{error}</div>; // Gérer les erreurs
+    return <div>{error}</div>;
   }
 
   return (
     <>
-      <h1>Category Dashboard</h1>
-      <Button component={Link} to="/backoffice/category_creation" variant="contained" color="primary">Create Category</Button>
-      <CreationDialogsContainer /> {/* Container de dialogues pour la création */}
+      <h1>Dashboard des catégories</h1>
+      <CreationDialogsContainer />
       <DataTable
         columns={columns}
-        data={data} // Utilisation de 'data' au lieu de 'categories'
+        data={data}
         onDeleteSelected={onDeleteSelected}
         onCheckboxChange={handleCheckboxChange}
         isSelected={isSelected}

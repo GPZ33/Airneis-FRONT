@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Button, CircularProgress, Checkbox } from '@mui/material';
-import { Link } from 'react-router-dom';
 import DataTable from '../../Components/DataTable/DataTable';
 import EditProductDialog from '../../Components/BackofficeDialogs/EditProductDialog';
 import { productApiService } from '../../service/productApiService';
@@ -18,6 +17,7 @@ const ProductDashboard = () => {
   const [materials, setMaterials] = useState([]);
   const [categories, setCategories] = useState([]);
   const [images, setImages] = useState([]);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     let isMounted = true;
@@ -97,7 +97,7 @@ const ProductDashboard = () => {
       highlander: editingProduct.highlander
     };
 
-    productApiService.putProduct(productToUpdate)
+    productApiService.putProduct(productToUpdate, token)
       .then((updatedProduct) => {
         setData(prevData => prevData.map(product => product.id === updatedProduct.id ? updatedProduct : product));
         setEditingProduct(null);
@@ -110,12 +110,12 @@ const ProductDashboard = () => {
   const columns = useMemo(
     () => [
       { Header: 'ID', accessor: 'id' },
-      { Header: 'Name', accessor: 'name' },
-      { Header: 'Price', accessor: 'price' },
+      { Header: 'Nom', accessor: 'name' },
+      { Header: 'Prix', accessor: 'price' },
       { Header: 'Description', accessor: 'description' },
       { Header: 'Details', accessor: 'details' },
-      { Header: 'Category', accessor: row => row.category.length > 0 ? row.category[0].name : '' },
-      { Header: 'Materials', accessor: row => row.materials.map(material => material.name).join(', ') },
+      { Header: 'Categories', accessor: row => row.category.map(category => category.name).join(', ') },
+      { Header: 'Materiaux', accessor: row => row.materials.map(material => material.name).join(', ') },
       {
         Header: 'Stock',
         accessor: 'stock',
@@ -130,8 +130,8 @@ const ProductDashboard = () => {
         Header: 'Actions',
         Cell: ({ row }) => (
           <div>
-            <Button onClick={() => handleEditClick(row.original)}>Edit</Button>
-            <Button onClick={() => handleDelete(row.original)}>Delete</Button>
+            <Button onClick={() => handleEditClick(row.original)}>Modifier</Button>
+            <Button onClick={() => handleDelete(row.original)}>Supprimer</Button>
           </div>
         ),
       },
@@ -140,7 +140,7 @@ const ProductDashboard = () => {
   );
 
   const handleDelete = (product) => {
-    productApiService.deleteProduct(product)
+    productApiService.deleteProduct(product, token)
       .then(() => {
         setData(prevData => prevData.filter(p => p.id !== product.id));
       })
@@ -176,8 +176,7 @@ const ProductDashboard = () => {
 
   return (
     <>
-      <h1>Product Dashboard</h1>
-      <Button component={Link} to="/backoffice/product_creation" variant="contained" color="primary">Créer un Product</Button>
+      <h1>Dashboard des Produits</h1>
       <CreationDialogsContainer />
       <DataTable
         columns={columns}

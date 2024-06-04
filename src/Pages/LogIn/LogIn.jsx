@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
-
-const LogIn = ({setIsAuthenticated}) => {
+const LogIn = ({ setIsAuthenticated }) => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: "",
@@ -25,20 +25,27 @@ const LogIn = ({setIsAuthenticated}) => {
                 body: JSON.stringify(formData)
             });
             if (response.ok) {
+                const data = await response.json();
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("isAuthenticated", true);
                 setIsAuthenticated(true);
+                const decodedToken = jwtDecode(data.token);
+                console.log("decodeToken", decodedToken);
+                const roles = decodedToken.roles || [];
+                console.log("roles", roles);
+                if (roles.includes("ROLE_ADMIN")) {
+                    navigate("/backoffice/product_dashboard");
+                } else {
+                    navigate("/");
+                }
             } else {
                 setIsAuthenticated(false);
+                console.error("Login failed:", response.statusText);
             }
-            const data = await response.json();
-            localStorage.setItem("token", data.token);
-            localStorage.setItem("isAuthenticated", true)
-            navigate("/");
         } catch (error) {
             console.error("Login error:", error);
         }
     };
-
-
 
     return (
         <div className="col-md-6 col-lg-5 order-lg-1 container justify-content-center align-items-center vh-100">

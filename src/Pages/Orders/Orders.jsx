@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import "./Orders.css";
 import {Link} from "react-router-dom";
-import {apiService} from "../../service/apiService";
+import {orderApiService} from "../../service/orderApiService";
 
 
 const Orders = () => {
@@ -10,7 +10,7 @@ const Orders = () => {
 
     //get orders of user
     useEffect(() => {
-        apiService.getOrdersOfUser(token).then(result => {
+        orderApiService.getOrdersOfUser(token).then(result => {
             setOrders(result["hydra:member"]);
         })
     }, []);

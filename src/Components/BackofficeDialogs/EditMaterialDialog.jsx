@@ -22,16 +22,16 @@ const EditMaterialDialog = ({ material, open, onClose, onSave, onChange, allProd
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Edit Material</DialogTitle>
+      <DialogTitle>Modification Materiau</DialogTitle>
       <DialogContent>
         <TextField
-          label="Name"
+          label="Nom"
           value={material.name || ''}
           onChange={(e) => onChange('name', e.target.value)}
           fullWidth
         />
         <div>
-          <h4>Products</h4>
+          <h4>Produits</h4>
           {material.products.map((product) => (
             <Chip
               key={product.id}
@@ -53,7 +53,7 @@ const EditMaterialDialog = ({ material, open, onClose, onSave, onChange, allProd
               },
             }}
           >
-            <MenuItem value=""><em>None</em></MenuItem>
+            <MenuItem value=""><em>Vide</em></MenuItem>
             {allProducts.map((product) => (
               <MenuItem key={product.id} value={product.id}>
                 {product.name}
@@ -64,10 +64,10 @@ const EditMaterialDialog = ({ material, open, onClose, onSave, onChange, allProd
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary">
-          Cancel
+          Annuler
         </Button>
         <Button onClick={handleSave} color="primary">
-          Save
+          Confirmer
         </Button>
       </DialogActions>
     </Dialog>

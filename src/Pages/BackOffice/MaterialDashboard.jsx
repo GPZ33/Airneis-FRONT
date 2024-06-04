@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Button, CircularProgress } from '@mui/material';
-import { Link } from 'react-router-dom';
 import DataTable from '../../Components/DataTable/DataTable';
 import { materialApiService } from '../../service/materialApiService';
 import { productApiService } from '../../service/productApiService';
@@ -13,7 +12,8 @@ const MaterialDashboard = () => {
   const [error, setError] = useState(null); 
   const [editingMaterial, setEditingMaterial] = useState(null); 
   const [selectedMaterials, setSelectedMaterials] = useState([]); 
-  const [products, setProducts] = useState([]); 
+  const [products, setProducts] = useState([]);
+  const token = localStorage.getItem("token"); 
 
   useEffect(() => {
     let isMounted = true;
@@ -78,7 +78,7 @@ const MaterialDashboard = () => {
         ...editingMaterial,
         products: editingMaterial.products.map(p => p['@id']),
     };
-    materialApiService.putMaterial(MaterialToUpdate)
+    materialApiService.putMaterial(MaterialToUpdate, token)
       .then((updatedMaterial) => {
         setData(prevData => prevData.map(material => material.id === updatedMaterial.id ? updatedMaterial : material));
         setEditingMaterial(null);
@@ -89,7 +89,7 @@ const MaterialDashboard = () => {
   };
 
   const handleDelete = (material) => {
-    materialApiService.deleteMaterial(material)
+    materialApiService.deleteMaterial(material, token)
       .then(() => {
         setData(prevData => prevData.filter(m => m.id !== material.id));
       })
@@ -101,14 +101,14 @@ const MaterialDashboard = () => {
   const columns = useMemo(
     () => [
       { Header: 'ID', accessor: 'id' },
-      { Header: 'Name', accessor: 'name' },
-      { Header: 'Products', accessor: row => row.products.map(product => product.name).join(', ') },
+      { Header: 'Nom', accessor: 'name' },
+      { Header: 'Produits', accessor: row => row.products.map(product => product.name).join(', ') },
       {
         Header: 'Actions',
         Cell: ({ row }) => (
           <div>
-            <Button onClick={() => handleEditClick(row.original)}>Edit</Button>
-            <Button onClick={() => handleDelete(row.original)}>Delete</Button>
+            <Button onClick={() => handleEditClick(row.original)}>Modifier</Button>
+            <Button onClick={() => handleDelete(row.original)}>Supprimer</Button>
           </div>
         ),
       },
@@ -143,7 +143,7 @@ const MaterialDashboard = () => {
 
   return (
     <>
-      <h1>Material Dashboard</h1>
+      <h1>Dashboard des matériaux</h1>
       <CreationDialogsContainer />
       <DataTable
         columns={columns}

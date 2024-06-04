@@ -25,6 +25,7 @@ const ProductCreation = () => {
     const [highlander, setHighlander] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchMaterials = async () => {
@@ -108,7 +109,7 @@ const ProductCreation = () => {
     }
 
     try {
-      await productApiService.createProduct(newProduct);
+      await productApiService.createProduct(newProduct, token);
       alert('Product created successfully');
       resetForm(); // Reset form after successful creation
     } catch (error) {
@@ -123,15 +124,15 @@ const ProductCreation = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1>Créer un Product</h1>
+      <h1>Créer un Produit</h1>
       <CreationDialogsContainer />
       {error && <div>{error}</div>}
-      <TextField label="Name" value={name} onChange={(e) => setName(e.target.value)} fullWidth margin="normal" />
-      <TextField label="Price" value={price} onChange={(e) => setPrice(e.target.value)} fullWidth margin="normal" />
+      <TextField label="Nom" value={name} onChange={(e) => setName(e.target.value)} fullWidth margin="normal" />
+      <TextField label="Prix" value={price} onChange={(e) => setPrice(e.target.value)} fullWidth margin="normal" />
       <TextField label="Description" value={description} onChange={(e) => setDescription(e.target.value)} fullWidth margin="normal" />
       <TextField label="Details" value={details} onChange={(e) => setDetails(e.target.value)} fullWidth margin="normal" />
       <FormControl fullWidth margin="normal">
-        <InputLabel>Categories</InputLabel>
+        <InputLabel>Catégories</InputLabel>
         <Select
           multiple
           value={selectedCategories}
@@ -146,7 +147,7 @@ const ProductCreation = () => {
         </Select>
       </FormControl>
       <FormControl fullWidth margin="normal">
-        <InputLabel>Materials</InputLabel>
+        <InputLabel>Matériaux</InputLabel>
         <Select
           multiple
           value={selectedMaterials}

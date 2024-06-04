@@ -1,26 +1,22 @@
 import {Link} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import "./InfoCardWithPrice.css";
+import {imageApiService} from "../../service/imageApiService";
 
 
 const InfoCardWithPrice = ({props, basePath}) => {
     const [imageData, setImageData] = useState([]);
     const apiUrl = "http://127.0.0.1:8000";
+
     useEffect(() => {
         const fetchImageData = async () => {
             try {
                 const imageDataArray = [];
                 for (const item of props) {
                     if (item.images.length > 0) {
-                        const url = apiUrl + item.images[0]['@id'];
-                        const response = await fetch(url);
-                        if (!response.ok) {
-                            throw new Error(`Failed to fetch image data for ${item.name}`);
-                        }
-                        const imageData = await response.json();
-                        imageDataArray.push(imageData);
+                        const images = await imageApiService.getImageDetails(item.images[0]['@id']);
+                        imageDataArray.push(apiUrl + images.contentUrl);
                     } else {
-                        // Handle case where there are no images for the item
                         console.warn(`No images found for ${item.name}`);
                     }
                 }
@@ -30,7 +26,7 @@ const InfoCardWithPrice = ({props, basePath}) => {
             }
         };
 
-            fetchImageData();
+        fetchImageData();
 
     }, [props, apiUrl]);
     return (
@@ -38,12 +34,12 @@ const InfoCardWithPrice = ({props, basePath}) => {
             {props ? (
                 props.map((item, index) => (
                     <div key={index} className="col-md-3 mb-4">
-                        {imageData[index] && ( // Ensure image data exists for the current item
+                        {imageData[index] && (
                             <div className="card text-white d-flex flex-column">
                                 <Link to={`/${basePath}/${item.id}`}>
                                     <img
                                         className="card-img-top"
-                                        src={apiUrl + imageData[index].contentUrl} // Use the corresponding image from imageDataArray
+                                        src={imageData[index]}
                                         alt={item.name}
                                         style={{objectFit: 'cover', height: '400px'}}
                                     />

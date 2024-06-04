@@ -7,6 +7,7 @@ const CreateCategoryDialog = ({ open, handleClose }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [error, setError] = useState('');
+    const token = localStorage.getItem('token');
 
   const handleCreateCategory = async () => {
     if (!name.trim()) {
@@ -15,7 +16,7 @@ const CreateCategoryDialog = ({ open, handleClose }) => {
     }
     setIsLoading(true);
     try {
-      await categoryApiService.createCategory({ name, description });
+      await categoryApiService.createCategory({ name, description }, token);
       alert('Category created successfully');
       setName('');
       setDescription('');
@@ -30,13 +31,13 @@ const CreateCategoryDialog = ({ open, handleClose }) => {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Create New Category</DialogTitle>
+      <DialogTitle>Créer une nouvelle catégorie</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus
           margin="dense"
           id="name"
-          label="Name"
+          label="Nom"
           type="text"
           fullWidth
           value={name}
@@ -56,10 +57,10 @@ const CreateCategoryDialog = ({ open, handleClose }) => {
       </DialogContent>
       <DialogActions>
             <Button onClick={handleClose} color="primary">
-                Cancel
+                Annuler
             </Button>
             <Button onClick={handleCreateCategory} variant="contained" color="primary" disabled={isLoading}>
-                {isLoading ? <CircularProgress size={24} /> : 'Create'}
+                {isLoading ? <CircularProgress size={24} /> : 'Créer'}
             </Button>
         </DialogActions>
     </Dialog>
