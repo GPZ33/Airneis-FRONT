@@ -17,6 +17,7 @@ const ProductDashboard = () => {
   const [materials, setMaterials] = useState([]);
   const [categories, setCategories] = useState([]);
   const [images, setImages] = useState([]);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     let isMounted = true;
@@ -96,7 +97,7 @@ const ProductDashboard = () => {
       highlander: editingProduct.highlander
     };
 
-    productApiService.putProduct(productToUpdate)
+    productApiService.putProduct(productToUpdate, token)
       .then((updatedProduct) => {
         setData(prevData => prevData.map(product => product.id === updatedProduct.id ? updatedProduct : product));
         setEditingProduct(null);
@@ -139,7 +140,7 @@ const ProductDashboard = () => {
   );
 
   const handleDelete = (product) => {
-    productApiService.deleteProduct(product)
+    productApiService.deleteProduct(product, token)
       .then(() => {
         setData(prevData => prevData.filter(p => p.id !== product.id));
       })

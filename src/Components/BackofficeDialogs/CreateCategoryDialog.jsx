@@ -7,6 +7,7 @@ const CreateCategoryDialog = ({ open, handleClose }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [error, setError] = useState('');
+    const token = localStorage.getItem('token');
 
   const handleCreateCategory = async () => {
     if (!name.trim()) {
@@ -15,7 +16,7 @@ const CreateCategoryDialog = ({ open, handleClose }) => {
     }
     setIsLoading(true);
     try {
-      await categoryApiService.createCategory({ name, description });
+      await categoryApiService.createCategory({ name, description }, token);
       alert('Category created successfully');
       setName('');
       setDescription('');

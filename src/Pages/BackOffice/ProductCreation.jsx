@@ -25,6 +25,7 @@ const ProductCreation = () => {
     const [highlander, setHighlander] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchMaterials = async () => {
@@ -108,7 +109,7 @@ const ProductCreation = () => {
     }
 
     try {
-      await productApiService.createProduct(newProduct);
+      await productApiService.createProduct(newProduct, token);
       alert('Product created successfully');
       resetForm(); // Reset form after successful creation
     } catch (error) {

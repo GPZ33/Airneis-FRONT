@@ -46,33 +46,36 @@ function getMaterialsOfProductById(materialId){
     return FetchRequest.get(materialId).send();
 }
 
-function createProduct(product) {
+function createProduct(product, token) {
     return FetchRequest.post("/api/products")
         .addHeader("Content-Type", "application/ld+json")
         .addHeader("Accept", "application/ld+json")
+        .addHeader("Authorization", `Bearer ` + token)
         .withBody(product)
         .send();
 }
 
-function putProduct(product) {
+function putProduct(product, token) {
     const productId = product['@id'].split('/').pop();
     return FetchRequest.put(`/api/products/${productId}`)
         .addHeader("Content-Type", "application/ld+json")
         .addHeader("Accept", "application/ld+json")
+        .addHeader("Authorization", `Bearer ` + token)
         .withBody(product)
         .send();
 }
 
-function deleteProduct(product){
+function deleteProduct(product, token){
     const productId = product['@id'].split('/').pop();
     return FetchRequest.delete(`/api/products/${productId}`)
+    .addHeader("Authorization", `Bearer ` + token)
         .send();
 }
 
-function deleteProducts(productIds){
+function deleteProducts(productIds, token){
     const deleteRequests = productIds.map(productId => {
         const id = productId.split('/').pop();
-        return FetchRequest.delete(`/api/products/${id}`).send();
+        return FetchRequest.delete(`/api/products/${id}`).addHeader("Authorization", `Bearer ` + token).send();
     });
 
     return Promise.all(deleteRequests);

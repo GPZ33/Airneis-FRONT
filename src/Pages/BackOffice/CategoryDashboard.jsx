@@ -12,7 +12,8 @@ const CategoryDashboard = () => {
   const [error, setError] = useState(null); 
   const [editingCategory, setEditingCategory] = useState(null); 
   const [selectedCategories, setSelectedCategories] = useState([]); 
-  const [products, setProducts] = useState([]); 
+  const [products, setProducts] = useState([]);
+  const token = localStorage.getItem("token"); 
 
   useEffect(() => {
     let isMounted = true;
@@ -77,7 +78,7 @@ const CategoryDashboard = () => {
         ...editingCategory,
         products: editingCategory.products.map(p => p['@id']),
     };
-    categoryApiService.putCategory(CategoryToUpdate)
+    categoryApiService.putCategory(CategoryToUpdate, token)
       .then((updatedCategory) => {
         setData(prevData => prevData.map(category => category.id === updatedCategory.id ? updatedCategory : category));
         setEditingCategory(null);
@@ -88,7 +89,7 @@ const CategoryDashboard = () => {
   };
 
   const handleDelete = (category) => {
-    categoryApiService.deleteCategory(category)
+    categoryApiService.deleteCategory(category, token)
       .then(() => {
         setData(prevData => prevData.filter(c => c.id !== category.id));
       })
