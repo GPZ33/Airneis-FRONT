@@ -8,8 +8,8 @@ const Highlanders = () => {
     const [highlanders, setHighlanders] = useState(null);
 
     useEffect(() => {
-        productApiService.getHighlanders().then(result => {
-            const highlanders = result["hydra:member"].filter(product => product.highlander);
+        productApiService.getAllProducts().then(result => {
+            const highlanders = result.filter(product => product.highlander);
             setHighlanders(highlanders);
         })
     }, []);
