@@ -24,7 +24,7 @@ const ProductDetails = () => {
         productApiService.getProductById("/api/products/" + productId).then(result => {
             setProduct(result);
         })
-    }, []);
+    }, [productId]);
 
     //get materials of the product by id
     useEffect(() => {

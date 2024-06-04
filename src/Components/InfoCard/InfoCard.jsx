@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./InfoCard.css";
 import { Link } from "react-router-dom";
+import {imageApiService} from "../../service/imageApiService";
 
 const InfoCard = ({ props, basePath }) => {
     const [imageData, setImageData] = useState([]);
@@ -11,30 +12,23 @@ const InfoCard = ({ props, basePath }) => {
         const fetchImageData = async () => {
             try {
                 const imageDataArray = [];
-                if (Array.isArray(props)) {
+                if (Array.isArray(props)) { //some props are an array, others an object
                     const promises = props.map(async (item) => {
-                        let url = "";
-                        if (item["@type"] === "Product") {
-                            url = apiUrl + item.images[0]['@id'];
+                        if (item["@type"] === "Product") { //products have multiple images but I need only one
+                            imageApiService.getImageDetails(item.images[0]['@id']).then(result => {
+                                imageDataArray.push(apiUrl + result.contentUrl);
+                            });
                         } else {
-                            url = apiUrl + item.image['@id'];
+                            imageApiService.getImageDetails(item.image['@id']).then(result => {
+                                imageDataArray.push(apiUrl + result.contentUrl);
+                            });
                         }
-                        const response = await fetch(url);
-                        if (!response.ok) {
-                            throw new Error(`Failed to fetch image data for ${item.name}`);
-                        }
-                        const imageData = await response.json();
-                        imageDataArray.push(imageData);
                     });
                     await Promise.all(promises);
                 } else {
-                    const url = apiUrl + props.image['@id'];
-                    const response = await fetch(url);
-                    if (!response.ok) {
-                        throw new Error(`Failed to fetch image data for ${props.name}`);
-                    }
-                    const imageData = await response.json();
-                    imageDataArray.push(imageData);
+                    imageApiService.getImageDetails(props.image['@id']).then(result => {
+                        imageDataArray.push(apiUrl + result.contentUrl);
+                    });
                 }
                 setImageData(imageDataArray);
                 setLoading(false);
@@ -43,11 +37,10 @@ const InfoCard = ({ props, basePath }) => {
                 setLoading(false);
             }
         };
-
         if (props) {
             fetchImageData();
         }
-    }, [props, apiUrl]);
+    }, [props]);
 
     if (loading) {
         return <p>The products are loading</p>;
@@ -62,9 +55,9 @@ const InfoCard = ({ props, basePath }) => {
                             <div className="card text-white h-50 d-flex flex-column">
                                 <Link to={`/${basePath}/${item.id}`}>
                                     {imageData[index] && (
-                                        <img 
-                                            className="card-img" 
-                                            src={apiUrl + imageData[index]?.contentUrl} 
+                                        <img
+                                            className="card-img"
+                                            src={imageData[index]}
                                             alt={item.name}
                                             style={{ objectFit: 'cover', height: '200px' }}
                                         />
@@ -82,7 +75,7 @@ const InfoCard = ({ props, basePath }) => {
                             <div className="card text-white h-50 d-flex flex-column" key={index}>
                                 <img
                                     className="card-img"
-                                    src={apiUrl + imageUrl.contentUrl}
+                                    src={imageUrl}
                                     alt={props.name}
                                     style={{ objectFit: "cover", height: "300px", width: "100%" }}
                                 />

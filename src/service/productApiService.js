@@ -32,11 +32,6 @@ async function getAllProducts() {
 }
 
 
-function getHighlanders() {
-    return FetchRequest.get("/api/products")
-        .send();
-}
-
 function getProductById(productId) {
     return FetchRequest.get(productId)
         .send();
@@ -82,5 +77,5 @@ function deleteProducts(productIds, token){
 }
 
 export const productApiService = {
-    getProducts, getAllProducts, getHighlanders, getProductById, getMaterialsOfProductById, createProduct, putProduct, deleteProduct, deleteProducts
+    getProducts, getAllProducts, getProductById, getMaterialsOfProductById, createProduct, putProduct, deleteProduct, deleteProducts
 };
