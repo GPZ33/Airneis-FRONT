@@ -6,18 +6,14 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import { useCart } from "../../Context/CartContext";
 
-const Header = ({ isAuthenticated, setIsAuthenticated }) => {
+const Header = ({ isAuthenticated, setIsAuthenticated, roles }) => {
   const { cart } = useCart();
   const navigate = useNavigate();
   const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
   const [collapsedMenu, setCollapsedMenu] = useState(true);
 
   const handleToggleCollapse = () => {
-    if (collapsedMenu) {
-      setCollapsedMenu(false);
-    } else {
-      setCollapsedMenu(true);
-    }
+    setCollapsedMenu(!collapsedMenu);
   };
 
   const handleLogout = () => {
@@ -41,6 +37,22 @@ const Header = ({ isAuthenticated, setIsAuthenticated }) => {
           <a className="navbar-brand text-white" href="/">
             ÀIRNEIS
           </a>
+          {isAuthenticated && roles.includes("ROLE_ADMIN") && (
+            <div className="admin-links">
+              <Link className="nav-link" to="/backoffice/product_dashboard">
+                Dashboard Produits
+              </Link>
+              <Link className="nav-link" to="/backoffice/category_dashboard">
+                Dashboard Catégories
+              </Link>
+              <Link className="nav-link" to="/backoffice/material_dashboard">
+                Dashboard Matériaux
+              </Link>
+              <Link className="nav-link" to="/backoffice/product_creation">
+                Créer un produit
+              </Link>
+            </div>
+          )}
         </div>
 
         <div className="align-content-end d-flex">
@@ -62,6 +74,7 @@ const Header = ({ isAuthenticated, setIsAuthenticated }) => {
             aria-controls="navbarNavAltMarkup"
             aria-expanded="false"
             aria-label="Toggle navigation"
+            onClick={handleToggleCollapse}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -69,32 +82,31 @@ const Header = ({ isAuthenticated, setIsAuthenticated }) => {
             className={`collapse navbar-collapse ${
               collapsedMenu ? "" : "show"
             }`}
-            onClick={handleToggleCollapse}
             id="navbarNavAltMarkup"
           >
             <div className="navbar-nav ml-auto">
               {isAuthenticated ? (
                 <>
                   <Link
-                    className="nav-link"
+                    className="nav-link text-white"
                     to="/user_settings"
                     onClick={handleToggleCollapse}
                   >
                     Mes paramètres
                   </Link>
-                  <Link className="nav-link" to="/orders">
+                  <Link className="nav-link text-white" to="/orders">
                     Mes commandes
                   </Link>
-                  <Link className="nav-link" to="/CGU">
+                  <Link className="nav-link text-white" to="/CGU">
                     CGU
                   </Link>
-                  <Link className="nav-link" to="/legal_notice">
+                  <Link className="nav-link text-white" to="/legal_notice">
                     Mentions légales
                   </Link>
-                  <Link className="nav-link" to="/contact">
+                  <Link className="nav-link text-white" to="/contact">
                     Contact
                   </Link>
-                  <Link className="nav-link" to="/about_us">
+                  <Link className="nav-link text-white" to="/about_us">
                     A propos d'AIRNEIS
                   </Link>
                   <button className="nav-link" onClick={handleLogout}>
