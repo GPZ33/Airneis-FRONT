@@ -77,21 +77,21 @@ const SearchFilters = ({parsePrice, setSearchResults, products, toggleFilters, i
 
     return (
         <div className="filter">
-            <div className="card">
-                <div className="card-body">
+            <div className="card ">
+                <div className="card-body ">
                     <form onSubmit={submitFilters}>
-                        <div className="form-group">
-                            <label htmlFor="minPrice">Price minimum</label>
+                        <div className="form-group ">
+                            <label className="text-black" htmlFor="minPrice">Price minimum</label>
                             <input type="number" className="form-control" id="minPrice" defaultValue={appliedFilters.minPrice} />
                         </div>
                         <br/>
                         <div className="form-group">
-                            <label htmlFor="maxPrice" defaultValue={appliedFilters.maxPrice || ""} >Price maximum</label>
+                            <label className="text-black" htmlFor="maxPrice" defaultValue={appliedFilters.maxPrice || ""} >Price maximum</label>
                             <input type="number" className="form-control" id="maxPrice" defaultValue={appliedFilters.maxPrice} />
                         </div>
                         <br/>
                         <div className="form-group">
-                            <label htmlFor="materials">Materials</label>
+                            <label className="text-black" htmlFor="materials">Materials</label>
                             <select className="form-select" name="material" id="material" multiple value={appliedFilters.materials?.map(material => material.name)} onChange={handleMaterialChange}>
                                 {materials ? (
                                     materials.map((material) => (
@@ -102,7 +102,7 @@ const SearchFilters = ({parsePrice, setSearchResults, products, toggleFilters, i
                         </div>
                         <br/>
                         <div className="form-group">
-                            <label htmlFor="categories">Categories</label>
+                            <label className="text-black" htmlFor="categories">Categories</label>
                             <select className="form-select" name="category" id="category" value={appliedFilters.categories?.map(category => category.name)} onChange={handleCategoryChange}>
                                 {categories ? (
                                     categories.map((category) => (
@@ -116,7 +116,7 @@ const SearchFilters = ({parsePrice, setSearchResults, products, toggleFilters, i
                         <br/>
                         <div className="form-check">
                             <input type="checkbox" className="form-check-input" id="inStock" name="inStock" checked={appliedFilters.inStock} onChange={handleStockChange}/>
-                            <label id="inStock" htmlFor="inStock" className="form-check-label" >In stock</label>
+                            <label id="inStock" htmlFor="inStock" className="form-check-label text-black" >In stock</label>
                         </div>
 
                         <div className="form-group">
