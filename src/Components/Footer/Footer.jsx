@@ -6,7 +6,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Link } from "react-router-dom";
 const Footer = () => {
   return (
-    <footer>
+    <footer style={{borderTop: "1px solid #ccc"}}>
       <ul className="footer-links">
         <Link to="/CGU" className="links">
           Terms and conditions

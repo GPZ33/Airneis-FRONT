@@ -7,6 +7,13 @@ function getUsers(token) {
     return request.send();
 }
 
+function addUser(data) {
+    const request = FetchRequest.post("/api/users");
+    request.addHeader("Content-type", "application/ld+json")
+    request.withBody(data);
+    return request.send();
+}
+
 function updateUser(userId, token, data) {
     const request = FetchRequest.put("/api/users/" + userId);
     request.addHeader("Authorization", `Bearer ${token}`);
@@ -36,5 +43,5 @@ function getAddressById(token, addressId) {
 }
 
 export const userApiService = {
-    getUsers, updateUser, getUserAddresses, addAddress, getAddressById
+    getUsers, updateUser, getUserAddresses, addAddress, getAddressById, addUser
 };

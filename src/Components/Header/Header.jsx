@@ -30,7 +30,7 @@ const Header = ({ isAuthenticated, setIsAuthenticated, roles }) => {
     }
   }, []);
   return (
-    <nav className="navbar">
+    <nav className="navbar" style={{borderBottom: "1px solid #ccc"}}>
       <div className="container-fluid">
         <div className="align-content-start d-flex justify-content-center align-items-center">
           <img className="menu-image p-1" src={logo} alt="logo" />
