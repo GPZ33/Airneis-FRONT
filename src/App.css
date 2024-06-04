@@ -2,15 +2,15 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; 
+  min-height: 100vh;
 }
 
 .Header {
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
 
 .Footer {
-  margin-top: auto; 
+  margin-top: auto;
 }
 .App-logo {
   height: 40vmin;
@@ -31,7 +31,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #151d53;
 }
 
 .App-link {
