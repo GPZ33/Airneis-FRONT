@@ -6,6 +6,10 @@
   width: 14%;
   z-index: 1000;
 }
+
+.navbar-toggler {
+  background-color: #FFC900;
+}
 .navbar-collapse.collapsing,
 .navbar-collapse.show {
   display: block !important;
@@ -31,7 +35,7 @@
   position: relative;
   top: -10px;
   left: -10px;
-  background-color: red;
+  background-color: black;
   color: #151d53;
   border-radius: 50%;
   padding: 3px 6px;
@@ -40,7 +44,6 @@
 }
 
 .navbar-toggle-icon {
-  color: #ffc900;
   position: relative;
   top: -10px;
   left: -10px;

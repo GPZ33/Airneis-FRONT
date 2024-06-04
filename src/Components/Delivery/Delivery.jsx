@@ -55,7 +55,7 @@ const Delivery = ({onContinueToPayment}) => {
                 <div className="row">
                     <div className="col-md-4 order-md-2 mb-4">
                         <h4 className="d-flex justify-content-between align-items-center mb-3 card-header py-3">
-                            <span className="text-muted">Votre panier</span>
+                            <span className="text-black">Votre panier</span>
                         </h4>
                         <div className="card-body d-flex ">
                             <ul className="list-group mb-3 sticky-top card-body d-flex justify-content-center">
@@ -87,14 +87,13 @@ const Delivery = ({onContinueToPayment}) => {
                         </div>
                     </div>
                     <div className="col-md-8 order-md-1">
-                        <h4 className="mb-3 card-header py-3">Adresse de livraison</h4>
+                        <h4 className="mb-3 card-header py-3 text-black">Adresse de livraison</h4>
                         <section className="needs-validation card-body " noValidate>
                             <div className="row">
                                 <div className="row-md-6 mb-3">
-                                    <label htmlFor="name">Prénom et nom</label>
+                                    <label htmlFor="name" className="text-black">Prénom et nom</label>
                                     <input type="text" className="form-control" id="name"
                                            required/>
-                                    <div className="invalid-feedback">Un prénom et nom valides sont requis.</div>
                                 </div>
                             </div>
 
@@ -103,7 +102,7 @@ const Delivery = ({onContinueToPayment}) => {
                             <hr className="mb-4"/>
                             <div className="custom-control custom-checkbox">
                                 <input type="checkbox" className="custom-control-input" id="same-address"/>
-                                <label className="custom-control-label" htmlFor="same-address">L'adresse de livraison
+                                <label className="custom-control-label text-black" htmlFor="same-address"> L'adresse de livraison
                                     est la
                                     même que mon adresse de facturation</label>
                             </div>
