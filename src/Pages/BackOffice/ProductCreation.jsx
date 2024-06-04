@@ -138,6 +138,39 @@ const ProductCreation = () => {
     return <CircularProgress />;
   }
 
+  const textFieldStyles = {
+    InputProps: {
+      style: {
+        color: 'white',
+      },
+    },
+    InputLabelProps: {
+      style: {
+        color: 'white',
+      },
+    },
+  };
+  
+  const selectStyles = {
+    inputProps: {
+      style: {
+        color: 'white',
+      },
+    },
+    inputLabelProps: {
+      style: {
+        color: 'white',
+      },
+    },
+    menuPaperProps: {
+      style: {
+        maxHeight: 200,
+        backgroundColor: '#333', // Optionnel : pour changer le fond du menu
+        color: 'white',
+      },
+    },
+  };
+  
   return (
     <form onSubmit={handleSubmit}>
       <h1>Créer un Produit</h1>
@@ -149,6 +182,7 @@ const ProductCreation = () => {
         onChange={(e) => setName(e.target.value)}
         fullWidth
         margin="normal"
+        {...textFieldStyles}
       />
       <TextField
         label="Prix"
@@ -156,6 +190,7 @@ const ProductCreation = () => {
         onChange={(e) => setPrice(e.target.value)}
         fullWidth
         margin="normal"
+        {...textFieldStyles}
       />
       <TextField
         label="Description"
@@ -163,6 +198,7 @@ const ProductCreation = () => {
         onChange={(e) => setDescription(e.target.value)}
         fullWidth
         margin="normal"
+        {...textFieldStyles}
       />
       <TextField
         label="Details"
@@ -170,14 +206,18 @@ const ProductCreation = () => {
         onChange={(e) => setDetails(e.target.value)}
         fullWidth
         margin="normal"
+        {...textFieldStyles}
       />
       <FormControl fullWidth margin="normal">
-        <InputLabel>Catégories</InputLabel>
+        <InputLabel {...selectStyles.inputLabelProps}>Catégories</InputLabel>
         <Select
           multiple
           value={selectedCategories}
           onChange={(e) => setSelectedCategories(e.target.value)}
-          input={<OutlinedInput label="Categories" />}
+          input={<OutlinedInput label="Catégories" {...selectStyles.inputProps} />}
+          MenuProps={{
+            PaperProps: selectStyles.menuPaperProps,
+          }}
         >
           {categories.map((cat) => (
             <MenuItem key={cat["@id"]} value={cat}>
@@ -187,18 +227,14 @@ const ProductCreation = () => {
         </Select>
       </FormControl>
       <FormControl fullWidth margin="normal">
-        <InputLabel>Matériaux</InputLabel>
+        <InputLabel {...selectStyles.inputLabelProps}>Matériaux</InputLabel>
         <Select
           multiple
           value={selectedMaterials}
           onChange={(e) => setSelectedMaterials(e.target.value)}
-          input={<OutlinedInput label="Materials" />}
+          input={<OutlinedInput label="Matériaux" {...selectStyles.inputProps} />}
           MenuProps={{
-            PaperProps: {
-              style: {
-                maxHeight: 200,
-              },
-            },
+            PaperProps: selectStyles.menuPaperProps,
           }}
         >
           <TextField
@@ -206,6 +242,8 @@ const ProductCreation = () => {
             onChange={handleMaterialSearch}
             fullWidth
             margin="normal"
+            {...textFieldStyles}
+            InputLabelProps={textFieldStyles.InputLabelProps}
           />
           {filteredMaterials.map((material) => (
             <MenuItem key={material["@id"]} value={material}>
@@ -215,19 +253,14 @@ const ProductCreation = () => {
         </Select>
       </FormControl>
       <FormControl fullWidth margin="normal">
-        <InputLabel>Images</InputLabel>
+        <InputLabel {...selectStyles.inputLabelProps}>Images</InputLabel>
         <Select
           multiple
           value={selectedImages}
           onChange={(e) => setSelectedImages(e.target.value)}
-          input={<OutlinedInput label="Images" />}
-          style={{ maxHeight: 200, overflowY: "auto" }}
+          input={<OutlinedInput label="Images" {...selectStyles.inputProps} />}
           MenuProps={{
-            PaperProps: {
-              style: {
-                maxHeight: 200,
-              },
-            },
+            PaperProps: selectStyles.menuPaperProps,
           }}
         >
           <TextField
@@ -235,6 +268,8 @@ const ProductCreation = () => {
             onChange={handleImageSearch}
             fullWidth
             margin="normal"
+            {...textFieldStyles}
+            InputLabelProps={textFieldStyles.InputLabelProps}
           />
           {filteredImages.map((image) => (
             <MenuItem key={image["@id"]} value={image}>
