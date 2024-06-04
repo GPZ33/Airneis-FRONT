@@ -1,40 +1,44 @@
 .navbar-collapse {
-    position: absolute;
-    top: 71px; 
-    right: 0;
-    left: auto;
-    width: 14%;
-    z-index: 1000;
+  position: absolute;
+  top: 71px;
+  right: 0;
+  left: auto;
+  width: 14%;
+  z-index: 1000;
 }
 .navbar-collapse.collapsing,
 .navbar-collapse.show {
-    display: block !important;
-    background: rgb(232 233 233);
+  display: block !important;
+  background: #151d53;
 }
 .navbar-nav {
-    align-items: center;
-    padding: 15px;
+  align-items: center;
+  padding: 15px;
 }
 
 .menu-image {
-    width: 50px;
-    height: auto;
+  width: 50px;
+  height: auto;
 }
 
 .navbar-brand {
-    font-family: Macondo;
-    font-size: 30px;
-    font-weight: bold;
+  font-family: Macondo;
+  font-size: 30px;
+  font-weight: bold;
 }
 
 .cart-count {
-    position: relative;
-    top: -10px;
-    left: -10px;
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 3px 6px;
-    font-size: 0.8em;
-    line-height: 1;
+  position: relative;
+  top: -10px;
+  left: -10px;
+  background-color: red;
+  color: #151d53;
+  border-radius: 50%;
+  padding: 3px 6px;
+  font-size: 0.8em;
+  line-height: 1;
+}
+
+.navbar-toggle-icon {
+  color: #ffc900;
 }

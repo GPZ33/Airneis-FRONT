@@ -1,13 +1,14 @@
 .out-of-stock {
-    background: rgba(137 26 26 / 80%);
-    color: white;
+  background: rgba(137 26 26 / 80%);
+  color: #151d53;
 }
 
-.card-body h5, h6 {
-    background: none;
-    color: #151D53;
+.card-body h5,
+h6 {
+  background: none;
+  color: #151d53;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
