@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from "react";
 import "./SignUp.css";
+import {userApiService} from "../../service/userApiService";
+import {useNavigate} from "react-router-dom";
 
 const SignUp = () => {
+    const navigate = useNavigate();
     const [formDataToSend, setFormDataToSend] = useState({
         email: "",
         plainPassword: "",
@@ -28,29 +31,20 @@ const SignUp = () => {
     };
     useEffect(() => {
         if (formDataToSend.agreeToTerms) {
-            console.log(JSON.stringify(formDataToSend));
-
-            fetch("http://127.0.0.1:8000/api/users", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/ld+json"
-                },
-                body: JSON.stringify(
-                    {
-                        email: formDataToSend.email,
-                        plainPassword: formDataToSend.plainPassword,
-                        name: formDataToSend.name,
-                        last_name: formDataToSend.last_name,
-                        phoneNumber: formDataToSend.phoneNumber,
-                        birthday: formDataToSend.birthday,
-                    }
-                )
+            userApiService.addUser({
+                email: formDataToSend.email,
+                plainPassword: formDataToSend.plainPassword,
+                name: formDataToSend.name,
+                last_name: formDataToSend.last_name,
+                phoneNumber: formDataToSend.phoneNumber,
+                birthday: formDataToSend.birthday,
             })
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Failed to register user");
                     }
-                    alert("User registered successfully");
+                    alert("Vous pouvez vous connecter");
+                    navigate("/log_in");
                 })
                 .catch((error) => {
                     console.error("Error registering user:", error.message);
@@ -80,7 +74,7 @@ const SignUp = () => {
                                             onChange={handleInputChangeToSend}
                                             required
                                         />
-                                        <label className="form-label" htmlFor="name">Rrénom</label>
+                                        <label className="form-label" htmlFor="name">Prénom</label>
                                     </div>
 
                                     {/* Last name Input */}

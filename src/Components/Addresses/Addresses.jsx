@@ -4,9 +4,11 @@ import {userApiService} from "../../service/userApiService";
 
 const Addresses = ({addresses, setAddresses}) => {
     const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [showAddAddressForm, setShowAddAddressForm] = useState(false);
     const [newAddress, setNewAddress] = useState({
+        idUser: "/api/users/" + userId,
         name: "",
         adress: "",
         region: "",
