@@ -25,33 +25,34 @@ const SignUp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         if (formDataToSend.plainPassword !== formDataToSend.confirmPassword) {
-            alert("Passwords do not match");
+            alert("Les mots de passe ne correspondent pas");
+            return;
         }
-    };
-    useEffect(() => {
-        if (formDataToSend.agreeToTerms) {
-            userApiService.addUser({
+
+        if (!formDataToSend.agreeToTerms) {
+            alert("Vous devez accepter les conditions d'utilisation");
+            return;
+        }
+
+        try {
+            await userApiService.addUser({
                 email: formDataToSend.email,
                 plainPassword: formDataToSend.plainPassword,
                 name: formDataToSend.name,
                 last_name: formDataToSend.last_name,
                 phoneNumber: formDataToSend.phoneNumber,
                 birthday: formDataToSend.birthday,
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error("Failed to register user");
-                    }
-                    alert("Vous pouvez vous connecter");
-                    navigate("/log_in");
-                })
-                .catch((error) => {
-                    console.error("Error registering user:", error.message);
-                    alert("An error occurred while registering user");
-                });
+            });
+            alert("Vous pouvez maintenant vous connecter avec votre compte");
+            navigate("/log_in");
+        } catch (error) {
+            console.error("Erreur lors de l'inscription de l'utilisateur :", error.message);
+            alert("Une erreur est survenue lors de l'inscription de l'utilisateur");
         }
-    }, [formDataToSend]);
+
+    };
     return (
         <section>
             <div className="card-body p-md-5">
