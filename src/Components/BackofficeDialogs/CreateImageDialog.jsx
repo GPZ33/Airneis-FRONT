@@ -7,6 +7,7 @@ const CreateImageDialog = ({ open, handleClose }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [contentUrl, setContentUrl] = useState(null);
+  const token = localStorage.getItem('token');
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -27,7 +28,7 @@ const CreateImageDialog = ({ open, handleClose }) => {
 
     try {
         console.log("formData", formData);
-      const data = await imageApiService.createImage(formData);
+      const data = await imageApiService.createImage(formData, token);
       setContentUrl(data.contentUrl);
       alert('Image uploaded successfully');
       setFile(null); // Reset file input

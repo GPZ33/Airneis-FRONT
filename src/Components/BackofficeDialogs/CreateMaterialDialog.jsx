@@ -6,6 +6,7 @@ const CreateMaterialDialog = ({ open, handleClose }) => {
     const [name, setName] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const token = localStorage.getItem('token');
 
     const handleCreateMaterial = async () => {
         if (!name.trim()) {
@@ -16,7 +17,7 @@ const CreateMaterialDialog = ({ open, handleClose }) => {
         setIsLoading(true);
 
         try {
-            await materialApiService.createMaterial({ name });
+            await materialApiService.createMaterial({ name }, token);
             alert('Material created successfully');
             setName('');
             handleClose();

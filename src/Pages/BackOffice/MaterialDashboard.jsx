@@ -12,7 +12,8 @@ const MaterialDashboard = () => {
   const [error, setError] = useState(null); 
   const [editingMaterial, setEditingMaterial] = useState(null); 
   const [selectedMaterials, setSelectedMaterials] = useState([]); 
-  const [products, setProducts] = useState([]); 
+  const [products, setProducts] = useState([]);
+  const token = localStorage.getItem("token"); 
 
   useEffect(() => {
     let isMounted = true;
@@ -77,7 +78,7 @@ const MaterialDashboard = () => {
         ...editingMaterial,
         products: editingMaterial.products.map(p => p['@id']),
     };
-    materialApiService.putMaterial(MaterialToUpdate)
+    materialApiService.putMaterial(MaterialToUpdate, token)
       .then((updatedMaterial) => {
         setData(prevData => prevData.map(material => material.id === updatedMaterial.id ? updatedMaterial : material));
         setEditingMaterial(null);
@@ -88,7 +89,7 @@ const MaterialDashboard = () => {
   };
 
   const handleDelete = (material) => {
-    materialApiService.deleteMaterial(material)
+    materialApiService.deleteMaterial(material, token)
       .then(() => {
         setData(prevData => prevData.filter(m => m.id !== material.id));
       })

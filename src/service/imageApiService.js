@@ -39,8 +39,9 @@ function getImageDetails(imageId) {
 }
 
 
-function createImage(formData) {
+function createImage(formData, token) {
     return FetchRequest.post("/api/imagess")
+        .addHeader("Authorization", `Bearer ` + token)
         .withFormData(formData)
         .send();
 }

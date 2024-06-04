@@ -1,9 +1,10 @@
 import {FetchRequest} from "./fetchRequest";
 
-function createCategory(category) {
+function createCategory(category, token) {
     return FetchRequest.post("/api/categories")
         .addHeader("Content-Type", "application/ld+json")
         .addHeader("Accept", "application/ld+json")
+        .addHeader("Authorization", `Bearer ` + token)
         .withBody(category)
         .send();
 }
@@ -21,16 +22,17 @@ function getCategoryOfProduct(categoryId) {
     return FetchRequest.get(categoryId).send();
 }
 
-function deleteCategory(category) {
+function deleteCategory(category, token) {
     const categoryId = category['@id'].split('/').pop();
-    return FetchRequest.delete(`/api/categories/${categoryId}`).send();
+    return FetchRequest.delete(`/api/categories/${categoryId}`).addHeader("Authorization", `Bearer ` + token).send();
 }
 
-function putCategory(category) {
+function putCategory(category, token) {
     const categoryId = category['@id'].split('/').pop();
     return FetchRequest.put(`/api/categories/${categoryId}`)
         .addHeader("Content-Type", "application/ld+json")
         .addHeader("Accept", "application/ld+json")
+        .addHeader("Authorization", `Bearer ` + token)
         .withBody(category)
         .send();
 }
