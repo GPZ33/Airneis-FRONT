@@ -8,10 +8,11 @@ const UserSettings = () => {
 
     const [userData, setUserData] = useState({
         id: 0,
-        firstName: "",
-        lastName: "",
+        name: "",
+        last_name: "",
         phoneNumber: "",
-        email: ""
+        email: "",
+        plainPassword: ""
     });
 
     //get user
@@ -21,10 +22,11 @@ const UserSettings = () => {
                 userApiService.getUsers(token).then(result => {
                     setUserData({
                         id: result["hydra:member"][0].id,
-                        firstName: result["hydra:member"][0].name,
-                        lastName: result["hydra:member"][0].last_name,
+                        name: result["hydra:member"][0].name,
+                        last_name: result["hydra:member"][0].last_name,
                         phoneNumber: result["hydra:member"][0].phoneNumber,
-                        email: result["hydra:member"][0].email
+                        email: result["hydra:member"][0].email,
+                        plainPassword: result["hydra:member"][0].plainPassword
                     });
                 })
             } catch (error) {
@@ -77,16 +79,17 @@ const UserSettings = () => {
                                         <label className="form-label">Prénom</label>
                                         <input
                                             type="text" className="form-control"
-                                            name="firstName"
-                                            aria-label="Prénom" value={userData.firstName}
+                                            name="name"
+                                            aria-label="Prénom" value={userData.name}
                                             onChange={handleInputChange}
                                         />
                                     </div>
 
                                     <div className="col-md-6">
                                         <label className="form-label">Nom</label>
-                                        <input type="text" className="form-control" name="lastName"
-                                               aria-label="Nom" value={userData.lastName} onChange={handleInputChange}/>
+                                        <input type="text" className="form-control" name="last_name"
+                                               aria-label="Nom" value={userData.last_name}
+                                               onChange={handleInputChange}/>
                                     </div>
 
                                     <div className="col-md-6">
@@ -102,12 +105,21 @@ const UserSettings = () => {
                                                name="email"
                                                value={userData.email} onChange={handleInputChange}/>
                                     </div>
+
+                                    <div className="col-md-6">
+                                        <label htmlFor="inputPassword" className="form-label">Mot de passe</label>
+                                        <input type="password" className="form-control" id="inputPassword"
+                                               name="plainPassword"
+                                               value={userData.plainPassword} onChange={handleInputChange}/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className="gap-3 d-md-flex justify-content-md-end text-center">
                             <button type="button" className="btn btn-danger btn-lg">Delete profile</button>
-                            <button type="submit" className="cart-button btn btn-primary btn-lg btn-block">Update profile</button>
+                            <button type="submit" className="cart-button btn btn-primary btn-lg btn-block">Update
+                                profile
+                            </button>
                         </div>
                     </form>
 

@@ -7,7 +7,7 @@ const ThankYou = () => {
 
 
     return (
-        <section className="h-100 gradient-custom">
+        <section className="h-100 gradient-custom text-black">
             <div className="container py-5">
                 <div className="row d-flex justify-content-center my-4">
                     <div className="col-md-8">

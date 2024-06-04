@@ -51,7 +51,7 @@ return (
             <h3 className="text-center">Commande
                 N°{orderDetails.id} - {orderDetails.date} - {orderDetails.state}</h3>
         </div>
-        <div className="container py-3">
+        <div className="container py-3 text-black">
             <div className="row d-flex justify-content-center my-4">
                 <div className="col-md-8">
                     <div className="card mb-4">

@@ -79,7 +79,7 @@ const Cart = ({isAuthenticated}) => {
                                 <div className="col-md-8">
                                     <div className="card mb-4">
                                         <div className="card-header py-3">
-                                            <h5 className="mb-0">Panier - {totalItems} produits</h5>
+                                            <h5 className="mb-0 text-black">Panier - {totalItems} produits</h5>
                                         </div>
 
                                         <div className="card-body">
@@ -103,8 +103,8 @@ const Cart = ({isAuthenticated}) => {
 
                                                                 {/* Data */}
                                                                 <div className="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                                                                    <p><strong>{item.name}</strong></p>
-                                                                    <p>Description: {item.description}</p>
+                                                                    <p className="text-black"><strong>{item.name}</strong></p>
+                                                                    <p className="text-black">Description: {item.description}</p>
                                                                     <button type="button"
                                                                             className="cart-button btn btn-primary btn-sm me-1 mb-2"
                                                                             title="Remove item"
@@ -161,7 +161,7 @@ const Cart = ({isAuthenticated}) => {
                                 <div className="col-md-4">
                                     <div className="card mb-4">
                                         <div className="card-header py-3">
-                                            <h5 className="mb-0">Total</h5>
+                                            <h5 className="mb-0 text-black">Total</h5>
                                         </div>
                                         <div className="card-body">
                                             <ul className="list-group list-group-flush">
@@ -212,7 +212,7 @@ const Cart = ({isAuthenticated}) => {
                             <div className="col-md-8">
                                 <div className="card mb-4">
                                     <div className="card-header py-3">
-                                    <h5 className="mb-0 text-center">Votre panier est vide</h5>
+                                    <h5 className="mb-0 text-center text-black">Votre panier est vide</h5>
                                     </div>
                                     <div className="card-body d-flex justify-content-center">
                                     <Link to="/">

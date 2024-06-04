@@ -42,7 +42,7 @@ const Orders = () => {
                         <div className="col-md-10">
                             <div className="rounded">
                                 <div className="table-responsive table-borderless">
-                                    <table className="table">
+                                    <table className="table text-white">
                                         <thead>
                                         <tr>
                                             <th className="text-center">

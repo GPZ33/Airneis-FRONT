@@ -47,20 +47,20 @@ const Payment = ({onContinueToThankYou}) => {
     return (
         <section className="payment-page container py-5">
             <div className="card mb-4">
-                <h4 className="mb-3 card-header py-3">Paiement</h4>
+                <h4 className="mb-3 card-header py-3 text-black">Paiement</h4>
                 <form onSubmit={handleSubmit}>
                     <div className="card-body">
                         <div className="d-block mb-3">
                             <div className="custom-control custom-radio">
                                 <input id="credit" name="paymentMethod" type="radio" className="custom-control-input" required />
-                                <label className="custom-control-label" htmlFor="credit">Carte de crédit</label>
+                                <label className="custom-control-label text-black" htmlFor="credit">Carte de crédit</label>
                             </div>
                             <div className="custom-control custom-radio pt-2">
                                 <input id="paypal" name="paymentMethod" type="radio" className="custom-control-input" required />
-                                <label className="custom-control-label" htmlFor="paypal">PayPal</label>
+                                <label className="custom-control-label text-black" htmlFor="paypal">PayPal</label>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row text-black">
                             <div className="col-md-6 mb-3">
                                 <label htmlFor="cc-name">Nom du titulaire de la carte</label>
                                 <input type="text" className="form-control" id="cc-name" name="cardName" value={cardInfo.cardName} onChange={handleChange} placeholder="" required />
@@ -71,7 +71,7 @@ const Payment = ({onContinueToThankYou}) => {
                                 <input type="number" className="form-control" id="cc-number" name="cardNumber" value={cardInfo.cardNumber} onChange={handleChange} placeholder="" required />
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row text-black">
                             <div className="col-md-3 mb-3">
                                 <label htmlFor="cc-expiration">Expiration</label>
                                 <input type="date" className="form-control" id="cc-expiration" name="expiration" value={cardInfo.expiration}

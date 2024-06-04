@@ -69,7 +69,7 @@ const Addresses = ({addresses, setAddresses}) => {
         <div className="bg-secondary-soft px-4 py-3 rounded ">
 
             <div className="col-md-6">
-                <label className="form-label" htmlFor="address">Choisissez ou ajouter une adresse</label>
+                <label className="form-label text-black" htmlFor="address">Choisissez ou ajouter une adresse</label>
                 <select className="form-control" id="address"
                         onChange={handleAddressChoice}>
                     <option></option>
@@ -82,7 +82,7 @@ const Addresses = ({addresses, setAddresses}) => {
 
             {/* Show address details form */}
             {selectedAddress && (
-                <div className="col-md-12 mt-3">
+                <div className="col-md-12 mt-3 text-black">
                     <p>Rue: {selectedAddress.adress}</p>
                     <p>Région: {selectedAddress.region}</p>
                     <p>Ville: {selectedAddress.city}</p>
